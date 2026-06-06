@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WorkPulse AI — Your Daily Performance Coach</title>
+<title>Workable — Your Daily Performance Coach</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <!-- Firebase SDKs -->
@@ -1054,7 +1054,7 @@ a{text-decoration:none;color:var(--purple)}
 <div id="landing" class="screen active">
 <div class="lb lb1"></div><div class="lb lb2"></div><div class="lb lb3"></div><div class="lgrid"></div>
 <div class="li">
-  <div class="lbadge"><div class="ldot"></div>AI-powered performance tracking</div>
+  <div class="lbadge"><div class="ldot"></div>Work performance tracking</div>
   <h1 class="lh1">Track your work.<br><span>Grow every day.</span></h1>
   <p class="lsub">Upload your job description and WorkPulse AI builds a personalised daily check-in for your exact role — any job, any industry, anywhere in the world.</p>
   <div class="lbtns">
@@ -1089,14 +1089,14 @@ a{text-decoration:none;color:var(--purple)}
   <div class="obc active" id="ob0">
     <div class="obey">Step 1 of 5 · Identity</div>
     <h2 class="obt">Let's build your professional profile</h2>
-    <p class="obs">WorkPulse adapts entirely to who you are and what you do. Your answers shape everything — from your daily tracking fields to your AI insights.</p>
+    <p class="obs">Workable adapts entirely to who you are and what you do. Your answers shape everything — from your daily tracking fields to your AI insights.</p>
 
     <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);margin-bottom:.75rem">I am joining as a</div>
     <div class="rgrid">
       <div class="rcard" onclick="pickRole('employee',this)">
         <div class="remoji">🎯</div>
         <div class="rname">Individual Contributor</div>
-        <div class="rdesc">I want to own my performance, track daily output, and get AI coaching specific to my role</div>
+        <div class="rdesc">I want to own my performance, track daily output, and get coaching specific to my role</div>
       </div>
       <div class="rcard" onclick="pickRole('employer',this)">
         <div class="remoji">🏛️</div>
@@ -1149,8 +1149,8 @@ a{text-decoration:none;color:var(--purple)}
   <div class="obc" id="ob1">
     <div class="obey">Step 2 of 5 · Role Intelligence</div>
     <button class="ob-back" onclick="setOB(0)">← Back</button>
-    <h2 class="obt">How should AI learn your role?</h2>
-    <p class="obs">The more precisely AI understands your responsibilities, the more powerful and specific your daily tracking and insights become.</p>
+    <h2 class="obt">How should we learn your role?</h2>
+    <p class="obs">The more precisely we understands your responsibilities, the more powerful and specific your daily tracking and insights become.</p>
 
     <!-- Three paths -->
     <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:1.25rem" id="jd-path-select">
@@ -1158,7 +1158,7 @@ a{text-decoration:none;color:var(--purple)}
         <div style="font-size:1.6rem;flex-shrink:0">📄</div>
         <div>
           <div class="rname" style="text-align:left;margin-bottom:3px">Upload or paste my job description</div>
-          <div class="rdesc">Best accuracy. AI extracts your exact KPIs, responsibilities, and deliverables.</div>
+          <div class="rdesc">Best accuracy. The system extracts your exact KPIs, responsibilities, and deliverables.</div>
         </div>
         <div style="margin-left:auto;width:20px;height:20px;border-radius:50%;border:2px solid var(--surface3);flex-shrink:0;margin-top:2px" id="path-radio-upload"></div>
       </div>
@@ -1166,15 +1166,15 @@ a{text-decoration:none;color:var(--purple)}
         <div style="font-size:1.6rem;flex-shrink:0">🧭</div>
         <div>
           <div class="rname" style="text-align:left;margin-bottom:3px">Guide me — I'll answer a few questions</div>
-          <div class="rdesc">AI interviews you about your role. Great if you don't have a formal job description.</div>
+          <div class="rdesc">We interviews you about your role. Great if you don't have a formal job description.</div>
         </div>
         <div style="margin-left:auto;width:20px;height:20px;border-radius:50%;border:2px solid var(--surface3);flex-shrink:0;margin-top:2px" id="path-radio-guided"></div>
       </div>
       <div class="rcard" style="text-align:left;padding:1rem 1.1rem;display:flex;align-items:flex-start;gap:12px" onclick="showJDPath('title',this)">
         <div style="font-size:1.6rem;flex-shrink:0">⚡</div>
         <div>
-          <div class="rname" style="text-align:left;margin-bottom:3px">Just my job title — AI will infer the rest</div>
-          <div class="rdesc">Fastest setup. AI uses your title and industry to build a smart track immediately.</div>
+          <div class="rname" style="text-align:left;margin-bottom:3px">Just my job title — let the system  infer the rest</div>
+          <div class="rdesc">Fastest setup. We uses your title and industry to build a smart track immediately.</div>
         </div>
         <div style="margin-left:auto;width:20px;height:20px;border-radius:50%;border:2px solid var(--surface3);flex-shrink:0;margin-top:2px" id="path-radio-title"></div>
       </div>
@@ -1223,7 +1223,7 @@ a{text-decoration:none;color:var(--purple)}
       <div class="fld">
         <label>Your exact job title</label>
         <input type="text" id="jd-title" placeholder="e.g. Chief Nursing Officer, Supply Chain Manager, Software Engineering Lead…">
-        <div class="fld-hint">AI will use your title + industry to generate the most relevant daily tracking fields</div>
+        <div class="fld-hint">We will use your title + industry to generate the most relevant daily tracking fields</div>
       </div>
     </div>
 
@@ -1262,7 +1262,7 @@ a{text-decoration:none;color:var(--purple)}
     <div class="obey">Step 4 of 5 · Performance Goals</div>
     <button class="ob-back" onclick="setOB(2)">← Back</button>
     <h2 class="obt">Define what excellence looks like</h2>
-    <p class="obs">Your goal anchors every check-in and every AI insight. Be specific — vague goals produce vague guidance. AI will track your trajectory against this every week.</p>
+    <p class="obs">Your goal anchors every check-in and every insight. Be specific — vague goals produce vague guidance. We will track your trajectory against this every week.</p>
 
     <!-- AI goal suggestions -->
     <div id="goal-suggestions" style="margin-bottom:1rem">
@@ -1317,10 +1317,10 @@ a{text-decoration:none;color:var(--purple)}
       <input type="password" id="ob-pass" placeholder="Minimum 8 characters">
     </div>
     <div id="ob4-note" style="background:var(--gold-light);border:1px solid var(--gold);border-radius:var(--r);padding:.65rem 1rem;font-size:12px;color:var(--gold-dark);margin:.75rem 0;line-height:1.6;display:flex;gap:8px;align-items:flex-start">
-      <span>🔒</span><span>Your data is stored securely. WorkPulse will never share or sell your professional information.</span>
+      <span>🔒</span><span>Your data is stored securely. Workable will never share or sell your professional information.</span>
     </div>
-    <button class="btp-gold" id="ob4btn" onclick="createAccount()">Create Account &amp; Enter WorkPulse →</button>
-    <button class="bts" onclick="obSkipAccount()">Continue without account — save locally</button>
+    <button class="btp-gold" id="ob4btn" onclick="createAccount()">Create Account &amp; Enter →</button>
+    <button class="bts" onclick="obSkipAccount()">Continue without account — your performace will be lost</button>
   </div>
 
 </div>
@@ -1336,7 +1336,7 @@ a{text-decoration:none;color:var(--purple)}
       </div>
       <div style="background:var(--white);border:1px solid var(--surface3);border-radius:var(--r3);padding:2.25rem;box-shadow:var(--sh3)">
         <h2 style="font-size:1.6rem;margin-bottom:.35rem">Welcome back 👋</h2>
-        <p style="font-size:14px;color:var(--ink3);margin-bottom:1.5rem">Sign in to your WorkPulse account.</p>
+        <p style="font-size:14px;color:var(--ink3);margin-bottom:1.5rem">Sign in to your account.</p>
         <div class="fld"><label>Email address</label><input type="email" id="login-email" placeholder="you@company.com" onkeydown="if(event.key==='Enter')doLogin()"></div>
         <div class="fld"><label>Password</label><input type="password" id="login-pass" placeholder="Your password" onkeydown="if(event.key==='Enter')doLogin()"></div>
         <button id="login-btn" class="btp-gold" onclick="doLogin()" style="width:100%;margin-top:1rem">Sign In →</button>
@@ -1355,7 +1355,7 @@ a{text-decoration:none;color:var(--purple)}
 <div id="app" class="screen">
   <!-- Sidebar -->
   <div class="sidebar">
-    <div class="sblogo"><div class="sblm">⚡</div><div class="sblt">WorkPulse AI</div></div>
+    <div class="sblogo"><div class="sblm">⚡</div><div class="sblt">Workable</div></div>
     <div class="sbsec">
       <div class="sbsl">My space</div>
       <button class="sbi active" onclick="nav('dashboard')"><div class="sbii">⬛</div>Dashboard</button>
@@ -1369,7 +1369,7 @@ a{text-decoration:none;color:var(--purple)}
     </div>
     <div class="sbsec">
       <div class="sbsl">Intelligence</div>
-      <button class="sbi" onclick="nav('ai')"><div class="sbii">✨</div>Ask AI</button>
+      <button class="sbi" onclick="nav('ai')"><div class="sbii">✨</div>Ask Me</button>
       <button class="sbi" onclick="nav('community')"><div class="sbii">🌍</div>Community</button>
       <button class="sbi" onclick="nav('reports')"><div class="sbii">📊</div>Reports</button>
     </div>
@@ -1391,7 +1391,7 @@ a{text-decoration:none;color:var(--purple)}
   <nav class="mobnav" id="mobnav">
     <button class="mni active" onclick="nav('dashboard')"><div class="mni-ic">⬛</div>Home</button>
     <button class="mni" onclick="nav('checkin')"><div class="mni-ic">✅</div>Check in</button>
-    <button class="mni" onclick="nav('ai')"><div class="mni-ic">✨</div>Ask AI</button>
+    <button class="mni" onclick="nav('ai')"><div class="mni-ic">✨</div>Ask Me</button>
     <button class="mni" onclick="nav('community')"><div class="mni-ic">🌍</div>Community</button>
     <button class="mni" onclick="nav('profile')"><div class="mni-ic">👤</div>Profile</button>
   </nav>
@@ -1416,7 +1416,7 @@ a{text-decoration:none;color:var(--purple)}
             <div class="chead"><span class="ctitle">📈 Output this week</span><div class="sparkline" id="sparkline"></div></div>
             <div id="dbars"></div>
           </div>
-          <div class="card"><div class="chead"><span class="ctitle">✨ AI insight</span></div><div id="dins" style="font-size:13px;color:var(--ink2);line-height:1.7"></div></div>
+          <div class="card"><div class="chead"><span class="ctitle">✨ Workable  insight</span></div><div id="dins" style="font-size:13px;color:var(--ink2);line-height:1.7"></div></div>
         </div>
         <div>
           <div class="card"><div class="chead"><span class="ctitle">📅 Recent check-ins</span><span style="font-size:12px;color:var(--ink3)" id="ci-count-lbl"></span></div><div class="rl2" id="drec"></div></div>
@@ -1459,7 +1459,7 @@ a{text-decoration:none;color:var(--purple)}
           <div style="background:linear-gradient(135deg,var(--purple-pale),var(--gold-light));border:1px solid var(--purple-light);border-radius:var(--r2);padding:1rem 1.25rem;margin-bottom:1rem">
             <div class="chead" style="margin-bottom:.5rem"><span class="ctitle" style="color:var(--purple-dark)">🌍 Contribute to the community</span></div>
             <p style="font-size:13px;color:var(--ink2);margin-bottom:.85rem;line-height:1.6">Share a win, insight, or milestone from today's work. Your experience could be exactly what a fellow professional needs to see.</p>
-            <label style="display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer"><input type="checkbox" id="cishare" style="width:18px;height:18px;accent-color:var(--purple)">Share a summary to the WorkPulse community</label>
+            <label style="display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer"><input type="checkbox" id="cishare" style="width:18px;height:18px;accent-color:var(--purple)">Share a summary to the Workable community</label>
           </div>
           <button class="btp-gold" onclick="submitCI()" id="ci-submit-btn" style="display:block;width:100%;margin-top:0">Submit Daily Check-In →</button>
         </div>
@@ -1472,7 +1472,7 @@ a{text-decoration:none;color:var(--purple)}
               <div style="width:44px;height:44px;border-radius:50%;background:var(--grad-gold);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;box-shadow:var(--sh-gold)">✦</div>
               <div>
                 <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#fff">Daily Assessment</div>
-                <div style="font-size:12px;color:rgba(255,255,255,.6)" id="assess-subtitle">Check-in #1 · AI analysis</div>
+                <div style="font-size:12px;color:rgba(255,255,255,.6)" id="assess-subtitle">Check-in #1 · performance analysis</div>
               </div>
               <div style="margin-left:auto;text-align:right">
                 <div style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--gold2)" id="assess-score">—</div>
@@ -1487,7 +1487,7 @@ a{text-decoration:none;color:var(--purple)}
 
           <!-- ── AI NARRATIVE ── -->
           <div class="card" style="border-left:4px solid var(--purple)">
-            <div class="chead"><span class="ctitle" style="color:var(--purple)">✦ AI Performance Analysis</span></div>
+            <div class="chead"><span class="ctitle" style="color:var(--purple)">✦ Performance Analysis</span></div>
             <div id="ciaiResp" style="font-size:14px;color:var(--ink2);line-height:1.8;min-height:60px">
               <span style="color:var(--ink4);font-style:italic">Generating your personalised assessment…</span>
             </div>
@@ -1506,7 +1506,7 @@ a{text-decoration:none;color:var(--purple)}
 
           <!-- ── GOAL PULSE ── -->
           <div class="card" id="assess-goal-card" style="display:none">
-            <div class="chead"><span class="ctitle">🎯 Goal Pulse</span><span id="assess-goal-pct" style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:var(--purple)"></span></div>
+            <div class="chead"><span class="ctitle">🎯 Goal </span><span id="assess-goal-pct" style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:var(--purple)"></span></div>
             <div style="font-size:12px;color:var(--ink3);margin-bottom:.75rem" id="assess-goal-text"></div>
             <div style="height:8px;background:var(--surface2);border-radius:4px;overflow:hidden">
               <div id="assess-goal-bar" style="height:100%;border-radius:4px;background:var(--grad-purple);transition:width 1s ease;width:0%"></div>
@@ -1527,7 +1527,7 @@ a{text-decoration:none;color:var(--purple)}
       <div class="phead">
         <div class="phead-left">
           <button class="back-btn" onclick="nav('dashboard')" title="Back">←</button>
-          <div><h1 class="ptitle">My Track</h1><p class="psub">Your AI-generated daily check-in fields</p></div>
+          <div><h1 class="ptitle">My Track</h1><p class="psub">Your Performance generated daily check-in fields</p></div>
         </div>
         <button class="btn-outline" onclick="editTrack()">✏️ Edit track</button>
       </div>
@@ -1569,10 +1569,10 @@ a{text-decoration:none;color:var(--purple)}
       <div class="phead">
         <div class="phead-left">
           <button class="back-btn" onclick="nav('team')" title="Back">←</button>
-          <div><h1 class="ptitle">Alerts & Signals</h1><p class="psub">AI-detected workforce risk signals — confidential to managers</p></div>
+          <div><h1 class="ptitle">Alerts & Signals</h1><p class="psub">Workable detected workforce risk signals — confidential to managers</p></div>
         </div>
       </div>
-      <div class="empty"><div class="eicon">🎉</div><div class="etitle">All clear!</div><div class="esub">No alerts right now. WorkPulse AI will notify you when it detects burnout signals, disengagement, or declining output patterns — before they become problems.</div></div>
+      <div class="empty"><div class="eicon">🎉</div><div class="etitle">All clear!</div><div class="esub">No alerts right now. Workable will notify you when it detects burnout signals, disengagement, or declining output patterns — before they become problems.</div></div>
     </div>
 
     <!-- ── ASK AI ── -->
@@ -1580,7 +1580,7 @@ a{text-decoration:none;color:var(--purple)}
       <div class="phead">
         <div class="phead-left">
           <button class="back-btn" onclick="nav('dashboard')" title="Back">←</button>
-          <div><h1 class="ptitle">Ask AI</h1><p class="psub">Ask anything about your performance data — powered by Claude</p></div>
+          <div><h1 class="ptitle">Ask Workable</h1><p class="psub">Ask anything about your performance data</p></div>
         </div>
       </div>
       <div style="max-width:680px">
@@ -1615,7 +1615,7 @@ a{text-decoration:none;color:var(--purple)}
     <!-- ── REPORTS ── -->
     <div class="page" id="page-reports">
       <div class="phead"><div><h1 class="ptitle">Reports 📊</h1><p class="psub">Auto-generated from your real check-in data</p></div></div>
-      <div id="rempty" class="empty"><div class="eicon">📊</div><div class="etitle">No data yet</div><div class="esub">Complete at least 3 daily check-ins and WorkPulse AI will generate your first performance report.</div><button onclick="nav('checkin')" style="background:var(--purple);color:#fff;border:none;border-radius:var(--r);padding:13px 24px;font-size:14px;font-weight:600">Start checking in</button></div>
+      <div id="rempty" class="empty"><div class="eicon">📊</div><div class="etitle">No data yet</div><div class="esub">Complete at least 3 daily check-ins and Workable will generate your first performance report.</div><button onclick="nav('checkin')" style="background:var(--purple);color:#fff;border:none;border-radius:var(--r);padding:13px 24px;font-size:14px;font-weight:600">Start checking in</button></div>
       <div id="rdata" style="display:none">
         <div class="two" style="margin-bottom:1rem">
           <div class="card" style="cursor:pointer" onclick="genReport('weekly')"><div style="font-size:2rem;margin-bottom:.65rem">📅</div><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:.25rem">Weekly summary</div><div style="font-size:13px;color:var(--ink3)">AI-written analysis of this week's performance, patterns, and recommendations.</div></div>
@@ -1627,7 +1627,7 @@ a{text-decoration:none;color:var(--purple)}
 
     <!-- ── PROFILE ── -->
     <div class="page" id="page-profile">
-      <div class="phead"><div><h1 class="ptitle">Profile 👤</h1><p class="psub">Your WorkPulse identity and stats</p></div></div>
+      <div class="phead"><div><h1 class="ptitle">Profile 👤</h1><p class="psub">Your Workable identity and stats</p></div></div>
       <div style="max-width:680px">
         <div class="profile-header">
           <div class="profile-av" id="prof-av">WP</div>
@@ -1661,7 +1661,7 @@ a{text-decoration:none;color:var(--purple)}
 
     <!-- ── SETTINGS ── -->
     <div class="page" id="page-settings">
-      <div class="phead"><div><h1 class="ptitle">Settings ⚙️</h1><p class="psub">Manage your WorkPulse experience</p></div></div>
+      <div class="phead"><div><h1 class="ptitle">Settings ⚙️</h1><p class="psub">Manage your Workable experience</p></div></div>
       <div style="max-width:580px">
         <div class="card">
           <div class="chead"><span class="ctitle">Account</span></div>
@@ -1673,7 +1673,7 @@ a{text-decoration:none;color:var(--purple)}
         <div class="card">
           <div class="chead"><span class="ctitle">Notifications</span></div>
           <div class="settings-item"><div><div class="settings-label">Daily check-in reminder</div><div class="settings-sub">Remind me every weekday at 9am</div></div><label class="toggle-sw"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
-          <div class="settings-item"><div><div class="settings-label">Weekly AI report</div><div class="settings-sub">Auto-generate my report every Friday</div></div><label class="toggle-sw"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+          <div class="settings-item"><div><div class="settings-label">Weekly system report</div><div class="settings-sub">Auto-generate my report every Friday</div></div><label class="toggle-sw"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
           <div class="settings-item"><div><div class="settings-label">Community activity</div><div class="settings-sub">Notify me when someone likes my post</div></div><label class="toggle-sw"><input type="checkbox"><span class="toggle-slider"></span></label></div>
         </div>
         <div class="card">
