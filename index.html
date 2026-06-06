@@ -2506,7 +2506,7 @@ function initCheckin(){
 function showCheckinForm(){document.getElementById('already-done').style.display='none';document.getElementById('ci-form-wrap').style.display='block';}
 
 function renderCIForm(){
-  document.getElementById('cifields').innerHTML=S.trackFields.map((f, i)=>{
+ document.getElementById('cifields').innerHTML=S.trackFields.map((f, i)=>{
     let inp='';
     if(f.type==='Number') inp=`<input class="cinum" id="ci-${f.id}" type="number" min="0" placeholder="Enter a number...">`;
     else if(f.type==='Yes/No') inp=`<div class="trow"><button class="tbtn" onclick="setTog(this,'yes','ci-${f.id}')">✅ Yes</button><button class="tbtn" onclick="setTog(this,'no','ci-${f.id}')">❌ No</button></div><input type="hidden" id="ci-${f.id}">`;
