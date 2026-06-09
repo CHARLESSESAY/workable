@@ -2990,8 +2990,6 @@ function loadState(){
 }
 
 async function callOpenRouter(promptText) {
-  // We no longer need to check for a key in local storage here!
-  // We just call your secure Cloudflare Worker URL
   const PROXY_URL = "https://broken-glade-bcb9.sesaycharle.workers.dev"; 
 
   const response = await fetch(PROXY_URL, {
@@ -3007,32 +3005,6 @@ async function callOpenRouter(promptText) {
   const data = await response.json();
   return { content: [{ text: data.choices[0].message.content }] };
 }
-    body: JSON.stringify({
-      // "openrouter/free" automatically finds the best available free model at that exact second
-      // Alternatively, you could hardcode "meta-llama/llama-3.3-70b-instruct:free"
-      model: 'openrouter/free', 
-      messages: [
-        { role: 'user', content: promptText }
-      ],
-      temperature: 0.4 // Kept slightly lower for professional, consistent output
-    })
-  });
-
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new Error(`OpenRouter API Error: ${response.status}`);
-  }
-  
-  const data = await response.json();
-  
-  // Format the output structure so the rest of your app reads it seamlessly
-  return {
-    content: [
-      { text: data.choices[0].message.content }
-    ]
-  };
-}
-
 // ── FILE UPLOAD ────────────────────────────────────────────────────────────────
 function uzDrag(e){e.preventDefault();document.getElementById('uzn').classList.add('active');}
 function uzLeave(){document.getElementById('uzn').classList.remove('active');}
