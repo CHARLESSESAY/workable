@@ -2989,23 +2989,24 @@ function loadState(){
   return false;
 }
 
-// ── OPENROUTER API (FREE MODELS OVER GATEWAY) ─────────────────────────────────
 async function callOpenRouter(promptText) {
-  // Pulls your OpenRouter key from local storage
-  const key = localStorage.getItem('wp_apikey');
-  if (!key) throw new Error('No API key found — add your OpenRouter Key in Settings');
+  // We no longer need to check for a key in local storage here!
+  // We just call your secure Cloudflare Worker URL
+  const PROXY_URL = "https://broken-glade-bcb9.sesaycharle.workers.dev"; 
 
-  const url = 'https://openrouter.ai/api/v1/chat/completions';
-
-  const response = await fetch(url, {
+  const response = await fetch(PROXY_URL, {
     method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${key}`,
-      'Content-Type': 'application/json',
-      // OpenRouter likes to know who is calling them (helps with free tier ranking)
-      'HTTP-Referer': window.location.href, 
-      'X-Title': 'Workable App' 
-    },
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      messages: [{ role: 'user', content: promptText }]
+    })
+  });
+
+  if (!response.ok) throw new Error('Proxy API Error');
+  
+  const data = await response.json();
+  return { content: [{ text: data.choices[0].message.content }] };
+}
     body: JSON.stringify({
       // "openrouter/free" automatically finds the best available free model at that exact second
       // Alternatively, you could hardcode "meta-llama/llama-3.3-70b-instruct:free"
