@@ -1974,7 +1974,7 @@ async function sbLoadTeam(){
   const team = [];
   for (const doc of snap.docs) {
     const member = doc.data();
-    // Fetch their latest check-in to show in the table
+    // Fetch their latest check-in
     const lastCI = await fbDb.collection('checkins')
       .where('uid', '==', member.uid)
       .orderBy('date', 'desc')
@@ -1988,7 +1988,6 @@ async function sbLoadTeam(){
     });
   }
   return team;
-}
 }
 
 // ── FIREBASE COMMUNITY ────────────────────────────────────────────────────────
