@@ -524,14 +524,9 @@ a{text-decoration:none;color:var(--purple)}
   -webkit-overflow-scrolling:touch;
   scrollbar-width:none; /* Hides scrollbar in Firefox */
 }
-.mobnav::-webkit-scrollbar { display:none; } /* Hides scrollbar in Chrome/Safari */
-
-.mni{
-  display:flex;flex-direction:column;align-items:center;gap:3px;
-  padding:.4rem .6rem;border-radius:var(--r);
-  border:none;background:none;font-size:10px;font-weight:600;
-  color:var(--ink4);cursor:pointer;transition:all .15s;
-  min-width:60px; flex-shrink:0; /* flex-shrink:0 prevents them from squishing */
+/* Mobile Header & Menu Base (Hidden on Desktop) */
+.mob-header { display: none; }
+.mobnav { display: none; }
 }
 .mni.active{color:var(--purple)}
 .mni-ic{font-size:20px;line-height:1}
@@ -1072,20 +1067,64 @@ a{text-decoration:none;color:var(--purple)}
 .typing::after{content:'▋';animation:blink .8s infinite;font-size:11px;vertical-align:middle}
 
 /* ── RESPONSIVE ────────────────────────────────── */
+/* ── RESPONSIVE ────────────────────────────────── */
 @media(max-width:900px){
   .sidebar{width:200px}
   .ptitle{font-size:1.5rem}
   .two{grid-template-columns:1fr}
 }
-@media
+
+@media(max-width:768px){
+  .sidebar { display:none }
+  
+  /* Mobile Header fixed to top */
+  .mob-header {
+    display: flex; justify-content: space-between; align-items: center;
+    position: fixed; top: 0; left: 0; right: 0;
+    background: var(--white); border-bottom: 1px solid var(--surface3);
+    padding: 1rem 1.25rem; z-index: 60;
+  }
+  .hamburger {
+    background: none; border: none; font-size: 24px; color: var(--ink); 
+    cursor: pointer; line-height: 1; padding: 4px;
+  }
+
+  /* Slide-down Menu */
+  .mobnav {
+    display: block; position: fixed; top: -120%; left: 0; right: 0;
+    background: var(--white); z-index: 50;
+    padding: 5rem 1.5rem 2rem; 
+    transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 30px rgba(92,45,145,.15);
+    border-bottom-left-radius: var(--r3);
+    border-bottom-right-radius: var(--r3);
+  }
+  .mobnav.open { top: 0; }
+  
+  .mobnav-inner { display: flex; flex-direction: column; gap: 4px; }
+  
+  /* Menu Items styled as full rows */
+  .mni {
+    display: flex; flex-direction: row; align-items: center; justify-content: flex-start;
+    gap: 12px; padding: 1rem 1.25rem; border-radius: var(--r);
+    border: none; background: none; font-size: 14px; font-weight: 600;
+    color: var(--ink3); cursor: pointer; width: 100%; transition: all .15s;
+  }
+  .mni.active { color: var(--purple); background: var(--purple-pale); }
+  .mni-ic { font-size: 18px; width: 24px; text-align: center; }
+
+  /* Push main content down so it isn't hidden under the header */
+  .main .page { padding: 5.5rem 1rem 2rem; }
+  .kgrid { grid-template-columns: 1fr 1fr; }
+  .lnav { padding: 1rem 1.25rem; }
 }
+
 @media(max-width:480px){
   .kgrid{grid-template-columns:1fr 1fr}
   .rgrid{grid-template-columns:1fr}
   .lstat{padding:0 1.25rem}
   .obc{padding:1.5rem 1.25rem}
 }
-</style>
 </head>
 <body>
 
@@ -1437,15 +1476,24 @@ a{text-decoration:none;color:var(--purple)}
   </div>
 
   <!-- Mobile nav -->
- <!-- Mobile nav (Top Swipeable Menu) -->
+<div class="mob-header">
+    <div style="display:flex;align-items:center;gap:10px;font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--ink)">
+      <div class="sblm" style="width:30px;height:30px;font-size:14px;">⚡</div>Workable
+    </div>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+  </div>
+
   <nav class="mobnav" id="mobnav">
-    <button class="mni active" onclick="nav('dashboard')"><div class="mni-ic">⬛</div>Home</button>
-    <button class="mni" onclick="nav('checkin')"><div class="mni-ic">✅</div>Check in</button>
-    <button class="mni" onclick="nav('ai')"><div class="mni-ic">✨</div>Ask AI</button>
-    <button class="mni" onclick="nav('community')"><div class="mni-ic">🌍</div>Community</button>
-    <button class="mni" onclick="nav('profile')"><div class="mni-ic">👤</div>Profile</button>
-    <button class="mni" onclick="nav('settings')"><div class="mni-ic">⚙️</div>Settings</button>
-    <button class="mni" onclick="sbSignOut()"><div class="mni-ic" style="color:var(--red)">↩</div><span style="color:var(--red)">Sign out</span></button>
+    <div class="mobnav-inner">
+      <button class="mni active" onclick="nav('dashboard')"><div class="mni-ic">⬛</div>Home</button>
+      <button class="mni" onclick="nav('checkin')"><div class="mni-ic">✅</div>Check in</button>
+      <button class="mni" onclick="nav('ai')"><div class="mni-ic">✨</div>Ask AI</button>
+      <button class="mni" onclick="nav('community')"><div class="mni-ic">🌍</div>Community</button>
+      <button class="mni" onclick="nav('profile')"><div class="mni-ic">👤</div>Profile</button>
+      <button class="mni" onclick="nav('settings')"><div class="mni-ic">⚙️</div>Settings</button>
+      <div style="height:1px; background:var(--surface3); margin:10px 0;"></div>
+      <button class="mni" onclick="sbSignOut()"><div class="mni-ic" style="color:var(--red)">↩</div><span style="color:var(--red)">Sign out</span></button>
+    </div>
   </nav>
 
   <div class="main">
