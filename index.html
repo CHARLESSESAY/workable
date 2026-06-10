@@ -511,33 +511,9 @@ a{text-decoration:none;color:var(--purple)}
 }
 .sb-signout:hover{background:var(--red-light)}
 
-/* Mobile nav */
-/* Mobile nav - Top horizontally scrollable */
-.mobnav{
-  display:none; position:fixed; top:0; left:0; right:0; /* Moved from bottom:0 to top:0 */
-  background:var(--white);
-  border-bottom:1px solid var(--surface3); /* Changed from border-top */
-  padding:calc(.5rem + env(safe-area-inset-top)) 1rem .5rem;
-  z-index:50; justify-content:flex-start; align-items:center;
-  box-shadow:0 4px 20px rgba(92,45,145,.08);
-  overflow-x:auto; white-space:nowrap; gap:12px;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:none; /* Hides scrollbar in Firefox */
-}
 /* Mobile Header & Menu Base (Hidden on Desktop) */
 .mob-header { display: none; }
 .mobnav { display: none; }
-}
-.mni.active{color:var(--purple)}
-.mni-ic{font-size:20px;line-height:1}
-.mni{
-  display:flex;flex-direction:column;align-items:center;gap:3px;
-  padding:.4rem .6rem;border-radius:var(--r);
-  border:none;background:none;font-size:10px;font-weight:600;
-  color:var(--ink4);cursor:pointer;transition:all .15s;min-width:50px
-}
-.mni.active{color:var(--purple)}
-.mni-ic{font-size:20px;line-height:1}
 
 /* ── MAIN CONTENT ── */
 .main{flex:1;overflow-y:auto;min-height:100vh;background:var(--surface)}
@@ -1077,17 +1053,7 @@ a{text-decoration:none;color:var(--purple)}
 @media(max-width:768px){
   .sidebar { display:none }
   
-  /* Mobile Header fixed to top */
-  .mob-header {
-    display: flex; justify-content: space-between; align-items: center;
-    position: fixed; top: 0; left: 0; right: 0;
-    background: var(--white); border-bottom: 1px solid var(--surface3);
-    padding: 1rem 1.25rem; z-index: 60;
-  }
-  .hamburger {
-    background: none; border: none; font-size: 24px; color: var(--ink); 
-    cursor: pointer; line-height: 1; padding: 4px;
-  }
+
 
   /* Slide-down Menu */
   .mobnav {
@@ -1137,7 +1103,7 @@ a{text-decoration:none;color:var(--purple)}
     </div>
   </div>
   <div class="lb lb1"></div><div class="lb lb2"></div><div class="lb lb3"></div><div class="lgrid"></div>
-<div class="lb lb1"></div><div class="lb lb2"></div><div class="lb lb3"></div><div class="lgrid"></div>
+
 <div class="li">
   <div class="lbadge"><div class="ldot"></div>WORKABLE</div>
   <h1 class="lh1">Track your work.<br><span>Grow every day.</span></h1>
@@ -1644,14 +1610,10 @@ a{text-decoration:none;color:var(--purple)}
 
     <!-- ── TEAM (employer) ── -->
     <div class="page" id="page-team">
-      <div class="phead"><div><h1 class="ptitle">Team overview 👥</h1><p class="psub">Live workforce performance</p></div>
+      <div class="phead">
+        <div><h1 class="ptitle">Team overview 👥</h1><p class="psub">Live workforce performance</p></div>
         <button onclick="openInvite()" style="background:var(--purple);color:#fff;border:none;border-radius:var(--r);padding:11px 20px;font-size:13px;font-weight:600">+ Invite employee</button>
       </div>
-       <div class="page" id="page-team">
-  <div class="phead">
-    <div><h1 class="ptitle">Team overview 👥</h1><p class="psub">Live workforce performance</p></div>
-    <button onclick="openInvite()" style="background:var(--purple);color:#fff;border:none;border-radius:var(--r);padding:11px 20px;font-size:13px;font-weight:600">+ Invite employee</button>
-  </div>
   
   <div class="card">
     <table class="team-table">
@@ -2265,6 +2227,14 @@ function goTo(id){
       <td>${m.lastDate}</td>
     </tr>
   `).join('');
+}
+     // Toggle Hamburger Menu
+function toggleMenu() {
+  const menu = document.getElementById('mobnav');
+  const btn = document.querySelector('.hamburger');
+  menu.classList.toggle('open');
+  // Change icon to 'X' when open, back to '☰' when closed
+  btn.textContent = menu.classList.contains('open') ? '✕' : '☰';
 }
 
 function nav(id){
