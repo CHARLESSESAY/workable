@@ -1755,15 +1755,33 @@ a{text-decoration:none;color:var(--purple)}
 </div><!-- /app -->
 
 <!-- Invite modal -->
+<!-- Invite modal (WhatsApp & Link) -->
 <div id="invmodal" style="display:none;position:fixed;inset:0;background:rgba(14,14,20,.55);z-index:100;align-items:center;justify-content:center;padding:1rem">
   <div style="background:var(--white);border-radius:var(--r2);padding:2rem;width:100%;max-width:440px;animation:riseUp .25s ease both">
-    <h3 style="font-family:'Syne',sans-serif;font-size:1.25rem;margin-bottom:.35rem">Invite an employee</h3>
-    <p style="font-size:13px;color:var(--ink3);margin-bottom:1.25rem">They'll receive an onboarding link and set up their own personalised track — no admin work needed from you.</p>
-    <div class="fld"><label>Employee email</label><input type="email" id="inv-email" placeholder="e.g. amara@company.com"></div>
-    <div class="fld"><label>Role / department (optional)</label><input type="text" id="inv-role" placeholder="e.g. Field Coordinator, Operations"></div>
-    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:1.25rem">
-      <button onclick="closeInvite()" style="background:var(--surface);border:1.5px solid var(--surface2);border-radius:var(--r);padding:10px 18px;font-size:13px;font-weight:600;color:var(--ink2)">Cancel</button>
-      <button onclick="sendInvite()" style="background:var(--purple);color:#fff;border:none;border-radius:var(--r);padding:10px 20px;font-size:13px;font-weight:600">Send invite ✉️</button>
+    <h3 style="font-family:'Syne',sans-serif;font-size:1.25rem;margin-bottom:.35rem">Invite your team</h3>
+    <p style="font-size:13px;color:var(--ink3);margin-bottom:1.25rem">Share this link with your employees. When they sign up, they will automatically be linked to your manager dashboard.</p>
+    
+    <div class="fld">
+      <label>Your Team Join Code</label>
+      <div style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;color:var(--purple);text-align:center;padding:12px;background:var(--purple-pale);border-radius:var(--r);letter-spacing:2px;border:1.5px dashed var(--purple3)" id="inv-code-display">
+        ------
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:1.5rem">
+      <button onclick="shareWhatsApp()" style="background:#25D366;color:#fff;border:none;border-radius:var(--r);padding:13px;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 12px rgba(37,211,102,.3)">
+        <!-- WhatsApp Icon -->
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 0C5.385 0 0 5.384 0 12.032c0 2.645.688 5.176 1.996 7.425L.226 24l4.675-1.226C7.078 23.945 9.516 24.062 12.031 24.062c6.645 0 12.03-5.383 12.03-12.03S18.676 0 12.031 0zm0 22.03c-2.227 0-4.414-.59-6.326-1.714l-.453-.268-3.473.91.928-3.385-.295-.468C1.272 15.19 0 13.064 0 12.032 0 5.412 5.413 0 12.031 0c6.618 0 12.03 5.412 12.03 12.032 0 6.618-5.412 12.03-12.03 12.03zm6.602-8.99c-.361-.182-2.144-1.06-2.476-1.182-.331-.12-5.72-.182-.812.091-.091.272-.361 1.06-2.477 1.06-.211 0-.422-.03-.693-.151-1.636-.725-3.368-2.072-4.664-3.834-.271-.371-.06-.572.12-.752.17-.17.362-.423.543-.634.181-.212.241-.362.361-.603.12-.241.06-.452-.03-.633-.09-.182-.812-1.958-1.113-2.682-.291-.702-.592-.602-.812-.612-.211-.01-.452-.01-.693-.01-.241 0-.633.09-.964.451-.331.362-1.265 1.236-1.265 3.014 0 1.778 1.295 3.496 1.476 3.737.181.242 2.56 3.918 6.173 5.485 2.41 1.054 3.32.964 4.074.813.754-.15 2.144-.874 2.445-1.718.301-.843.301-1.565.211-1.717-.091-.151-.332-.241-.693-.422z"/></svg>
+        Send via WhatsApp
+      </button>
+      
+      <button onclick="copyInviteLink()" style="background:var(--surface);color:var(--ink);border:1.5px solid var(--surface3);border-radius:var(--r);padding:13px;font-size:14px;font-weight:600">
+        📋 Copy Invite Link
+      </button>
+      
+      <button onclick="closeInvite()" style="background:transparent;color:var(--ink3);border:none;padding:8px;font-size:13px;margin-top:.25rem;cursor:pointer">
+        Cancel
+      </button>
     </div>
   </div>
 </div>
@@ -3050,13 +3068,43 @@ function resetData(){
 }
 
 // ── INVITE ────────────────────────────────────────────────────────────────────
-function openInvite(){document.getElementById('invmodal').style.display='flex';}
-function closeInvite(){document.getElementById('invmodal').style.display='none';}
-function sendInvite(){
-  const email=document.getElementById('inv-email').value.trim();
-  if(!email){showToast('⚠️','Enter an email address');return;}
-  closeInvite();showToast('✉️',`Invite sent to ${email}!`);
-  document.getElementById('inv-email').value='';document.getElementById('inv-role').value='';
+// ── INVITE SYSTEM (WhatsApp & Links) ──────────────────────────────────────────
+
+function openInvite() {
+  document.getElementById('invmodal').style.display='flex';
+  const display = document.getElementById('inv-code-display');
+  // Show the manager's unique company code, or a fallback if not generated yet
+  if(display) {
+     display.textContent = S.companyCode || "WAITING...";
+  }
+}
+
+function closeInvite() {
+  document.getElementById('invmodal').style.display='none';
+}
+
+function generateInviteMessage() {
+  // Uses the URL where the app is currently running
+  const appLink = window.location.origin; 
+  return `Hey! Join my team on Workable to track our daily performance.\n\n1. Go to: ${appLink}\n2. Sign up as an Employee\n3. Use our Team Code: ${S.companyCode || '[Your Code]'}`;
+}
+
+function shareWhatsApp() {
+  if(!S.companyCode) { showToast('⚠️','Team code not ready yet.'); return; }
+  const text = encodeURIComponent(generateInviteMessage());
+  window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+  closeInvite();
+}
+
+function copyInviteLink() {
+  if(!S.companyCode) { showToast('⚠️','Team code not ready yet.'); return; }
+  const text = generateInviteMessage();
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('📋', 'Invite link copied to clipboard!');
+    closeInvite();
+  }).catch(err => {
+    showToast('⚠️', 'Failed to copy link.');
+  });
 }
 
 // ── TOAST ─────────────────────────────────────────────────────────────────────
