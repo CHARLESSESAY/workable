@@ -512,14 +512,29 @@ a{text-decoration:none;color:var(--purple)}
 .sb-signout:hover{background:var(--red-light)}
 
 /* Mobile nav */
+/* Mobile nav - Top horizontally scrollable */
 .mobnav{
-  display:none;position:fixed;bottom:0;left:0;right:0;
+  display:none; position:fixed; top:0; left:0; right:0; /* Moved from bottom:0 to top:0 */
   background:var(--white);
-  border-top:1px solid var(--surface3);
-  padding:.5rem 1rem calc(.5rem + env(safe-area-inset-bottom));
-  z-index:50;justify-content:space-around;align-items:center;
-  box-shadow:0 -4px 20px rgba(92,45,145,.08)
+  border-bottom:1px solid var(--surface3); /* Changed from border-top */
+  padding:calc(.5rem + env(safe-area-inset-top)) 1rem .5rem;
+  z-index:50; justify-content:flex-start; align-items:center;
+  box-shadow:0 4px 20px rgba(92,45,145,.08);
+  overflow-x:auto; white-space:nowrap; gap:12px;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none; /* Hides scrollbar in Firefox */
 }
+.mobnav::-webkit-scrollbar { display:none; } /* Hides scrollbar in Chrome/Safari */
+
+.mni{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:.4rem .6rem;border-radius:var(--r);
+  border:none;background:none;font-size:10px;font-weight:600;
+  color:var(--ink4);cursor:pointer;transition:all .15s;
+  min-width:60px; flex-shrink:0; /* flex-shrink:0 prevents them from squishing */
+}
+.mni.active{color:var(--purple)}
+.mni-ic{font-size:20px;line-height:1}
 .mni{
   display:flex;flex-direction:column;align-items:center;gap:3px;
   padding:.4rem .6rem;border-radius:var(--r);
@@ -1062,12 +1077,7 @@ a{text-decoration:none;color:var(--purple)}
   .ptitle{font-size:1.5rem}
   .two{grid-template-columns:1fr}
 }
-@media(max-width:768px){
-  .sidebar{display:none}
-  .mobnav{display:flex}
-  .main .page{padding:1.25rem 1rem;padding-bottom:80px}
-  .kgrid{grid-template-columns:1fr 1fr}
-  .lnav{padding:1rem 1.25rem}
+@media
 }
 @media(max-width:480px){
   .kgrid{grid-template-columns:1fr 1fr}
@@ -1427,12 +1437,15 @@ a{text-decoration:none;color:var(--purple)}
   </div>
 
   <!-- Mobile nav -->
+ <!-- Mobile nav (Top Swipeable Menu) -->
   <nav class="mobnav" id="mobnav">
     <button class="mni active" onclick="nav('dashboard')"><div class="mni-ic">⬛</div>Home</button>
     <button class="mni" onclick="nav('checkin')"><div class="mni-ic">✅</div>Check in</button>
-    <button class="mni" onclick="nav('ai')"><div class="mni-ic">✨</div>Ask Workable</button>
+    <button class="mni" onclick="nav('ai')"><div class="mni-ic">✨</div>Ask AI</button>
     <button class="mni" onclick="nav('community')"><div class="mni-ic">🌍</div>Community</button>
     <button class="mni" onclick="nav('profile')"><div class="mni-ic">👤</div>Profile</button>
+    <button class="mni" onclick="nav('settings')"><div class="mni-ic">⚙️</div>Settings</button>
+    <button class="mni" onclick="sbSignOut()"><div class="mni-ic" style="color:var(--red)">↩</div><span style="color:var(--red)">Sign out</span></button>
   </nav>
 
   <div class="main">
