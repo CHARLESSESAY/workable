@@ -1053,23 +1053,44 @@ a{text-decoration:none;color:var(--purple)}
 @media(max-width:768px){
   .sidebar { display:none }
   
+  /* Show the mobile header and keep it fixed to the top */
+  .mob-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    background: var(--white);
+    border-bottom: 1px solid var(--surface3);
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+  }
+  
+  /* Style the hamburger button */
+  .hamburger {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--ink);
+    cursor: pointer;
+  }
 
-
-  /* Slide-down Menu */
+  /* Slide-down Menu - Added max-height and overflow-y */
   .mobnav {
     display: block; position: fixed; top: -120%; left: 0; right: 0;
-    background: var(--white); z-index: 50;
+    background: var(--white); z-index: 90;
     padding: 5rem 1.5rem 2rem; 
     transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 10px 30px rgba(92,45,145,.15);
     border-bottom-left-radius: var(--r3);
     border-bottom-right-radius: var(--r3);
+    max-height: 100vh;
+    overflow-y: auto;
   }
   .mobnav.open { top: 0; }
   
   .mobnav-inner { display: flex; flex-direction: column; gap: 4px; }
   
-  /* Menu Items styled as full rows */
   .mni {
     display: flex; flex-direction: row; align-items: center; justify-content: flex-start;
     gap: 12px; padding: 1rem 1.25rem; border-radius: var(--r);
@@ -1079,7 +1100,7 @@ a{text-decoration:none;color:var(--purple)}
   .mni.active { color: var(--purple); background: var(--purple-pale); }
   .mni-ic { font-size: 18px; width: 24px; text-align: center; }
 
-  /* Push main content down so it isn't hidden under the header */
+  /* Push main content down so it isn't hidden under the fixed header */
   .main .page { padding: 5.5rem 1rem 2rem; }
   .kgrid { grid-template-columns: 1fr 1fr; }
   .lnav { padding: 1rem 1.25rem; }
@@ -2250,6 +2271,15 @@ function nav(id){
   document.querySelectorAll('.mni').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.mni').forEach(b=>{if(b.textContent.toLowerCase().includes(id.slice(0,4)))b.classList.add('active');});
 
+  // 👇 ADDED THIS BLOCK: Close the mobile menu when a link is clicked 👇
+  const menu = document.getElementById('mobnav');
+  const btn = document.querySelector('.hamburger');
+  if (menu && menu.classList.contains('open')) {
+    menu.classList.remove('open');
+    if (btn) btn.textContent = '☰';
+  }
+  // 👆 --------------------------------------------------------------- 👆
+
   if(id==='checkin') initCheckin();
   if(id==='community') loadAndRenderFeed();
   if(id==='reports') initReports();
@@ -2258,20 +2288,8 @@ function nav(id){
   if(id==='dashboard') refreshDashboard();
   
   // ADD THIS LINE:
-  if(id==='team') renderTeamTable(); 
+  if(id==='team') renderTeamTable();
 }
-
-// ── ONBOARDING ───────────────────────────────────────────────────────────────
-let obN = 0;
-// ── ONBOARDING STATE ─────────────────────────────────────────────────────────
-let jdPath = 'upload'; // 'upload' | 'guided' | 'title'
-
-function setOB(n){
-  document.querySelectorAll('.obc').forEach((c,i)=>c.classList.toggle('active',i===n));
-  document.querySelectorAll('.ops').forEach((s,i)=>s.classList.toggle('done',i<=n));
-  obN=n; window.scrollTo({top:0,behavior:'smooth'});
-}
-
 function pickRole(r,el){
   S.role=r;
   document.querySelectorAll('.rgrid .rcard').forEach(c=>c.classList.remove('sel'));
@@ -3061,24 +3079,33 @@ function renderCIGrid(){
 
 // ── SETTINGS ──────────────────────────────────────────────────────────────────
 function initSettings(){
-  document.getElementById('set-name').value=S.name;
-  document.getElementById('set-company').value=S.company;
-  document.getElementById('set-goal').value=S.goal;
-  const stored=localStorage.getItem('wp_apikey');
-  if(stored) document.getElementById('api-status').textContent='✅ API key connected';
+function initSettings(){
+  document.getElementById('set-name').value = S.name;
+  document.getElementById('set-company').value = S.company;
+  document.getElementById('set-role').value = S.detectedRole || ''; // Add this line
+  document.getElementById('set-goal').value = S.goal;
+  const stored = localStorage.getItem('wp_apikey');
+  if(stored) document.getElementById('api-status').textContent = '✅ API key connected';
 }
+
 function saveSettings(){
-  S.name=document.getElementById('set-name').value.trim()||S.name;
-  S.company=document.getElementById('set-company').value.trim()||S.company;
-  S.goal=document.getElementById('set-goal').value.trim()||S.goal;
-  // Update UI
-  document.getElementById('sbname').textContent=S.name.split(' ')[0];
-  const ini=initials(S.name);
-  document.getElementById('sbav').textContent=ini;
-  document.getElementById('compav').textContent=ini;
+  S.name = document.getElementById('set-name').value.trim() || S.name;
+  S.company = document.getElementById('set-company').value.trim() || S.company;
+  S.detectedRole = document.getElementById('set-role').value.trim() || S.detectedRole; // Add this line
+  S.goal = document.getElementById('set-goal').value.trim() || S.goal;
+  
+  // Update UI elements
+  document.getElementById('sbname').textContent = S.name.split(' ')[0];
+  const ini = initials(S.name);
+  document.getElementById('sbav').textContent = ini;
+  document.getElementById('compav').textContent = ini;
+  
   saveState();
-  if(fbDb&&currentUser) sbSaveProfile().catch(e=>console.warn('Firebase profile:',e));
-  showToast('✅','Settings saved!');
+  if(fbDb && currentUser) sbSaveProfile().catch(e => console.warn('Firebase profile:', e));
+  showToast('✅', 'Settings saved!');
+  
+  // Refresh dashboard to show the new role immediately
+  refreshDashboard(); 
 }
 function saveApiKey(){
   const k=document.getElementById('set-apikey').value.trim();
