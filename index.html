@@ -1698,13 +1698,6 @@ a{text-decoration:none;color:var(--purple)}
         </div>
         
         <div class="card">
-          <div class="chead"><span class="ctitle">API connection</span></div>
-          <div class="fld"><label>OpenRouter API key (stored in browser only)</label><input type="password" id="set-apikey" placeholder="sk-or-v1-...">
-          <button onclick="saveApiKey()" style="background:var(--purple);color:#fff;border:none;padding:12px 22px;border-radius:var(--r);font-size:14px;font-weight:600;margin-top:.5rem">Save API key</button>
-          <div id="api-status" style="font-size:12px;margin-top:.5rem;color:var(--ink3)"></div>
-        </div>
-        
-        <div class="card">
           <div class="chead"><span class="ctitle">Data</span></div>
           <div class="settings-item"><div><div class="settings-label">Export my data</div><div class="settings-sub">Download all your check-ins as JSON</div></div><button onclick="exportData()" style="background:var(--surface);border:1.5px solid var(--surface2);border-radius:var(--r);padding:7px 14px;font-size:12px;font-weight:600;color:var(--ink2)">Export</button></div>
           <div class="settings-item"><div><div class="settings-label" style="color:var(--red)">Reset all data</div><div class="settings-sub">Delete all check-ins and start fresh</div></div><button onclick="resetData()" style="background:var(--red-light);border:none;border-radius:var(--r);padding:7px 14px;font-size:12px;font-weight:600;color:var(--red)">Reset</button></div>
@@ -2359,8 +2352,6 @@ function launch(){
   if(S.role==='employer') document.getElementById('mgrnav').style.display='block';
   renderCIForm(); renderMyTrack(); renderSugg(); renderCTags(); buildGreet();
   goTo('app'); nav('dashboard');
-  const stored=localStorage.getItem('wp_apikey');
-  if(stored) window.ANTHROPIC_KEY=stored;
 }
 
 function initials(name){return (name||'WP').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
@@ -2576,7 +2567,6 @@ async function generateAssessment(data,sc,streak){
     const d=await callOpenRouter(prompt);
     const text=d?.content?.[0]?.text||'';
     if(text){
-      // FIX: Added DOMPurify to sanitize AI outputs
       const safeText = DOMPurify.sanitize(text
         .replace(/\*\*(.+?)\*\*/g,'<strong style="color:var(--purple);font-weight:700;display:block;margin-top:.85rem;margin-bottom:.25rem">$1</strong>')
         .replace(/\n\n/g,'</p><p style="margin-top:.5rem">')
@@ -2594,7 +2584,7 @@ async function generateAssessment(data,sc,streak){
 
 function fallbackAssessment(sc,streak){
   const lvl=sc>=80?'exceptional':sc>=65?'strong':sc>=50?'solid':'developing';
-  return '<p><strong style="color:var(--purple)">Today\'s Performance Read</strong><br>Check-in #'+S.checkins.length+' logged with an output score of '+sc+'% — '+lvl+' performance for today. Your '+streak+'-day streak reflects growing professional discipline.</p><p style="margin-top:.75rem"><strong style="color:var(--purple)">Strategic Recommendation</strong><br>Connect your API key in Settings → AI Configuration to unlock fully personalised assessments tailored to your '+( S.detectedRole||'role')+'.</p>';
+  return '<p><strong style="color:var(--purple)">Today\'s Performance Read</strong><br>Check-in #'+S.checkins.length+' logged with an output score of '+sc+'% — '+lvl+' performance for today. Your '+streak+'-day streak reflects growing professional discipline.</p><p style="margin-top:.75rem"><strong style="color:var(--purple)">Strategic Recommendation</strong><br>Check in tomorrow to continue building your baseline and unlock deeper insights.</p>';
 }
 
 function renderMyTrack(){
@@ -2749,7 +2739,7 @@ Write 4 sections with clear paragraph breaks:
     ttl.textContent=type==='weekly'?'📅 Weekly summary':'📈 Monthly review';
     body.innerHTML=`
       <p style="margin-bottom:.85rem"><strong>Performance summary:</strong> You have completed <strong>${S.checkins.length} check-ins</strong> so far with a current streak of <strong>${getStreak()} days</strong>.</p>
-      <p style="margin-bottom:.85rem"><strong>Recommendation:</strong> Connect your API key in Settings for AI reports.</p>`;
+      <p style="margin-bottom:.85rem"><strong>Recommendation:</strong> Report generation relies on your configured API backend.</p>`;
   }
 }
 
@@ -2804,8 +2794,6 @@ function initSettings(){
   document.getElementById('set-company').value = S.company;
   document.getElementById('set-role').value = S.detectedRole || '';
   document.getElementById('set-goal').value = S.goal;
-  const stored = localStorage.getItem('wp_apikey');
-  if(stored) document.getElementById('api-status').textContent = '✅ API key connected';
 }
 
 function saveSettings(){
@@ -2823,16 +2811,6 @@ function saveSettings(){
   if(fbDb && currentUser) sbSaveProfile().catch(e => console.warn('Firebase profile:', e));
   showToast('✅', 'Settings saved!');
   refreshDashboard(); 
-}
-
-function saveApiKey(){
-  const k=document.getElementById('set-apikey').value.trim();
-  if(!k){showToast('⚠️','Please paste your API key');return;}
-  if(!k.startsWith('sk-or-')){showToast('⚠️','Key should start with sk-or-');return;}
-  localStorage.setItem('wp_apikey',k);
-  window.ANTHROPIC_KEY=k;
-  document.getElementById('api-status').textContent='✅ API key connected — AI features are now live!';
-  showToast('✅','API key saved! AI features are now live.');
 }
 
 function exportData(){
@@ -2919,19 +2897,13 @@ function loadState(){
   return false;
 }
 
-// FIX: Attach user's saved API key properly to headers
+// FIX: Streamlined to just ping your Cloudflare Worker cleanly
 async function callOpenRouter(promptText) {
   const PROXY_URL = "https://broken-glade-bcb9.sesaycharle.workers.dev"; 
-  const apiKey = window.ANTHROPIC_KEY || localStorage.getItem('wp_apikey');
-  const headers = { 'Content-Type': 'application/json' };
   
-  if (apiKey) {
-    headers['Authorization'] = `Bearer ${apiKey}`;
-  }
-
   const response = await fetch(PROXY_URL, {
     method: 'POST',
-    headers: headers,
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       messages: [{ role: 'user', content: promptText }]
     })
@@ -2939,6 +2911,10 @@ async function callOpenRouter(promptText) {
 
   if (!response.ok) throw new Error('Proxy API Error');
   const data = await response.json();
+  
+  // Check if OpenRouter sent back an error directly
+  if (data.error) throw new Error(data.error.message || 'AI generation failed');
+  
   return { content: [{ text: data.choices[0].message.content }] };
 }
 
@@ -2956,9 +2932,6 @@ function uzHandle(file){
 }
 
 async function pageInit(){
-  const stored = localStorage.getItem('wp_apikey');
-  if(stored) window.ANTHROPIC_KEY = stored;
-
   initSupabase();
 
   const note = document.getElementById('ob4-note');
