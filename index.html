@@ -1431,6 +1431,13 @@ a{text-decoration:none;color:var(--purple)}
     <div class="mobnav-inner">
       <button class="mni active" onclick="nav('dashboard')"><div class="mni-ic">⬛</div>Home</button>
       <button class="mni" onclick="nav('checkin')"><div class="mni-ic">✅</div>Check in</button>
+      
+      <!-- ADDED: Mobile Manager Navigation -->
+      <div id="mob-mgrnav" style="display:none; flex-direction:column; gap:4px; width:100%">
+        <button class="mni" onclick="nav('team')"><div class="mni-ic">👥</div>Team overview</button>
+        <button class="mni" onclick="nav('alerts')"><div class="mni-ic">🔔</div>Alerts</button>
+      </div>
+
       <button class="mni" onclick="nav('ai')"><div class="mni-ic">✨</div>Ask AI</button>
       <button class="mni" onclick="nav('community')"><div class="mni-ic">🌍</div>Community</button>
       <button class="mni" onclick="nav('profile')"><div class="mni-ic">👤</div>Profile</button>
@@ -2349,7 +2356,14 @@ function launch(){
   document.getElementById('sbname').textContent=S.name.split(' ')[0] || 'User';
   document.getElementById('sbrole').textContent=S.role==='employer'?'Manager':'Employee';
   document.getElementById('compav').textContent=ini;
-  if(S.role==='employer') document.getElementById('mgrnav').style.display='block';
+  
+  // ADDED: Logic to show manager tabs on BOTH desktop and mobile
+  if(S.role==='employer') {
+    document.getElementById('mgrnav').style.display='block'; 
+    const mobMgr = document.getElementById('mob-mgrnav');
+    if(mobMgr) mobMgr.style.display='flex'; 
+  }
+  
   renderCIForm(); renderMyTrack(); renderSugg(); renderCTags(); buildGreet();
   goTo('app'); nav('dashboard');
 }
