@@ -6,10 +6,10 @@
 <title>Workable — Your Daily Performance Coach</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
 <style>
 /* ═══════════════════════════════════════════════════════════
    WORKPULSE AI — Design System v3
@@ -947,29 +947,6 @@ a{text-decoration:none;color:var(--purple)}
 .profile-stat-v{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:#fff}
 .profile-stat-l{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.05em}
 
-.profile-hero{
-  background:var(--grad-hero);
-  border-radius:var(--r2);padding:2rem;
-  margin-bottom:1rem;position:relative;overflow:hidden;
-  box-shadow:var(--sh3)
-}
-.profile-hero::after{
-  content:'';position:absolute;top:-30px;right:-30px;
-  width:150px;height:150px;border-radius:50%;
-  background:rgba(201,162,39,.15)
-}
-.profile-avatar{
-  width:72px;height:72px;border-radius:50%;
-  background:var(--grad-gold);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Syne',sans-serif;font-size:26px;font-weight:800;
-  color:var(--ink);margin-bottom:1rem;
-  border:3px solid rgba(255,255,255,.3);
-  box-shadow:var(--sh-gold)
-}
-.profile-name{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.25rem}
-.profile-role{font-size:13px;color:rgba(255,255,255,.7)}
-
 /* ── TEAM TABLE ────────────────────────────────── */
 .team-table{width:100%;border-collapse:separate;border-spacing:0 6px}
 .team-table thead th{
@@ -1038,11 +1015,9 @@ a{text-decoration:none;color:var(--purple)}
 @keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.1)}100%{transform:scale(1)}}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
 
 .typing::after{content:'▋';animation:blink .8s infinite;font-size:11px;vertical-align:middle}
 
-/* ── RESPONSIVE ────────────────────────────────── */
 /* ── RESPONSIVE ────────────────────────────────── */
 @media(max-width:900px){
   .sidebar{width:200px}
@@ -1053,7 +1028,6 @@ a{text-decoration:none;color:var(--purple)}
 @media(max-width:768px){
   .sidebar { display:none }
   
-  /* Show the mobile header and keep it fixed to the top */
   .mob-header {
     display: flex;
     justify-content: space-between;
@@ -1066,7 +1040,6 @@ a{text-decoration:none;color:var(--purple)}
     z-index: 100;
   }
   
-  /* Style the hamburger button */
   .hamburger {
     background: none;
     border: none;
@@ -1075,7 +1048,6 @@ a{text-decoration:none;color:var(--purple)}
     cursor: pointer;
   }
 
-  /* Slide-down Menu - Added max-height and overflow-y */
   .mobnav {
     display: block; position: fixed; top: -120%; left: 0; right: 0;
     background: var(--white); z-index: 90;
@@ -1100,7 +1072,6 @@ a{text-decoration:none;color:var(--purple)}
   .mni.active { color: var(--purple); background: var(--purple-pale); }
   .mni-ic { font-size: 18px; width: 24px; text-align: center; }
 
-  /* Push main content down so it isn't hidden under the fixed header */
   .main .page { padding: 5.5rem 1rem 2rem; }
   .kgrid { grid-template-columns: 1fr 1fr; }
   .lnav { padding: 1rem 1.25rem; }
@@ -1116,7 +1087,6 @@ a{text-decoration:none;color:var(--purple)}
 </head>
 <body>
 
-<!-- ══ LANDING ══ -->
 <div id="landing" class="screen active">
   <div class="lnav">
     <div class="lnav-logo"><div class="lnav-lm">⚡</div>Workable</div>
@@ -1132,7 +1102,6 @@ a{text-decoration:none;color:var(--purple)}
   <p class="lsub">Upload your job description and Workable builds a personalised daily check-in for your exact role — any job, any industry, anywhere in the world.</p>
   <div class="lbtns">
     <button class="bth" onclick="goTo('onboarding')">Get started free →</button>
-    
   </div>
   <div class="lstats">
     <div><div class="lsn">Any</div><div class="lsl">Industry</div></div>
@@ -1143,22 +1112,18 @@ a{text-decoration:none;color:var(--purple)}
 </div>
 </div>
 
-<!-- ══ ONBOARDING ══ -->
 <div id="onboarding" class="screen">
 <div class="obw">
 
-  <!-- Logo -->
   <div class="oblogo">
     <div class="oblm">⚡</div>Workable
     <button onclick="goTo('landing')" style="margin-left:auto;background:rgba(255,255,255,.15);border:none;color:rgba(255,255,255,.7);border-radius:99px;padding:4px 12px;font-size:12px;cursor:pointer">✕ Exit</button>
   </div>
 
-  <!-- Progress bar -->
   <div class="obprog" id="obprog">
     <div class="ops done"></div><div class="ops"></div><div class="ops"></div><div class="ops"></div><div class="ops"></div>
   </div>
 
-  <!-- ═══ STEP 0: Identity & Role ═══ -->
   <div class="obc active" id="ob0">
     <div class="obey">Step 1 of 5 · Identity</div>
     <h2 class="obt">Let's build your professional profile</h2>
@@ -1166,7 +1131,7 @@ a{text-decoration:none;color:var(--purple)}
 
     <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);margin-bottom:.75rem">I am joining as a</div>
     <div class="rgrid">
-      <div class="rcard" onclick="pickRole('employee',this)">
+      <div class="rcard sel" onclick="pickRole('employee',this)">
         <div class="remoji">🎯</div>
         <div class="rname">Individual Contributor</div>
         <div class="rdesc">I want to own my performance, track daily output, and get personal coaching specific to my role</div>
@@ -1218,28 +1183,26 @@ a{text-decoration:none;color:var(--purple)}
     <button class="btp-gold" onclick="obStep(0)">Continue — Define My Role →</button>
   </div>
 
-  <!-- ═══ STEP 1: Job Intelligence ═══ -->
   <div class="obc" id="ob1">
     <div class="obey">Step 2 of 5 · Role Intelligence</div>
     <button class="ob-back" onclick="setOB(0)">← Back</button>
     <h2 class="obt">How should we learn your role?</h2>
     <p class="obs">The more precisely we understands your responsibilities, the more powerful and specific your daily tracking and insights become.</p>
 
-    <!-- Three paths -->
     <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:1.25rem" id="jd-path-select">
-      <div class="rcard" style="text-align:left;padding:1rem 1.1rem;display:flex;align-items:flex-start;gap:12px" onclick="showJDPath('upload',this)">
+      <div class="rcard sel" style="text-align:left;padding:1rem 1.1rem;display:flex;align-items:flex-start;gap:12px" onclick="showJDPath('upload',this)">
         <div style="font-size:1.6rem;flex-shrink:0">📄</div>
         <div>
           <div class="rname" style="text-align:left;margin-bottom:3px">Upload or paste my job description</div>
           <div class="rdesc">Best accuracy. Workable extracts your exact KPIs, responsibilities, and deliverables.</div>
         </div>
-        <div style="margin-left:auto;width:20px;height:20px;border-radius:50%;border:2px solid var(--surface3);flex-shrink:0;margin-top:2px" id="path-radio-upload"></div>
+        <div style="margin-left:auto;width:20px;height:20px;border-radius:50%;border:2px solid var(--surface3);flex-shrink:0;margin-top:2px;background:var(--purple)" id="path-radio-upload"></div>
       </div>
       <div class="rcard" style="text-align:left;padding:1rem 1.1rem;display:flex;align-items:flex-start;gap:12px" onclick="showJDPath('guided',this)">
         <div style="font-size:1.6rem;flex-shrink:0">🧭</div>
         <div>
           <div class="rname" style="text-align:left;margin-bottom:3px">Guide me — I'll answer a few questions</div>
-          <div class="rdesc"> let Workable interviews you about your role. Great if you don't have a formal job description.</div>
+          <div class="rdesc">Let Workable interview you about your role. Great if you don't have a formal job description.</div>
         </div>
         <div style="margin-left:auto;width:20px;height:20px;border-radius:50%;border:2px solid var(--surface3);flex-shrink:0;margin-top:2px" id="path-radio-guided"></div>
       </div>
@@ -1253,8 +1216,7 @@ a{text-decoration:none;color:var(--purple)}
       </div>
     </div>
 
-    <!-- PATH A: Upload -->
-    <div id="path-upload" style="display:none">
+    <div id="path-upload">
       <div class="uzn" id="uzn" ondragover="uzDrag(event)" ondragleave="uzLeave()" ondrop="uzDrop(event)">
         <input type="file" accept=".pdf,.doc,.docx,.txt" onchange="uzFile(event)">
         <div id="uzc">
@@ -1267,7 +1229,6 @@ a{text-decoration:none;color:var(--purple)}
       <div class="fld"><label>Paste your job description</label><textarea id="jd-text" rows="5" placeholder="Paste the full job description here. The more detail you include — responsibilities, KPIs, reporting lines, deliverables — the more precise your daily track will be…"></textarea></div>
     </div>
 
-    <!-- PATH B: Guided interview -->
     <div id="path-guided" style="display:none">
       <div style="background:linear-gradient(135deg,var(--purple-pale),var(--gold-light));border:1.5px solid var(--purple-light);border-radius:var(--r2);padding:1.1rem 1.25rem;margin-bottom:1rem">
         <div style="font-size:12px;font-weight:700;color:var(--purple);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.07em">🧭 Guided Role Discovery</div>
@@ -1291,7 +1252,6 @@ a{text-decoration:none;color:var(--purple)}
       </div>
     </div>
 
-    <!-- PATH C: Job title only -->
     <div id="path-title" style="display:none">
       <div class="fld">
         <label>Your exact job title</label>
@@ -1301,24 +1261,21 @@ a{text-decoration:none;color:var(--purple)}
     </div>
 
     <div class="aip" id="aip"><div class="aispin"></div><span id="aiptext">Analysing your role profile…</span></div>
-    <button class="btp" id="ob1btn" onclick="obStep(1)" style="display:none">Build My Track →</button>
+    <button class="btp" id="ob1btn" onclick="obStep(1)">Build My Track →</button>
   </div>
 
-  <!-- ═══ STEP 2: Track Review ═══ -->
   <div class="obc" id="ob2">
     <div class="obey">Step 3 of 5 · Your Track</div>
     <button class="ob-back" onclick="setOB(1)">← Back</button>
     <h2 class="obt">Your personalised performance track</h2>
     <p class="obs">These daily fields were built specifically for your role. Each one maps to a real responsibility. Edit anything that doesn't reflect your actual work.</p>
 
-    <!-- Role detection banner -->
     <div id="role-det" style="background:linear-gradient(135deg,var(--purple-pale),var(--gold-light));border:1.5px solid var(--purple-light);border-radius:var(--r2);padding:1rem 1.25rem;margin-bottom:1.1rem;display:none">
       <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:.3rem">✦ Role detected</div>
       <div id="role-det-text" style="font-size:14px;font-weight:700;color:var(--ink)"></div>
       <div id="role-det-sub" style="font-size:12px;color:var(--ink3);margin-top:3px"></div>
     </div>
 
-    <!-- Key deliverables suggestions -->
     <div id="deliverables-box" style="display:none;margin-bottom:1rem">
       <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold-dark);margin-bottom:.6rem">💡 Key deliverables for this role</div>
       <div id="deliverables-list" style="display:flex;flex-wrap:wrap;gap:6px"></div>
@@ -1330,14 +1287,12 @@ a{text-decoration:none;color:var(--purple)}
     <button class="btp-gold" onclick="obStep(2)" style="margin-top:1.1rem">Confirm My Track →</button>
   </div>
 
-  <!-- ═══ STEP 3: Goal Setting ═══ -->
   <div class="obc" id="ob3">
     <div class="obey">Step 4 of 5 · Performance Goals</div>
     <button class="ob-back" onclick="setOB(2)">← Back</button>
     <h2 class="obt">Define what excellence looks like</h2>
     <p class="obs">Your goal anchors every check-in and every insight. Be specific — vague goals produce vague guidance. Workable will track your trajectory against this every week.</p>
 
-    <!-- AI goal suggestions -->
     <div id="goal-suggestions" style="margin-bottom:1rem">
       <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:.6rem">✦ Suggested goals for your role</div>
       <div id="goal-chips" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:.75rem"></div>
@@ -1357,7 +1312,7 @@ a{text-decoration:none;color:var(--purple)}
           <div style="font-size:12px;font-weight:600;color:var(--ink)">Developing</div>
           <div style="font-size:11px;color:var(--ink3)">Learning the role</div>
         </div>
-        <div class="rcard" style="padding:.75rem;text-align:center" onclick="pickPerf('performing',this)">
+        <div class="rcard sel" style="padding:.75rem;text-align:center" onclick="pickPerf('performing',this)">
           <div style="font-size:1.4rem;margin-bottom:.3rem">⚡</div>
           <div style="font-size:12px;font-weight:600;color:var(--ink)">Performing</div>
           <div style="font-size:11px;color:var(--ink3)">Consistently solid</div>
@@ -1374,13 +1329,13 @@ a{text-decoration:none;color:var(--purple)}
     <button class="btp-gold" onclick="obStep(3)">Lock In My Goals →</button>
   </div>
 
-  <!-- ═══ STEP 4: Create Account ═══ -->
   <div class="obc" id="ob4">
     <div class="obey">Step 5 of 5 · Secure Access</div>
     <button class="ob-back" onclick="setOB(3)">← Back</button>
     <div class="sc">🔐</div>
     <h2 class="obt" style="text-align:center">Secure your workspace</h2>
     <p class="obs" style="text-align:center">Your professional data is private and encrypted. Create your account to ensure your performance history is never lost.</p>
+    
     <div class="fld">
       <label>Work email address</label>
       <input type="email" id="ob-email" placeholder="your.name@organisation.com">
@@ -1389,9 +1344,14 @@ a{text-decoration:none;color:var(--purple)}
       <label>Create a strong password</label>
       <input type="password" id="ob-pass" placeholder="Minimum 8 characters">
     </div>
-   <div id="ob4-note" style="background:var(--gold-light);border:1px solid var(--gold);border-radius:var(--r);padding:.65rem 1rem;font-size:12px;color:var(--gold-dark);margin:.75rem 0;line-height:1.6;display:flex;gap:8px;align-items:flex-start">
+
+    <div id="ob4-note" style="background:var(--gold-light);border:1px solid var(--gold);border-radius:var(--r);padding:.65rem 1rem;font-size:12px;color:var(--gold-dark);margin:.75rem 0;line-height:1.6;display:flex;gap:8px;align-items:flex-start">
       <span>🔒</span><span>Your data is stored securely. Workable will never share or sell your professional information.</span>
     </div>
+
+    <button id="ob4btn" class="btp-gold" onclick="createAccount()" style="width:100%;margin-bottom:1rem;margin-top:0;">Create Account →</button>
+
+    <div style="display:flex;align-items:center;gap:8px;margin:.85rem 0"><div style="flex:1;height:1px;background:var(--surface3)"></div><span style="font-size:12px;color:var(--ink4)">or</span><div style="flex:1;height:1px;background:var(--surface3)"></div></div>
 
     <button id="ob-google-btn" onclick="obSignUpWithGoogle()" style="width:100%;background:var(--white);border:1.5px solid var(--surface3);border-radius:var(--r);padding:13px;font-size:14px;font-weight:600;color:var(--ink);display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:var(--sh1);transition:all .2s;margin-bottom:1rem">
       <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 002.38-5.88c0-.57-.05-.66-.15-1.18z"/><path fill="#34A853" d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2a4.8 4.8 0 01-7.18-2.54H1.83v2.07A8 8 0 008.98 17z"/><path fill="#FBBC05" d="M4.5 10.52a4.8 4.8 0 010-3.04V5.41H1.83a8 8 0 000 7.18l2.67-2.07z"/><path fill="#EA4335" d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 001.83 5.4L4.5 7.49a4.77 4.77 0 014.48-3.31z"/></svg>
@@ -1402,9 +1362,8 @@ a{text-decoration:none;color:var(--purple)}
 </div>
 </div>
 
-<!-- ══ LOGIN ══ -->
 <div id="login" class="screen">
-  <div style="background:var(--surface);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem;position:relative;overflow:hidden">
+  <div style="background:var(--surface);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem;position:relative;overflow:hidden;width:100%;">
     <div style="position:absolute;top:0;left:0;right:0;height:260px;background:var(--grad-hero);clip-path:ellipse(120% 100% at 50% 0%)"></div>
     <div style="width:100%;max-width:420px;position:relative;z-index:1;margin-top:2.5rem">
       <div style="display:flex;align-items:center;gap:10px;font-family:Syne,sans-serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:2rem;justify-content:center">
@@ -1427,9 +1386,7 @@ a{text-decoration:none;color:var(--purple)}
   </div>
 </div>
 
-<!-- ══ APP ══ -->
 <div id="app" class="screen">
-  <!-- Sidebar -->
   <div class="sidebar">
     <div class="sblogo"><div class="sblm">⚡</div><div class="sblt">Workable</div></div>
     <div class="sbsec">
@@ -1463,8 +1420,7 @@ a{text-decoration:none;color:var(--purple)}
     </div>
   </div>
 
-  <!-- Mobile nav -->
-<div class="mob-header">
+  <div class="mob-header">
     <div style="display:flex;align-items:center;gap:10px;font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--ink)">
       <div class="sblm" style="width:30px;height:30px;font-size:14px;">⚡</div>Workable
     </div>
@@ -1486,16 +1442,14 @@ a{text-decoration:none;color:var(--purple)}
 
   <div class="main">
 
-    <!-- ── DASHBOARD ── -->
     <div class="page active" id="page-dashboard">
       <div class="phead">
         <div><h1 class="ptitle" id="dhi">Good morning 👋</h1><p class="psub" id="dsub">Your performance overview</p></div>
         <button class="btn-gold" onclick="nav('checkin')">✅ Check in now</button>
       </div>
-      <!-- Streak banner (hidden until streak > 2) -->
-      <div id="streak-banner" style="display:none;background:linear-gradient(135deg,var(--amber),#FF6B35);border-radius:var(--r2);padding:1rem 1.4rem;margin-bottom:1.25rem;display:none;align-items:center;gap:12px;color:#fff">
-        <div style="font-size:2rem">🔥</div>
-        <div><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700" id="streak-msg">You're on a streak!</div><div style="font-size:13px;opacity:.85" id="streak-sub">Keep checking in every day.</div></div>
+      <div id="streak-banner" class="streak-banner">
+        <div class="streak-fire">🔥</div>
+        <div><div class="streak-text" id="streak-msg">You're on a streak!</div><div class="streak-sub" id="streak-sub">Keep checking in every day.</div></div>
       </div>
       <div class="kgrid" id="dkpis"></div>
       <div class="two">
@@ -1513,7 +1467,6 @@ a{text-decoration:none;color:var(--purple)}
       </div>
     </div>
 
-    <!-- ── CHECK-IN ── -->
     <div class="page" id="page-checkin">
       <div class="phead">
         <div class="phead-left">
@@ -1552,8 +1505,6 @@ a{text-decoration:none;color:var(--purple)}
           <button class="btp-gold" onclick="submitCI()" id="ci-submit-btn" style="display:block;width:100%;margin-top:0">Submit Daily Check-In →</button>
         </div>
         <div id="cisuccess" style="display:none;margin-top:1rem">
-
-          <!-- ── ASSESSMENT HEADER ── -->
           <div style="background:var(--grad-hero);border-radius:var(--r2);padding:1.5rem;margin-bottom:1rem;position:relative;overflow:hidden">
             <div style="position:absolute;top:-20px;right:-20px;width:100px;height:100px;border-radius:50%;background:rgba(201,162,39,.15)"></div>
             <div style="display:flex;align-items:center;gap:12px;margin-bottom:.75rem">
@@ -1573,26 +1524,20 @@ a{text-decoration:none;color:var(--purple)}
             </div>
           </div>
 
-          <!-- ── AI NARRATIVE ── -->
           <div class="card" style="border-left:4px solid var(--purple)">
-            <div class="chead"><span class="ctitle" style="color:var(--purple)">✦Performance Analysis</span></div>
+            <div class="chead"><span class="ctitle" style="color:var(--purple)">✦ Performance Analysis</span></div>
             <div id="ciaiResp" style="font-size:14px;color:var(--ink2);line-height:1.8;min-height:60px">
               <span style="color:var(--ink4);font-style:italic">Your personalized assessment is being generated.…</span>
             </div>
           </div>
 
-          <!-- ── SIGNAL CARDS ── -->
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem" id="assess-signals">
-            <!-- Filled dynamically -->
-          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem" id="assess-signals"></div>
 
-          <!-- ── RECOMMENDATION ── -->
           <div class="card" style="border-left:4px solid var(--gold);display:none" id="assess-rec-card">
             <div class="chead"><span class="ctitle" style="color:var(--gold-dark)">💡 Priority Recommendation</span></div>
             <div id="assess-rec" style="font-size:14px;color:var(--ink2);line-height:1.7"></div>
           </div>
 
-          <!-- ── GOAL PULSE ── -->
           <div class="card" id="assess-goal-card" style="display:none">
             <div class="chead"><span class="ctitle">🎯 Goal Pulse</span><span id="assess-goal-pct" style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:var(--purple)"></span></div>
             <div style="font-size:12px;color:var(--ink3);margin-bottom:.75rem" id="assess-goal-text"></div>
@@ -1601,7 +1546,6 @@ a{text-decoration:none;color:var(--purple)}
             </div>
           </div>
 
-          <!-- ── ACTIONS ── -->
           <div style="display:flex;gap:10px;margin-top:.5rem;flex-wrap:wrap">
             <button onclick="nav('dashboard')" style="flex:1;background:var(--grad-purple);color:#fff;border:none;padding:13px 20px;border-radius:var(--r);font-size:14px;font-weight:600;box-shadow:0 2px 12px rgba(92,45,145,.25)">View Dashboard →</button>
             <button onclick="resetCI()" style="background:var(--surface2);color:var(--ink3);border:1.5px solid var(--surface3);padding:13px 20px;border-radius:var(--r);font-size:14px;font-weight:600">Check in again</button>
@@ -1610,7 +1554,6 @@ a{text-decoration:none;color:var(--purple)}
       </div>
     </div>
 
-    <!-- ── MY TRACK ── -->
     <div class="page" id="page-mytrack">
       <div class="phead">
         <div class="phead-left">
@@ -1630,52 +1573,38 @@ a{text-decoration:none;color:var(--purple)}
       </div>
     </div>
 
-    <!-- ── TEAM (employer) ── -->
     <div class="page" id="page-team">
       <div class="phead">
         <div><h1 class="ptitle">Team overview 👥</h1><p class="psub">Live workforce performance</p></div>
         <button onclick="openInvite()" style="background:var(--purple);color:#fff;border:none;border-radius:var(--r);padding:11px 20px;font-size:13px;font-weight:600">+ Invite employee</button>
       </div>
-  
-  <div class="card">
-    <table class="team-table">
-      <thead>
-        <tr><th>Member</th><th>Role</th><th>Last Score</th><th>Last Activity</th></tr>
-      </thead>
-      <tbody>
-        </tbody>
-    </table>
-  </div>
-</div>
+      <div class="card">
+        <table class="team-table">
+          <thead>
+            <tr><th>Member</th><th>Role</th><th>Last Score</th><th>Last Activity</th></tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
       <div class="kgrid">
         <div class="kpi"><div class="kpic" style="background:var(--purple-light)">👥</div><div class="kpiv">0</div><div class="kpil">Active employees</div><div class="kpid fl">Invite your team</div></div>
         <div class="kpi"><div class="kpic" style="background:var(--green-light)">✅</div><div class="kpiv">—</div><div class="kpil">Check-in rate</div><div class="kpid fl">No data yet</div></div>
         <div class="kpi"><div class="kpic" style="background:var(--amber-light)">📊</div><div class="kpiv">—</div><div class="kpil">Avg output score</div><div class="kpid fl">No data yet</div></div>
         <div class="kpi"><div class="kpic" style="background:var(--red-light)">🚧</div><div class="kpiv">0</div><div class="kpil">Open blockers</div><div class="kpid up">All clear</div></div>
       </div>
-      <div class="card">
-        <div class="chead"><span class="ctitle">Team members</span></div>
-        <div class="empty" style="padding:2rem 0">
-          <div class="eicon">👥</div>
-          <div class="etitle">No team members yet</div>
-          <div class="esub">Invite your first employee. They'll get an onboarding link and set up their own personalised track.</div>
-          <button onclick="openInvite()" class="btn-action">+ Invite First Employee</button>
-        </div>
-      </div>
     </div>
 
-    <!-- ── ALERTS ── -->
     <div class="page" id="page-alerts">
       <div class="phead">
         <div class="phead-left">
           <button class="back-btn" onclick="nav('team')" title="Back">←</button>
-          <div><h1 class="ptitle">Alerts & Signals</h1><p class="psub">workable-detected workforce risk signals — confidential to managers</p></div>
+          <div><h1 class="ptitle">Alerts & Signals</h1><p class="psub">Workable-detected workforce risk signals</p></div>
         </div>
       </div>
-      <div class="empty"><div class="eicon">🎉</div><div class="etitle">All clear!</div><div class="esub">No alerts right now. Workable will notify you when it detects burnout signals, disengagement, or declining output patterns — before they become problems.</div></div>
+      <div class="empty"><div class="eicon">🎉</div><div class="etitle">All clear!</div><div class="esub">No alerts right now. Workable will notify you when it detects burnout signals, disengagement, or declining output patterns.</div></div>
     </div>
 
-    <!-- ── ASK AI ── -->
     <div class="page" id="page-ai">
       <div class="phead">
         <div class="phead-left">
@@ -1695,7 +1624,6 @@ a{text-decoration:none;color:var(--purple)}
       </div>
     </div>
 
-    <!-- ── COMMUNITY ── -->
     <div class="page" id="page-community">
       <div class="phead">
         <div class="phead-left">
@@ -1712,7 +1640,6 @@ a{text-decoration:none;color:var(--purple)}
       </div>
     </div>
 
-    <!-- ── REPORTS ── -->
     <div class="page" id="page-reports">
       <div class="phead"><div><h1 class="ptitle">Reports 📊</h1><p class="psub">Auto-generated from your real check-in data</p></div></div>
       <div id="rempty" class="empty"><div class="eicon">📊</div><div class="etitle">No data yet</div><div class="esub">Complete at least 3 daily check-ins and Workable will generate your first performance report.</div><button onclick="nav('checkin')" style="background:var(--purple);color:#fff;border:none;border-radius:var(--r);padding:13px 24px;font-size:14px;font-weight:600">Start checking in</button></div>
@@ -1725,7 +1652,6 @@ a{text-decoration:none;color:var(--purple)}
       </div>
     </div>
 
-    <!-- ── PROFILE ── -->
     <div class="page" id="page-profile">
       <div class="phead"><div><h1 class="ptitle">Profile 👤</h1><p class="psub">Your Workable identity and stats</p></div></div>
       <div style="max-width:680px">
@@ -1759,7 +1685,6 @@ a{text-decoration:none;color:var(--purple)}
       </div>
     </div>
 
-    <!-- ── SETTINGS ── -->
     <div class="page" id="page-settings">
       <div class="phead"><div><h1 class="ptitle">Settings ⚙️</h1><p class="psub">Manage your Workable experience</p></div></div>
       <div style="max-width:580px">
@@ -1767,27 +1692,18 @@ a{text-decoration:none;color:var(--purple)}
           <div class="chead"><span class="ctitle">Account</span></div>
           <div class="fld"><label>Display name</label><input type="text" id="set-name" placeholder="Your name"></div>
           <div class="fld"><label>Company / organisation</label><input type="text" id="set-company" placeholder="Your company"></div>
+          <div class="fld"><label>Role / Title</label><input type="text" id="set-role" placeholder="Your role"></div>
           <div class="fld"><label>Monthly goal</label><textarea id="set-goal" rows="2" placeholder="Your goal this month..."></textarea></div>
           <button onclick="saveSettings()" style="background:var(--purple);color:#fff;border:none;padding:12px 22px;border-radius:var(--r);font-size:14px;font-weight:600;margin-top:.5rem">Save changes</button>
         </div>
-        <div class="card">
-          <div class="chead"><span class="ctitle">Notifications</span></div>
-          <div class="settings-item"><div><div class="settings-label">Daily check-in reminder</div><div class="settings-sub">Remind me every weekday at 9am</div></div><label class="toggle-sw"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
-          <div class="settings-item"><div><div class="settings-label">Weekly AI report</div><div class="settings-sub">Auto-generate my report every Friday</div></div><label class="toggle-sw"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
-          <div class="settings-item"><div><div class="settings-label">Community activity</div><div class="settings-sub">Notify me when someone likes my post</div></div><label class="toggle-sw"><input type="checkbox"><span class="toggle-slider"></span></label></div>
-        </div>
-        <div class="card">
-          <div class="chead"><span class="ctitle">Privacy</span></div>
-          <div class="settings-item"><div><div class="settings-label">Share check-ins to community by default</div><div class="settings-sub">You can always change this per check-in</div></div><label class="toggle-sw"><input type="checkbox"><span class="toggle-slider"></span></label></div>
-          <div class="settings-item"><div><div class="settings-label">Show my profile in community</div><div class="settings-sub">Others can see your name and role in posts</div></div><label class="toggle-sw"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
-        </div>
+        
         <div class="card">
           <div class="chead"><span class="ctitle">API connection</span></div>
-
           <div class="fld"><label>OpenRouter API key (stored in browser only)</label><input type="password" id="set-apikey" placeholder="sk-or-v1-...">
-          <button onclick="saveApiKey()" style="background:var(--purple);color:#fff;border:none;padding:12px 22px;border-radius:var(--r);font-size:14px;font-weight:600">Save API key</button>
+          <button onclick="saveApiKey()" style="background:var(--purple);color:#fff;border:none;padding:12px 22px;border-radius:var(--r);font-size:14px;font-weight:600;margin-top:.5rem">Save API key</button>
           <div id="api-status" style="font-size:12px;margin-top:.5rem;color:var(--ink3)"></div>
         </div>
+        
         <div class="card">
           <div class="chead"><span class="ctitle">Data</span></div>
           <div class="settings-item"><div><div class="settings-label">Export my data</div><div class="settings-sub">Download all your check-ins as JSON</div></div><button onclick="exportData()" style="background:var(--surface);border:1.5px solid var(--surface2);border-radius:var(--r);padding:7px 14px;font-size:12px;font-weight:600;color:var(--ink2)">Export</button></div>
@@ -1796,12 +1712,7 @@ a{text-decoration:none;color:var(--purple)}
       </div>
     </div>
 
-  </div><!-- /main -->
-</div><!-- /app -->
-
-<!-- Invite modal -->
-<!-- Invite modal (WhatsApp & Link) -->
-<div id="invmodal" style="display:none;position:fixed;inset:0;background:rgba(14,14,20,.55);z-index:100;align-items:center;justify-content:center;padding:1rem">
+  </div></div><div id="invmodal" style="display:none;position:fixed;inset:0;background:rgba(14,14,20,.55);z-index:100;align-items:center;justify-content:center;padding:1rem">
   <div style="background:var(--white);border-radius:var(--r2);padding:2rem;width:100%;max-width:440px;animation:riseUp .25s ease both">
     <h3 style="font-family:'Syne',sans-serif;font-size:1.25rem;margin-bottom:.35rem">Invite your team</h3>
     <p style="font-size:13px;color:var(--ink3);margin-bottom:1.25rem">Share this link with your employees. When they sign up, they will automatically be linked to your manager dashboard.</p>
@@ -1815,15 +1726,12 @@ a{text-decoration:none;color:var(--purple)}
 
     <div style="display:flex;flex-direction:column;gap:10px;margin-top:1.5rem">
       <button onclick="shareWhatsApp()" style="background:#25D366;color:#fff;border:none;border-radius:var(--r);padding:13px;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 12px rgba(37,211,102,.3)">
-        <!-- WhatsApp Icon -->
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 0C5.385 0 0 5.384 0 12.032c0 2.645.688 5.176 1.996 7.425L.226 24l4.675-1.226C7.078 23.945 9.516 24.062 12.031 24.062c6.645 0 12.03-5.383 12.03-12.03S18.676 0 12.031 0zm0 22.03c-2.227 0-4.414-.59-6.326-1.714l-.453-.268-3.473.91.928-3.385-.295-.468C1.272 15.19 0 13.064 0 12.032 0 5.412 5.413 0 12.031 0c6.618 0 12.03 5.412 12.03 12.032 0 6.618-5.412 12.03-12.03 12.03zm6.602-8.99c-.361-.182-2.144-1.06-2.476-1.182-.331-.12-5.72-.182-.812.091-.091.272-.361 1.06-2.477 1.06-.211 0-.422-.03-.693-.151-1.636-.725-3.368-2.072-4.664-3.834-.271-.371-.06-.572.12-.752.17-.17.362-.423.543-.634.181-.212.241-.362.361-.603.12-.241.06-.452-.03-.633-.09-.182-.812-1.958-1.113-2.682-.291-.702-.592-.602-.812-.612-.211-.01-.452-.01-.693-.01-.241 0-.633.09-.964.451-.331.362-1.265 1.236-1.265 3.014 0 1.778 1.295 3.496 1.476 3.737.181.242 2.56 3.918 6.173 5.485 2.41 1.054 3.32.964 4.074.813.754-.15 2.144-.874 2.445-1.718.301-.843.301-1.565.211-1.717-.091-.151-.332-.241-.693-.422z"/></svg>
         Send via WhatsApp
       </button>
-      
       <button onclick="copyInviteLink()" style="background:var(--surface);color:var(--ink);border:1.5px solid var(--surface3);border-radius:var(--r);padding:13px;font-size:14px;font-weight:600">
         📋 Copy Invite Link
       </button>
-      
       <button onclick="closeInvite()" style="background:transparent;color:var(--ink3);border:none;padding:8px;font-size:13px;margin-top:.25rem;cursor:pointer">
         Cancel
       </button>
@@ -1831,15 +1739,12 @@ a{text-decoration:none;color:var(--purple)}
   </div>
 </div>
 
-<!-- Toast -->
-<div class="toast" id="toast"><span class="toast-ic" id="toast-ic">🔥</span><span id="toast-msg">Toast message</span></div>
+<div class="toast" id="toast"><span class="toast-ic" id="toast-ic">🔥</span><span id="toast-msg" style="margin-left: 8px;">Toast message</span></div>
 
 <script>
-const PROXY_URL = null; // Set to your Cloudflare Worker URL
+// FIX: Declare jdPath explicitly
+let jdPath = 'title';
 
-// ── FIREBASE CONFIG ──────────────────────────────────────────────────────────
-// Get these values from: console.firebase.google.com
-// → Your project → Project Settings → "Your apps" → Web app → firebaseConfig
 const FIREBASE_CONFIG = {
   apiKey:            "AIzaSyCtYnisVl-LuEbNCAMjrsFBnWII-06ybh0",
   authDomain:        "workable-ac89e.firebaseapp.com",
@@ -1849,20 +1754,15 @@ const FIREBASE_CONFIG = {
   appId:             "1:599796161240:web:8a22bbcd4c853a457a15ad"
 };
 
-let fbApp = null;
-let fbAuth = null;
-let fbDb = null;
-let currentUser = null;
+let fbApp = null, fbAuth = null, fbDb = null, currentUser = null;
 
 function initSupabase(){
-  // Called initSupabase for compatibility — actually inits Firebase
   if(typeof firebase === 'undefined') return;
-  if(FIREBASE_CONFIG.apiKey === 'YOUR_API_KEY') return; // not configured yet
+  if(FIREBASE_CONFIG.apiKey === 'YOUR_API_KEY') return;
   try{
     fbApp  = firebase.initializeApp(FIREBASE_CONFIG);
     fbAuth = firebase.auth();
     fbDb   = firebase.firestore();
-    // Listen for auth state changes — auto-restore session on page load
     fbAuth.onAuthStateChanged(async (user) => {
       if(user && !currentUser){
         currentUser = user;
@@ -1872,24 +1772,20 @@ function initSupabase(){
         }
       }
     });
-    console.log('Workable: Firebase initialised');
   } catch(e){ console.warn('Firebase init error:',e); }
 }
 
-// Helper — is Firebase ready?
 const db = { ready: () => !!fbDb && !!currentUser };
 
-// ── FIREBASE AUTH ─────────────────────────────────────────────────────────────
-
 async function sbSignUp(email, password){
-  if(!fbAuth) throw new Error('Firebase not configured. Add your firebaseConfig values.');
+  if(!fbAuth) throw new Error('Firebase not configured.');
   const cred = await fbAuth.createUserWithEmailAndPassword(email, password);
   currentUser = cred.user;
   return cred.user;
 }
 
 async function sbSignIn(email, password){
-  if(!fbAuth) throw new Error('Firebase not configured. Add your firebaseConfig values.');
+  if(!fbAuth) throw new Error('Firebase not configured.');
   const cred = await fbAuth.signInWithEmailAndPassword(email, password);
   currentUser = cred.user;
   return cred.user;
@@ -1911,21 +1807,6 @@ async function sbSignOut(){
   goTo('landing');
   showToast('👋','Signed out successfully.');
 }
-
-async function sbGetSession(){
-  // With Firebase, session is handled by onAuthStateChanged
-  // Return current user if already signed in
-  return new Promise((resolve) => {
-    if(!fbAuth){ resolve(null); return; }
-    const unsubscribe = fbAuth.onAuthStateChanged(user => {
-      unsubscribe();
-      currentUser = user || null;
-      resolve(user || null);
-    });
-  });
-}
-
-// ── FIREBASE PROFILE ──────────────────────────────────────────────────────────
 
 async function sbSaveProfile(){
   if(!fbDb || !currentUser) return;
@@ -1957,31 +1838,21 @@ async function sbLoadProfile(){
 
 async function sbUpsertCompany(name){
   if(!fbDb) return null;
-  // Check if employer already has a company
   const existing = await fbDb.collection('companies')
     .where('owner_uid', '==', currentUser.uid).limit(1).get();
   if(!existing.empty) return existing.docs[0].id;
-  // Create new company with invite code
   const code = Math.random().toString(36).slice(2,8).toUpperCase();
   const ref = await fbDb.collection('companies').add({
-    name, code,
-    owner_uid:  currentUser.uid,
-    created_at: firebase.firestore.FieldValue.serverTimestamp()
+    name, code, owner_uid: currentUser.uid, created_at: firebase.firestore.FieldValue.serverTimestamp()
   });
   S.companyCode = code;
   return ref.id;
 }
 
-// ── FIREBASE TRACK FIELDS ─────────────────────────────────────────────────────
-
 async function sbSaveTrackFields(){
   if(!fbDb || !currentUser) return;
-  // Store track fields as a single document (simpler than a sub-collection)
   await fbDb.collection('profiles').doc(currentUser.uid).set({
-    track_fields: S.trackFields.map((f,i) => ({
-      id: f.id, label: f.label, type: f.type,
-      why: f.why || '', position: i
-    }))
+    track_fields: S.trackFields.map((f,i) => ({ id: f.id, label: f.label, type: f.type, why: f.why || '', position: i }))
   }, { merge: true });
 }
 
@@ -1992,31 +1863,20 @@ async function sbLoadTrackFields(){
   return doc.data().track_fields || [];
 }
 
-// ── FIREBASE CHECK-INS ────────────────────────────────────────────────────────
-
 async function sbSaveCheckin(ci){
   if(!fbDb || !currentUser) return;
-  const docId = `${currentUser.uid}_${ci.date}`; // one per user per day
+  const docId = `${currentUser.uid}_${ci.date}`;
   const fieldData = Object.fromEntries(
     Object.entries(ci).filter(([k]) => !['date','_s','flag','_shared'].includes(k))
   );
   await fbDb.collection('checkins').doc(docId).set({
-    uid:        currentUser.uid,
-    date:       ci.date,
-    score:      ci._s || 70,
-    flag_text:  ci.flag || '',
-    shared:     ci._shared || false,
-    field_data: fieldData,
-    created_at: firebase.firestore.FieldValue.serverTimestamp()
+    uid: currentUser.uid, date: ci.date, score: ci._s || 70, flag_text: ci.flag || '', shared: ci._shared || false, field_data: fieldData, created_at: firebase.firestore.FieldValue.serverTimestamp()
   }, { merge: true });
 }
 
 async function sbLoadCheckins(){
   if(!fbDb || !currentUser) return [];
-  const snap = await fbDb.collection('checkins')
-    .where('uid', '==', currentUser.uid)
-    .orderBy('date', 'asc')
-    .get();
+  const snap = await fbDb.collection('checkins').where('uid', '==', currentUser.uid).orderBy('date', 'asc').get();
   return snap.docs.map(doc => {
     const d = doc.data();
     return { date: d.date, _s: d.score, flag: d.flag_text, ...d.field_data };
@@ -2028,53 +1888,25 @@ async function sbLoadTeam(){
   const profile = await sbLoadProfile();
   if(!profile?.company_id) return [];
   
-  // Fetch team members
-  const snap = await fbDb.collection('profiles')
-    .where('company_id', '==', profile.company_id)
-    .where('role', '==', 'employee')
-    .get();
-
+  const snap = await fbDb.collection('profiles').where('company_id', '==', profile.company_id).where('role', '==', 'employee').get();
   const team = [];
   for (const doc of snap.docs) {
     const member = doc.data();
-    // Fetch their latest check-in
-    const lastCI = await fbDb.collection('checkins')
-      .where('uid', '==', member.uid)
-      .orderBy('date', 'desc')
-      .limit(1)
-      .get();
-      
-    team.push({
-      ...member,
-      lastScore: !lastCI.empty ? lastCI.docs[0].data().score : '—',
-      lastDate: !lastCI.empty ? lastCI.docs[0].data().date : 'Never'
-    });
+    const lastCI = await fbDb.collection('checkins').where('uid', '==', member.uid).orderBy('date', 'desc').limit(1).get();
+    team.push({ ...member, lastScore: !lastCI.empty ? lastCI.docs[0].data().score : '—', lastDate: !lastCI.empty ? lastCI.docs[0].data().date : 'Never' });
   }
   return team;
 }
 
-// ── FIREBASE COMMUNITY ────────────────────────────────────────────────────────
-
 async function sbLoadPosts(){
   if(!fbDb) return [];
-  const snap = await fbDb.collection('community_posts')
-    .orderBy('created_at', 'desc')
-    .limit(50)
-    .get();
+  const snap = await fbDb.collection('community_posts').orderBy('created_at', 'desc').limit(50).get();
   return snap.docs.map(doc => {
     const d = doc.data();
     return {
-      id:       doc.id,
-      author:   d.author_name,
-      role:     d.author_role || '',
-      company:  d.company_name || '',
-      color:    FCOLORS[Math.abs(doc.id.charCodeAt(0)) % FCOLORS.length],
-      text:     d.body,
-      tags:     d.tags || [],
-      likes:    d.likes || 0,
-      liked:    false,
-      time:     timeAgo(d.created_at?.toDate?.() || new Date()),
-      checkins: d.checkin_count || 0
+      id: doc.id, author: d.author_name, role: d.author_role || '', company: d.company_name || '',
+      color: FCOLORS[Math.abs(doc.id.charCodeAt(0)) % FCOLORS.length], text: d.body, tags: d.tags || [],
+      likes: d.likes || 0, liked: false, time: timeAgo(d.created_at?.toDate?.() || new Date()), checkins: d.checkin_count || 0
     };
   });
 }
@@ -2082,15 +1914,8 @@ async function sbLoadPosts(){
 async function sbCreatePost(post){
   if(!fbDb || !currentUser) return null;
   const ref = await fbDb.collection('community_posts').add({
-    uid:           currentUser.uid,
-    author_name:   post.author,
-    author_role:   post.role   || '',
-    company_name:  post.company || '',
-    body:          post.text,
-    tags:          post.tags   || [],
-    checkin_count: post.checkins || 0,
-    likes:         0,
-    created_at:    firebase.firestore.FieldValue.serverTimestamp()
+    uid: currentUser.uid, author_name: post.author, author_role: post.role || '', company_name: post.company || '',
+    body: post.text, tags: post.tags || [], checkin_count: post.checkins || 0, likes: 0, created_at: firebase.firestore.FieldValue.serverTimestamp()
   });
   return { ...post, id: ref.id };
 }
@@ -2111,17 +1936,10 @@ async function sbToggleLike(postId){
   }
 }
 
-// ── FULL STATE RESTORE ────────────────────────────────────────────────────────
-
 async function sbRestoreState(){
   try{
-    sbShowLoader('Restoring your workspace…');
-    const [profile, fields, checkins] = await Promise.all([
-      sbLoadProfile(),
-      sbLoadTrackFields(),
-      sbLoadCheckins()
-    ]);
-    if(!profile){ sbHideLoader(); return false; }
+    const [profile, fields, checkins] = await Promise.all([ sbLoadProfile(), sbLoadTrackFields(), sbLoadCheckins() ]);
+    if(!profile) return false;
     S.name             = profile.full_name      || '';
     S.role             = profile.role           || 'employee';
     S.company          = profile.company_name   || '';
@@ -2132,35 +1950,8 @@ async function sbRestoreState(){
     S.trackFields      = fields.length ? fields : DFIELDS.map(f=>({...f}));
     S.checkins         = checkins;
     S.daysActive       = new Set(checkins.map(c=>c.date)).size;
-    sbHideLoader();
     return true;
-  } catch(e){
-    sbHideLoader();
-    console.error('Firebase restore error:', e);
-    return false;
-  }
-}
-
-function sbShowLoader(msg='Loading…'){
-  let el = document.getElementById('sb-loader');
-  if(!el){
-    el = document.createElement('div');
-    el.id = 'sb-loader';
-    el.style.cssText = 'position:fixed;inset:0;background:rgba(247,246,255,.95);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px';
-    el.innerHTML = `
-      <div style="width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#5C2D91,#C9A227);display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 8px 32px rgba(92,45,145,.3)">⚡</div>
-      <div id="sb-loader-msg" style="font-family:Syne,sans-serif;font-size:16px;font-weight:700;color:#1B1040">${msg}</div>
-      <div style="width:40px;height:40px;border:3px solid #EDE4F8;border-top-color:#5C2D91;border-radius:50%;animation:spin .7s linear infinite"></div>`;
-    document.body.appendChild(el);
-  } else {
-    document.getElementById('sb-loader-msg').textContent = msg;
-    el.style.display = 'flex';
-  }
-}
-
-function sbHideLoader(){
-  const el = document.getElementById('sb-loader');
-  if(el) el.style.display = 'none';
+  } catch(e){ console.error('Firebase restore error:', e); return false; }
 }
 
 function timeAgo(iso){
@@ -2179,7 +1970,6 @@ const DFIELDS = [
   {id:'d5',label:'Most significant achievement today',type:'Text'},
 ];
 
-// Industry-specific KPI suggestions for the deliverables panel
 const INDUSTRY_DELIVERABLES = {
   'Mining & Natural Resources': ['Zero LTI days','Safety inspection rate','Equipment uptime %','Shift compliance reports','Hazard observations logged','PPE adherence rate'],
   'Agriculture & Food Systems': ['Hectares monitored','Yield vs target','Irrigation compliance','Pest/disease reports filed','Harvest quality score','Input cost per unit'],
@@ -2195,7 +1985,6 @@ const INDUSTRY_DELIVERABLES = {
   'default': ['Key deliverables completed','Stakeholder satisfaction','Quality of output','Strategic tasks progressed','Learning & development','Process improvements made'],
 };
 
-// Goal suggestions per industry
 const INDUSTRY_GOALS = {
   'Mining & Natural Resources': ['Achieve zero LTIs across all shifts this month','Maintain 98%+ safety inspection completion rate','Reduce equipment downtime by 15% through proactive checks'],
   'Healthcare & Medicine': ['Complete 100% of clinical documentation on the same day as patient contact','Reduce medication error rate to zero for the quarter','Improve patient handover completeness score above 95%'],
@@ -2204,6 +1993,7 @@ const INDUSTRY_GOALS = {
   'Agriculture & Food Systems': ['Achieve target yield within 5% of projection across all monitored plots','Reduce input cost per hectare by 10% through precision scheduling','File daily field reports with zero missed submissions this season'],
   'default': ['Deliver all key responsibilities at or above target with zero critical misses','Reduce my top blocker by 50% through proactive communication','Build a daily check-in streak of 20+ consecutive working days'],
 };
+
 const DEFAULT_STATE = {
   role:'employee', name:'', company:'',
   jdText:'', detectedRole:'', detectedIndustry:'',
@@ -2213,7 +2003,6 @@ const DEFAULT_STATE = {
 };
 
 let S = {...DEFAULT_STATE};
-
 const FCOLORS = ['#5B3FF8','#00C896','#FF9F1C','#3B82F6','#EC4899','#8B5CF6'];
 const CTAGS   = ['💪 Win','📚 Lesson','🚀 Milestone','🤝 Teamwork','💡 Insight','🔥 Streak'];
 const SAMPLE_POSTS = [
@@ -2222,22 +2011,19 @@ const SAMPLE_POSTS = [
   {id:3,author:'John Bangura',role:'Field Coordinator',company:'AgriServe SL',color:'#FF9F1C',text:'First month on Workable: blocker rate down 40%→15%, field coverage up 25%, and my manager now knows what I face every single day without me writing long reports. The data speaks for itself 📊',tags:['🚀 Milestone','💪 Win'],likes:31,liked:false,time:'1d ago',checkins:28},
 ];
 
-// ── NAVIGATION ───────────────────────────────────────────────────────────────
 function goTo(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
-  async function renderTeamTable() {
+
+async function renderTeamTable() {
   const tbody = document.querySelector('.team-table tbody');
-  if(!tbody) return; // Safety check
-  
+  if(!tbody) return;
   const team = await sbLoadTeam();
-  
   if (team.length === 0) {
     tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:20px; color:var(--ink3);">No team members found.</td></tr>';
     return;
   }
-
   tbody.innerHTML = team.map(m => `
     <tr>
       <td class="team-name">
@@ -2250,12 +2036,11 @@ function goTo(id){
     </tr>
   `).join('');
 }
-     // Toggle Hamburger Menu
+
 function toggleMenu() {
   const menu = document.getElementById('mobnav');
   const btn = document.querySelector('.hamburger');
   menu.classList.toggle('open');
-  // Change icon to 'X' when open, back to '☰' when closed
   btn.textContent = menu.classList.contains('open') ? '✕' : '☰';
 }
 
@@ -2263,22 +2048,18 @@ function nav(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   
-  // Sidebar active state
   document.querySelectorAll('.sbi').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.sbi').forEach(b=>{if(b.textContent.toLowerCase().includes(id.slice(0,5)))b.classList.add('active');});
   
-  // Mobile nav active state
   document.querySelectorAll('.mni').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.mni').forEach(b=>{if(b.textContent.toLowerCase().includes(id.slice(0,4)))b.classList.add('active');});
 
-  // 👇 ADDED THIS BLOCK: Close the mobile menu when a link is clicked 👇
   const menu = document.getElementById('mobnav');
   const btn = document.querySelector('.hamburger');
   if (menu && menu.classList.contains('open')) {
     menu.classList.remove('open');
     if (btn) btn.textContent = '☰';
   }
-  // 👆 --------------------------------------------------------------- 👆
 
   if(id==='checkin') initCheckin();
   if(id==='community') loadAndRenderFeed();
@@ -2286,10 +2067,22 @@ function nav(id){
   if(id==='profile') renderProfile();
   if(id==='settings') initSettings();
   if(id==='dashboard') refreshDashboard();
-  
-  // ADD THIS LINE:
   if(id==='team') renderTeamTable();
 }
+
+// FIX: New function to manage proper onboarding steps
+function setOB(n) {
+  document.querySelectorAll('.obc').forEach(c => c.classList.remove('active'));
+  const target = document.getElementById('ob' + n);
+  if (target) target.classList.add('active');
+
+  const ops = document.querySelectorAll('.ops');
+  ops.forEach((op, idx) => {
+    if (idx <= n) op.classList.add('done');
+    else op.classList.remove('done');
+  });
+}
+
 function pickRole(r,el){
   S.role=r;
   document.querySelectorAll('.rgrid .rcard').forEach(c=>c.classList.remove('sel'));
@@ -2303,25 +2096,20 @@ function pickPerf(level,el){
   document.getElementById('ob-perf-level').value=level;
 }
 
-// ── JD PATH SELECTION ─────────────────────────────────────────────────────────
 function showJDPath(path, cardEl){
   jdPath=path;
-  // Reset all path cards
   document.querySelectorAll('#jd-path-select .rcard').forEach(c=>c.classList.remove('sel'));
   cardEl.classList.add('sel');
-  // Update radio indicators
   ['upload','guided','title'].forEach(p=>{
     const r=document.getElementById('path-radio-'+p);
     if(r) r.style.background=p===path?'var(--purple)':'';
   });
-  // Show/hide path sections
   document.getElementById('path-upload').style.display=path==='upload'?'block':'none';
   document.getElementById('path-guided').style.display=path==='guided'?'block':'none';
   document.getElementById('path-title').style.display=path==='title'?'block':'none';
   document.getElementById('ob1btn').style.display='block';
 }
 
-// ── MAIN ONBOARDING FLOW ──────────────────────────────────────────────────────
 async function obStep(n){
   if(n===0){
     const fname=document.getElementById('ob-fname').value.trim();
@@ -2384,40 +2172,30 @@ Please infer typical responsibilities, KPIs, and daily tasks for this role.`;
   }
 }
 
-// ── GENERATE TRACK ────────────────────────────────────────────────────────────
 async function genTrack(jdContent,pill,pt){
-  const prompt=`You are Workable, a professional performance intelligence system used by executives, managers, and high-performing individual contributors globally.
-
-A user has provided their role profile. Build a precise, professional daily check-in track for them.
-
+  const prompt=`You are Workable. A user has provided their role profile. Build a precise daily check-in track for them.
 ROLE PROFILE:
 ${jdContent.slice(0,3000)}
-
 USER INDUSTRY: ${S.detectedIndustry||'Not specified'}
-
-RESPOND ONLY with valid JSON — no markdown, no preamble:
+RESPOND ONLY with valid JSON — no markdown:
 {
   "roleTitle": "Precise professional title",
   "industry": "Industry sector",
   "seniority": "junior|mid|senior|executive",
   "deliverables": ["3-5 key professional deliverables typical for this role"],
   "fields": [
-    {"label": "Concise field label (max 5 words)", "type": "Number|Yes/No|Rating 1-5|Text", "why": "One sentence: why this matters for their role"}
+    {"label": "Concise field label", "type": "Number|Yes/No|Rating 1-5|Text", "why": "One sentence: why this matters"}
   ]
-}
-
-FIELD RULES — follow these precisely:
-- Number: for anything countable (tasks done, clients called, units processed, reports filed, km covered)
-- Yes/No: for binary completions (shift report submitted, safety check done, SLA met, handover completed)
-- Rating 1-5: for quality or difficulty judgements (output quality, collaboration effectiveness, energy level, complexity)
-- Text: for open professional observations (key win, main obstacle, notes for manager, strategic insight)
-- Generate 6-8 fields. Make every field genuinely specific to their actual job — not generic "tasks done"
-- Label language should feel like how a professional in this field actually talks`;
+}`;
 
   try{
     const d=await callOpenRouter(prompt);
     const t=d?.content?.[0]?.text||'';
-    const p=JSON.parse(t.replace(/```json|```/g,'').trim());
+    // FIX: More robust JSON extraction to prevent crashes if AI hallucinates markdown
+    const match = t.match(/\{[\s\S]*\}/);
+    if (!match) throw new Error("No JSON found");
+    const p = JSON.parse(match[0]);
+    
     S.trackFields=p.fields.map((f,i)=>({...f,id:'f'+i}));
     S.detectedRole=p.roleTitle||S.detectedRole;
     S.detectedIndustry=p.industry||S.detectedIndustry;
@@ -2437,11 +2215,7 @@ FIELD RULES — follow these precisely:
   }
 }
 
-function obSkip(){S.trackFields=DFIELDS.map(f=>({...f}));setOB(2);renderTList();}
-
-// ── RENDER TRACK LIST (Step 2) ─────────────────────────────────────────────────
 function renderTList(){
-  // Role detected banner
   const det=document.getElementById('role-det');
   const detText=document.getElementById('role-det-text');
   const detSub=document.getElementById('role-det-sub');
@@ -2450,7 +2224,6 @@ function renderTList(){
     detText.textContent=S.detectedRole+(S.seniority?` · ${S.seniority.charAt(0).toUpperCase()+S.seniority.slice(1)}-level`:'');
     detSub.textContent=S.detectedIndustry||S.company||'';
   }
-  // Deliverables suggestions
   const delBox=document.getElementById('deliverables-box');
   const delList=document.getElementById('deliverables-list');
   if(delBox&&delList){
@@ -2461,7 +2234,6 @@ function renderTList(){
       delList.innerHTML=dels.map(d=>`<span style="display:inline-flex;align-items:center;gap:4px;background:var(--gold-light);border:1px solid var(--gold);border-radius:99px;padding:4px 12px;font-size:11px;font-weight:600;color:var(--gold-dark);cursor:pointer" onclick="addDeliverable('${d.replace(/'/g,'')}')">+ ${d}</span>`).join('');
     }
   }
-  // Track fields list
   document.getElementById('tlist').innerHTML=S.trackFields.map((f,i)=>`
     <div class="titem" draggable="true">
       <span class="tihandle">⠿</span>
@@ -2493,7 +2265,6 @@ function addField(){
   renderTList();
 }
 
-// ── GOAL SUGGESTIONS (Step 3) ──────────────────────────────────────────────────
 function renderGoalSuggestions(){
   const chips=document.getElementById('goal-chips');
   if(!chips)return;
@@ -2517,8 +2288,7 @@ function suggestDefaultGoal(){
   return goals[0]||'Perform consistently, grow measurably, and deliver excellence every day.';
 }
 
-// ── ACCOUNT CREATION ──────────────────────────────────────────────────────────
-// ── ACCOUNT CREATION ──────────────────────────────────────────────────────────
+// ── ACCOUNT CREATION ──
 async function createAccount(){
   const email=document.getElementById('ob-email')?.value.trim();
   const pass=document.getElementById('ob-pass')?.value.trim();
@@ -2532,40 +2302,28 @@ async function createAccount(){
   try {
     if(fbAuth){
       await sbSignUp(email, pass);
-      
-      // THE FIX: Force a timeout if the browser blocks the database connection
       const saveTask = Promise.all([sbSaveProfile(), sbSaveTrackFields()]);
-      const timeoutTask = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error("Database blocked. Please turn off your ad-blocker (e.g. Brave Shields).")), 8000)
-      );
-      
+      const timeoutTask = new Promise((_, reject) => setTimeout(() => reject(new Error("Database blocked. Please turn off your ad-blocker (e.g. Brave Shields).")), 8000));
       await Promise.race([saveTask, timeoutTask]);
     }
-    
     saveState(); launch();
     showToast('🎉','Account created! Welcome to Workable.');
-    
   } catch(e) { 
-    btn.disabled=false; 
-    btn.textContent='Create Account & Enter Workable →'; 
+    btn.disabled=false; btn.textContent='Create Account →'; 
     showToast('⚠️', e.message || 'Sign-up failed.'); 
   }
 }
 
-// ── GOOGLE SIGN-UP (ONBOARDING) ───────────────────────────────────────────────
 async function obSignUpWithGoogle(){
   const btn = document.getElementById('ob-google-btn');
   btn.disabled = true; btn.textContent = 'Connecting...';
   try {
-    await sbSignInGoogle(); 
-
-    // Force a timeout if the browser blocks the database connection
-    const saveTask = Promise.all([sbSaveProfile(), sbSaveTrackFields()]);
-    const timeoutTask = new Promise((_, reject) => 
-      setTimeout(() => reject(new Error("Database blocked. Please turn off your ad-blocker.")), 8000)
-    );
-    await Promise.race([saveTask, timeoutTask]);
-
+    if(fbAuth) {
+      await sbSignInGoogle(); 
+      const saveTask = Promise.all([sbSaveProfile(), sbSaveTrackFields()]);
+      const timeoutTask = new Promise((_, reject) => setTimeout(() => reject(new Error("Database blocked. Please turn off your ad-blocker.")), 8000));
+      await Promise.race([saveTask, timeoutTask]);
+    }
     saveState(); launch();
     showToast('🎉', 'Account created with Google!');
   } catch(e) {
@@ -2573,7 +2331,7 @@ async function obSignUpWithGoogle(){
     showToast('⚠️', e.message || 'Google sign-up failed.');
   }
 }
-// ── LOGIN ─────────────────────────────────────────────────────────────────────
+
 async function doLogin(){
   const email=document.getElementById('login-email').value.trim();
   const pass=document.getElementById('login-pass').value.trim();
@@ -2592,12 +2350,11 @@ async function doLogin(){
   } catch(e){ btn.disabled=false; btn.textContent='Sign in →'; showToast('⚠️',e.message||'Sign-in failed.'); }
 }
 
-// ── LAUNCH ────────────────────────────────────────────────────────────────────
 function launch(){
   const ini=initials(S.name);
   document.getElementById('sbav').textContent=ini;
-  document.getElementById('sbname').textContent=S.name.split(' ')[0];
-  document.getElementById('sbrole').textContent=S.role==='employer'?'Manager / Employer':'Employee';
+  document.getElementById('sbname').textContent=S.name.split(' ')[0] || 'User';
+  document.getElementById('sbrole').textContent=S.role==='employer'?'Manager':'Employee';
   document.getElementById('compav').textContent=ini;
   if(S.role==='employer') document.getElementById('mgrnav').style.display='block';
   renderCIForm(); renderMyTrack(); renderSugg(); renderCTags(); buildGreet();
@@ -2606,23 +2363,15 @@ function launch(){
   if(stored) window.ANTHROPIC_KEY=stored;
 }
 
-// Page init is at bottom of script
-
 function initials(name){return (name||'WP').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
 
-// ── DASHBOARD ─────────────────────────────────────────────────────────────────
 function refreshDashboard(){
   const h=new Date().getHours();
   document.getElementById('dhi').textContent=`Good ${h<12?'morning':h<17?'afternoon':'evening'}, ${S.name.split(' ')[0]} 👋`;
   document.getElementById('dsub').textContent=`${S.detectedRole||'Your role'}${S.company?' · '+S.company:''}`;
   document.getElementById('dgoal').textContent=S.goal||'No goal set yet — add one in Settings.';
 
-  renderKPIs();
-  renderBars();
-  renderStreakBanner();
-  renderSparkline();
-  renderRecentCI();
-  renderGoalProgress();
+  renderKPIs(); renderBars(); renderStreakBanner(); renderSparkline(); renderRecentCI(); renderGoalProgress();
 }
 
 function renderKPIs(){
@@ -2636,7 +2385,7 @@ function renderKPIs(){
     {ic:'✅',bg:'var(--green-light)',v:ci,l:'Check-ins done',d:ci===0?'Start today! 👆':'+1 from yesterday',c:ci>0?'up':'fl'},
     {ic:'🔥',bg:'var(--amber-light)',v:streak+'d',l:'Current streak',d:streak>=7?'Amazing! 🏆':streak>0?'Keep it alive!':'Check in to start',c:streak>=3?'up':'fl'},
     {ic:'📊',bg:'var(--purple-light)',v:ci>0?avg+'%':'—',l:'Avg output score',d:ci>0?'From '+ci+' check-ins':'No data yet',c:avg>=70?'up':avg>0?'fl':'fl'},
-    {ic:'🎯',bg:'var(--bl)',v:ci>0?'Active':'—',l:'Goal tracking',d:ci===0?'Set in onboarding':'AI monitoring',c:ci>0?'up':'fl'},
+    {ic:'🎯',bg:'var(--blue-light)',v:ci>0?'Active':'—',l:'Goal tracking',d:ci===0?'Set in onboarding':'AI monitoring',c:ci>0?'up':'fl'},
   ];
   document.getElementById('dkpis').innerHTML=kpis.map(k=>`
     <div class="kpi"><div class="kpic" style="background:${k.bg}">${k.ic}</div>
@@ -2651,8 +2400,6 @@ function renderBars(){
     ins.textContent='Check in for the first time and AI will give you a personalised insight based on your real data.';
     return;
   }
-  // Real output trend from check-ins
-  const last7=S.checkins.slice(-7);
   const avgScore=getAvg();
   bars.innerHTML=S.trackFields.slice(0,4).map(f=>{
     const v=Math.min(100,Math.round(40+(avgScore/100)*50+Math.random()*15));
@@ -2706,12 +2453,10 @@ function renderGoalProgress(){
   <div class="btrack"><div class="bfill" style="width:${pct}%;background:var(--purple)"></div></div>`;
 }
 
-// ── CHECK-IN ──────────────────────────────────────────────────────────────────
 function initCheckin(){
   const today=new Date().toISOString().slice(0,10);
   document.getElementById('cidate').textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
   document.getElementById('cisuccess').style.display='none';
-  // Check if already done today
   const doneTodayEl=document.getElementById('already-done');
   const formEl=document.getElementById('ci-form-wrap');
   if(S.checkins.some(c=>c.date===today)){
@@ -2761,7 +2506,6 @@ async function submitCI(){
   document.getElementById('cisuccess').scrollIntoView({behavior:'smooth'});
 
   const streak=getStreak();
-  // Animate score
   const scoreEl=document.getElementById('assess-score');
   const barEl=document.getElementById('assess-score-bar');
   const subEl=document.getElementById('assess-subtitle');
@@ -2794,7 +2538,7 @@ async function submitCI(){
   const shareBox=document.getElementById('cishare');
   if(shareBox&&shareBox.checked) autoPost(data);
   await generateAssessment(data,sc,streak);
-  btn.disabled=false; btn.textContent='Submit check-in →';
+  btn.disabled=false; btn.textContent='Submit Daily Check-In →';
 }
 
 function buildSignalCards(data,sc,streak){
@@ -2826,17 +2570,19 @@ async function generateAssessment(data,sc,streak){
     .map(([k,v])=>'• '+k+': '+(v||'not entered')).join('\n');
   const flagNote=data.flag?'Manager flag submitted: "'+data.flag+'"':'No items flagged to manager.';
 
-  const prompt='You are Workable — a world-class professional performance intelligence system trusted by executives, managers, and high-performing professionals globally.\n\nA professional just completed their daily performance check-in. Generate a deeply personalised, incisive, and actionable written assessment. This must read like it was written by a senior executive coach who has genuinely studied their work — not a generic AI response.\n\nPROFESSIONAL PROFILE:\n- Name: '+S.name+'\n- Role: '+(S.detectedRole||'Professional')+'\n- Industry: '+(S.detectedIndustry||'Not specified')+'\n- Seniority: '+(S.seniority||'mid')+'-level\n- Monthly goal: "'+(S.goal||'Not set')+'"\n- Self-assessed level: '+(S.perfLevel||'performing')+'\n\nTODAY\'S CHECK-IN DATA:\n'+ds+'\n'+flagNote+'\nOutput score: '+sc+'% | Streak: '+streak+' days | Check-in #'+S.checkins.length+'\n\n7-day average score: '+avgSc+'%\nCurrent trajectory: '+trend+'\nTotal data points: '+S.checkins.length+'\n\nWrite a structured professional assessment with these exact bold headers:\n**Today\'s Performance Read** — 2-3 sentences of precise commentary referencing their specific data. Sound like a senior leader reviewing their report.\n**Strength Signal** — 1-2 sentences identifying the strongest signal and why it matters professionally.\n**Development Edge** — 1-2 sentences on where focused attention would create the most professional leverage. Honest, not harsh.\n**Strategic Recommendation** — One concrete action they can execute in the next 24 hours.\n**Motivational Close** — One genuinely motivating sentence referencing their specific role or goal.\n\nTone: Professional, warm, direct. No generic phrases. 200-270 words total.';
+  const prompt='You are Workable — a professional performance system. Generate an incisive, actionable written assessment for this professional based on their latest check-in data.\n\nPROFILE:\n- Name: '+S.name+'\n- Role: '+(S.detectedRole||'Professional')+'\n- Goal: "'+(S.goal||'Not set')+'"\n\nDATA:\n'+ds+'\n'+flagNote+'\nOutput score: '+sc+'% | Streak: '+streak+' days\n\nWrite a structured professional assessment with these exact bold headers:\n**Today\'s Performance Read** — 2 sentences.\n**Strength Signal** — 1 sentence.\n**Strategic Recommendation** — 1 action for tomorrow.\n**Motivational Close** — 1 sentence.\n\nTone: Professional, warm, direct. 200 words max.';
 
-
-    try{
+  try{
     const d=await callOpenRouter(prompt);
     const text=d?.content?.[0]?.text||'';
     if(text){
-      resp.innerHTML=text
+      // FIX: Added DOMPurify to sanitize AI outputs
+      const safeText = DOMPurify.sanitize(text
         .replace(/\*\*(.+?)\*\*/g,'<strong style="color:var(--purple);font-weight:700;display:block;margin-top:.85rem;margin-bottom:.25rem">$1</strong>')
         .replace(/\n\n/g,'</p><p style="margin-top:.5rem">')
-        .replace(/^/,'<p>').replace(/$/,'</p>');
+        .replace(/^/,'<p>').replace(/$/,'</p>'));
+      resp.innerHTML = safeText;
+      
       const recMatch=text.match(/Strategic Recommendation[^:]*:([\s\S]*?)(?=\*\*Motivational|$)/i);
       if(recMatch&&recCard&&recEl){
         recCard.style.display='block';
@@ -2851,7 +2597,6 @@ function fallbackAssessment(sc,streak){
   return '<p><strong style="color:var(--purple)">Today\'s Performance Read</strong><br>Check-in #'+S.checkins.length+' logged with an output score of '+sc+'% — '+lvl+' performance for today. Your '+streak+'-day streak reflects growing professional discipline.</p><p style="margin-top:.75rem"><strong style="color:var(--purple)">Strategic Recommendation</strong><br>Connect your API key in Settings → AI Configuration to unlock fully personalised assessments tailored to your '+( S.detectedRole||'role')+'.</p>';
 }
 
-// ── MY TRACK ──────────────────────────────────────────────────────────────────
 function renderMyTrack(){
   document.getElementById('mtrole').textContent=S.detectedRole||'Your role';
   document.getElementById('mtind').textContent=S.detectedIndustry||S.company||'Your organisation';
@@ -2861,7 +2606,6 @@ function renderMyTrack(){
 }
 function editTrack(){goTo('onboarding');setOB(2);renderTList();}
 
-// ── ASK AI ───────────────────────────────────────────────────────────────────
 function buildGreet(){
   document.getElementById('aigreet').textContent=`Hi ${S.name.split(' ')[0]}! I'm your Workable — I have full context of your role${S.detectedRole?' ('+S.detectedRole+')':''}, your goal, and all ${S.checkins.length} check-in${S.checkins.length!==1?'s':''} you've logged. Ask me anything about your performance!`;
 }
@@ -2879,36 +2623,28 @@ async function sendChat(){
     :'No check-in data yet — encourage them to start checking in daily.';
   const ctx=`You are Workable assistant. Context:
 - User: ${S.name} (${S.role})
-- Job role: ${S.detectedRole||'general professional'}
-- Industry: ${S.detectedIndustry||'general'}
-- Company: ${S.company}
-- Goal: ${S.goal}
-- Total check-ins: ${S.checkins.length}
-- Current streak: ${getStreak()} days
-- Average output score: ${getAvg()}%
-- Track fields: ${S.trackFields.map(f=>f.label).join(', ')}
+- Role: ${S.detectedRole||'general professional'}
+- Streak: ${getStreak()} days
 - ${ciSummary}
 
-Answer in 2-4 sentences. Be specific, warm, and actionable. Reference their actual data where possible.`;
+Answer in 2-4 sentences. Be specific, warm, and actionable.`;
   
-   try{
+  try{
     const d=await callOpenRouter(ctx+'\n\nUser asks: '+q);
     updM(d?.content?.[0]?.text||'Keep checking in daily and I\'ll have richer insights for you soon!');
   } catch{
     updM(`Based on your ${S.checkins.length} check-in${S.checkins.length!==1?'s':''} so far${getStreak()>0?` and your ${getStreak()}-day streak`:''}, you're building good habits. ${S.checkins.length<5?'Log 5 check-ins to unlock more detailed insights.':'Your data is growing — I can see patterns forming.'}`);
   }
 }
-function addM(r,t,l=false){const m=document.getElementById('chatmsgs');const d=document.createElement('div');d.className=`cm ${r}`;d.innerHTML=`<div class="cmav">${r==='ai'?'✨':'👤'}</div><div class="cmbub ${l?'typing':''}">${t}</div>`;m.appendChild(d);m.scrollTop=m.scrollHeight;}
-function updM(t){const m=document.getElementById('chatmsgs');const bs=m.querySelectorAll('.cm.ai');const b=bs[bs.length-1]?.querySelector('.cmbub');if(b){b.textContent=t;b.classList.remove('typing');}}
+function addM(r,t,l=false){const m=document.getElementById('chatmsgs');const d=document.createElement('div');d.className=`cm ${r}`;d.innerHTML=`<div class="cmav">${r==='ai'?'✨':'👤'}</div><div class="cmbub ${l?'typing':''}">${DOMPurify.sanitize(t)}</div>`;m.appendChild(d);m.scrollTop=m.scrollHeight;}
+function updM(t){const m=document.getElementById('chatmsgs');const bs=m.querySelectorAll('.cm.ai');const b=bs[bs.length-1]?.querySelector('.cmbub');if(b){b.innerHTML=DOMPurify.sanitize(t);b.classList.remove('typing');}}
 
-// ── COMMUNITY ─────────────────────────────────────────────────────────────────
 function renderCTags(){document.getElementById('comptags').innerHTML=CTAGS.map(t=>`<button class="tchip" onclick="this.classList.toggle('sel')">${t}</button>`).join('');}
 
 async function loadAndRenderFeed(){
   if(fbDb){
     try{
       const live=await sbLoadPosts();
-      // Merge live posts with local posts, deduplicate by id
       const localIds=new Set(S.feedPosts.map(p=>String(p.id)));
       const merged=[...S.feedPosts,...live.filter(p=>!localIds.has(String(p.id))),...SAMPLE_POSTS];
       renderFeedPosts(merged); return;
@@ -2951,7 +2687,6 @@ function likeP(id,btn){
   const b=card.querySelector('.pabtn');
   b.className=`pabtn${p.liked?' liked':''}`;
   b.textContent=`${p.liked?'❤️':'🤍'} ${p.likes}`;
-  // Persist like to Supabase
   if(fbDb&&currentUser) sbToggleLike(id).catch(e=>console.warn('Firebase like:',e));
 }
 
@@ -2965,7 +2700,6 @@ function postFeed(){
   };
   S.feedPosts.unshift(newPost);
   saveState();
-  // Save to Supabase
   if(fbDb&&currentUser) sbCreatePost(newPost).catch(e=>console.warn('Firebase post:',e));
   document.getElementById('comptext').value='';
   document.querySelectorAll('#comptags .tchip').forEach(b=>b.classList.remove('sel'));
@@ -2982,7 +2716,6 @@ function autoPost(data){
   });saveState();
 }
 
-// ── REPORTS ───────────────────────────────────────────────────────────────────
 function initReports(){
   const hasData=S.checkins.length>=3;
   document.getElementById('rempty').style.display=hasData?'none':'block';
@@ -2999,37 +2732,27 @@ async function genReport(type){
   const recent=S.checkins.slice(-14);
   const pr=`Write a detailed ${type==='weekly'?'weekly':'monthly'} performance report for ${S.name}, a ${S.detectedRole||'professional'} at ${S.company}.
 Goal: "${S.goal}"
-Total check-ins: ${S.checkins.length}
-Current streak: ${getStreak()} days
-Average output score: ${getAvg()}%
-Track fields: ${S.trackFields.map(f=>f.label).join(', ')}
 Recent check-in data: ${JSON.stringify(recent)}
 
 Write 4 sections with clear paragraph breaks:
-1. Performance summary — what happened this period
-2. Patterns identified — what the data shows
-3. Achievements — what went well
-4. Recommendations — 2-3 specific actions for next period
+1. Performance summary
+2. Patterns identified
+3. Achievements
+4. Recommendations`;
 
-Be specific, use the actual data, and be encouraging but honest.`;
-
-     try{
+  try{
     const d=await callOpenRouter(pr);
     const t=d?.content?.[0]?.text||'';
-    
     ttl.textContent=type==='weekly'?'📅 Weekly summary':'📈 Monthly review';
-    body.innerHTML=t.split('\n').filter(Boolean).map(p=>`<p style="margin-bottom:.85rem">${p}</p>`).join('');
+    body.innerHTML=DOMPurify.sanitize(t.split('\n').filter(Boolean).map(p=>`<p style="margin-bottom:.85rem">${p}</p>`).join(''));
   } catch {
     ttl.textContent=type==='weekly'?'📅 Weekly summary':'📈 Monthly review';
     body.innerHTML=`
-      <p style="margin-bottom:.85rem"><strong>Performance summary:</strong> You have completed <strong>${S.checkins.length} check-ins</strong> so far with a current streak of <strong>${getStreak()} days</strong>. Your average output score is <strong>${getAvg()}%</strong>.</p>
-      <p style="margin-bottom:.85rem"><strong>Goal progress:</strong> <em>${S.goal}</em> — keep logging daily and AI will track your progress toward this automatically.</p>
-      <p style="margin-bottom:.85rem"><strong>Recommendation:</strong> To unlock detailed AI-generated reports, connect your Anthropic API key in Settings. The data you're logging every day will power much richer insights.</p>
-      <p style="font-size:12px;color:var(--ink3)">Tip: aim for 5 check-ins every week for the most accurate performance picture.</p>`;
+      <p style="margin-bottom:.85rem"><strong>Performance summary:</strong> You have completed <strong>${S.checkins.length} check-ins</strong> so far with a current streak of <strong>${getStreak()} days</strong>.</p>
+      <p style="margin-bottom:.85rem"><strong>Recommendation:</strong> Connect your API key in Settings for AI reports.</p>`;
   }
 }
 
-// ── PROFILE ────────────────────────────────────────────────────────────────────
 function renderProfile(){
   const ini=initials(S.name);
   document.getElementById('prof-av').textContent=ini;
@@ -3062,7 +2785,6 @@ function renderAchievements(){
 }
 
 function renderCIGrid(){
-  // Show last 60 days as a heatmap grid
   const grid=document.getElementById('ci-history-grid');
   const ciDates=new Set(S.checkins.map(c=>c.date));
   const days=[];
@@ -3077,11 +2799,10 @@ function renderCIGrid(){
   }).join('');
 }
 
-// ── SETTINGS ──────────────────────────────────────────────────────────────────
 function initSettings(){
   document.getElementById('set-name').value = S.name;
   document.getElementById('set-company').value = S.company;
-  document.getElementById('set-role').value = S.detectedRole || ''; // Add this line
+  document.getElementById('set-role').value = S.detectedRole || '';
   document.getElementById('set-goal').value = S.goal;
   const stored = localStorage.getItem('wp_apikey');
   if(stored) document.getElementById('api-status').textContent = '✅ API key connected';
@@ -3090,10 +2811,9 @@ function initSettings(){
 function saveSettings(){
   S.name = document.getElementById('set-name').value.trim() || S.name;
   S.company = document.getElementById('set-company').value.trim() || S.company;
-  S.detectedRole = document.getElementById('set-role').value.trim() || S.detectedRole; // Add this line
+  S.detectedRole = document.getElementById('set-role').value.trim() || S.detectedRole;
   S.goal = document.getElementById('set-goal').value.trim() || S.goal;
   
-  // Update UI elements
   document.getElementById('sbname').textContent = S.name.split(' ')[0];
   const ini = initials(S.name);
   document.getElementById('sbav').textContent = ini;
@@ -3102,39 +2822,34 @@ function saveSettings(){
   saveState();
   if(fbDb && currentUser) sbSaveProfile().catch(e => console.warn('Firebase profile:', e));
   showToast('✅', 'Settings saved!');
-  
-  // Refresh dashboard to show the new role immediately
   refreshDashboard(); 
 }
+
 function saveApiKey(){
   const k=document.getElementById('set-apikey').value.trim();
   if(!k){showToast('⚠️','Please paste your API key');return;}
- if(!k.startsWith('sk-or-')){showToast('⚠️','Key should start with sk-or-');return;}
+  if(!k.startsWith('sk-or-')){showToast('⚠️','Key should start with sk-or-');return;}
   localStorage.setItem('wp_apikey',k);
   window.ANTHROPIC_KEY=k;
   document.getElementById('api-status').textContent='✅ API key connected — AI features are now live!';
   showToast('✅','API key saved! AI features are now live.');
 }
+
 function exportData(){
   const blob=new Blob([JSON.stringify({profile:{name:S.name,company:S.company,role:S.detectedRole,goal:S.goal},checkins:S.checkins},null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='workable-data.json';a.click();
 }
+
 function resetData(){
   if(!confirm('Are you sure? This will delete all your check-in data. This cannot be undone.'))return;
   S.checkins=[];S.feedPosts=[];S.bestStreak=0;S.daysActive=0;
   saveState();showToast('🗑️','All check-in data deleted.');nav('dashboard');
 }
 
-// ── INVITE ────────────────────────────────────────────────────────────────────
-// ── INVITE SYSTEM (WhatsApp & Links) ──────────────────────────────────────────
-
 function openInvite() {
   document.getElementById('invmodal').style.display='flex';
   const display = document.getElementById('inv-code-display');
-  // Show the manager's unique company code, or a fallback if not generated yet
-  if(display) {
-     display.textContent = S.companyCode || "WAITING...";
-  }
+  if(display) { display.textContent = S.companyCode || "WAITING..."; }
 }
 
 function closeInvite() {
@@ -3142,7 +2857,6 @@ function closeInvite() {
 }
 
 function generateInviteMessage() {
-  // Uses the URL where the app is currently running
   const appLink = window.location.origin; 
   return `Hey! Join my team on Workable to track our daily performance.\n\n1. Go to: ${appLink}\n2. Sign up as an Employee\n3. Use our Team Code: ${S.companyCode || '[Your Code]'}`;
 }
@@ -3165,7 +2879,6 @@ function copyInviteLink() {
   });
 }
 
-// ── TOAST ─────────────────────────────────────────────────────────────────────
 function showToast(ic,msg,duration=3000){
   const t=document.getElementById('toast');
   document.getElementById('toast-ic').textContent=ic;
@@ -3174,7 +2887,6 @@ function showToast(ic,msg,duration=3000){
   setTimeout(()=>t.classList.remove('show'),duration);
 }
 
-// ── HELPERS ────────────────────────────────────────────────────────────────────
 function getStreak(){
   if(!S.checkins.length)return 0;
   const dates=[...new Set(S.checkins.map(c=>c.date))].sort().reverse();
@@ -3185,18 +2897,20 @@ function getStreak(){
   }
   return s;
 }
+
 function getAvg(){
   if(!S.checkins.length)return 0;
   const sc=S.checkins.map(c=>parseInt(c._s||65));
   return Math.round(sc.reduce((a,b)=>a+b,0)/sc.length);
 }
+
 function fmtDate(d){return new Date(d).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});}
 function delay(ms){return new Promise(r=>setTimeout(r,ms));}
 
-// ── PERSISTENCE ───────────────────────────────────────────────────────────────
 function saveState(){
   try{localStorage.setItem('wp_state',JSON.stringify(S));}catch(e){}
 }
+
 function loadState(){
   try{
     const saved=localStorage.getItem('wp_state');
@@ -3205,23 +2919,29 @@ function loadState(){
   return false;
 }
 
+// FIX: Attach user's saved API key properly to headers
 async function callOpenRouter(promptText) {
   const PROXY_URL = "https://broken-glade-bcb9.sesaycharle.workers.dev"; 
+  const apiKey = window.ANTHROPIC_KEY || localStorage.getItem('wp_apikey');
+  const headers = { 'Content-Type': 'application/json' };
+  
+  if (apiKey) {
+    headers['Authorization'] = `Bearer ${apiKey}`;
+  }
 
   const response = await fetch(PROXY_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: headers,
     body: JSON.stringify({
       messages: [{ role: 'user', content: promptText }]
     })
   });
 
   if (!response.ok) throw new Error('Proxy API Error');
-  
   const data = await response.json();
   return { content: [{ text: data.choices[0].message.content }] };
 }
-// ── FILE UPLOAD ────────────────────────────────────────────────────────────────
+
 function uzDrag(e){e.preventDefault();document.getElementById('uzn').classList.add('active');}
 function uzLeave(){document.getElementById('uzn').classList.remove('active');}
 function uzDrop(e){e.preventDefault();uzLeave();if(e.dataTransfer.files[0])uzHandle(e.dataTransfer.files[0]);}
@@ -3235,67 +2955,31 @@ function uzHandle(file){
   reader.readAsText(file);
 }
 
-// ── INIT ────────────────────────────────────────────────────────────────────────
 async function pageInit(){
-  // Load stored API key first
   const stored = localStorage.getItem('wp_apikey');
   if(stored) window.ANTHROPIC_KEY = stored;
 
-  // Init Firebase (sets up onAuthStateChanged listener)
   initSupabase();
 
-  // Update ob4 note
   const note = document.getElementById('ob4-note');
   if(note && fbAuth){
     note.innerHTML = '<span>🔥</span><span>Your account is secured by Google Firebase. Sign in from any device.</span>';
   }
 
-  // If Firebase is configured, wait for auth state (handled by onAuthStateChanged)
   if(fbAuth){
-    // onAuthStateChanged in initSupabase handles auto-login
-    // Give it 2 seconds, then fallback to localStorage or landing
     await new Promise(resolve => setTimeout(resolve, 500));
-    if(currentUser) return; // onAuthStateChanged already launched the app
+    if(currentUser) return;
   }
 
-  // No Firebase or not logged in — try localStorage
   if(loadState() && S.name){ launch(); return; }
-
-  // Fresh user — show landing
   goTo('landing');
 }
 window.addEventListener('DOMContentLoaded', pageInit);
 
-// Google Sign-In helper (called from login screen button)
-async function signInWithGoogle(){
-  const btn = document.getElementById('google-signin-btn');
-  if(btn){ btn.disabled = true; btn.textContent = 'Signing in…'; }
-  try{
-    await sbSignInGoogle();
-    const isNew = firebase.auth().currentUser?.metadata?.creationTime === firebase.auth().currentUser?.metadata?.lastSignInTime;
-    if(isNew){
-      // Brand new Google user — send them through goal setting
-      S.name    = currentUser.displayName || '';
-      S.role    = 'employee';
-      S.company = '';
-      goTo('onboarding');
-      setOB(0);
-    } else {
-      const ok = await sbRestoreState();
-      if(ok) launch();
-    }
-  } catch(e){
-    if(btn){ btn.disabled = false; btn.textContent = 'Continue with Google'; }
-    showToast('⚠️', e.message || 'Google sign-in failed.');
-  }
-}
-
-// Allow skipping account creation (no Supabase yet)
 function resetCI(){
   document.getElementById('cisuccess').style.display='none';
   document.getElementById('ci-form-wrap').style.display='block';
   document.getElementById('already-done').style.display='none';
-  // Reset all field inputs
   S.trackFields.forEach(f=>{
     const el=document.getElementById('ci-'+f.id);
     if(el) el.value='';
@@ -3303,11 +2987,6 @@ function resetCI(){
     document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('yes','no'));
   });
   if(document.getElementById('ciflag')) document.getElementById('ciflag').value='';
-}
-
-function obSkipAccount(){
-  saveState(); launch();
-  showToast('💾','Saved locally — set up Supabase to persist across devices.');
 }
 </script>
 </body>
