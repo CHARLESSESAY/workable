@@ -1218,7 +1218,7 @@ a{text-decoration:none;color:var(--purple)}
 
     <div id="path-upload">
       <div class="uzn" id="uzn" ondragover="uzDrag(event)" ondragleave="uzLeave()" ondrop="uzDrop(event)">
-        <input type="file" accept=".pdf,.doc,.docx,.txt" onchange="uzFile(event)">
+       <input type="file" accept=".txt" onchange="uzFile(event)">
         <div id="uzc">
           <span style="font-size:2.2rem;display:block;margin-bottom:.6rem">📎</span>
           <div style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:.25rem">Drop your JD file here</div>
@@ -2562,7 +2562,7 @@ async function submitCI(){
 }
 
 function buildSignalCards(data,sc,streak){
-  const wrap=document.getElementById('assess-signals');
+  const wrap = document.getElementById('assess-signals');
   if(!wrap) return;
   const signals=[
     {icon:streak>=7?'🏆':streak>=3?'🔥':'📅',label:'Consistency',value:streak+' day'+(streak!==1?'s':''),sub:streak>=7?'Elite performer':streak>=3?'Habit forming':'Keep daily cadence',color:streak>=7?'var(--gold)':streak>=3?'var(--green)':'var(--ink3)'},
@@ -2570,12 +2570,14 @@ function buildSignalCards(data,sc,streak){
     {icon:'🗂️',label:'Check-ins logged',value:S.checkins.length,sub:S.checkins.length>=20?'Rich data set':S.checkins.length>=10?'Growing history':'Building baseline',color:'var(--blue)'},
     {icon:data.flag?'🚩':'✅',label:'Manager flag',value:data.flag?'Flagged':'All clear',sub:data.flag?'Item sent to manager':'No blockers raised',color:data.flag?'var(--amber)':'var(--green)'}
   ];
-  wrap.innerHTML=signals.map(s=>`
+  
+  // 🔒 Security: Sanitize all outputs
+  wrap.innerHTML = signals.map(s => `
     <div class="card" style="padding:1rem;border-top:3px solid ${s.color}">
-      <div style="font-size:1.5rem;margin-bottom:.4rem">${s.icon}</div>
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);margin-bottom:.2rem">${s.label}</div>
-      <div style="font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;color:var(--ink);margin-bottom:.2rem">${s.value}</div>
-      <div style="font-size:11px;color:var(--ink4)">${s.sub}</div>
+      <div style="font-size:1.5rem;margin-bottom:.4rem">${DOMPurify.sanitize(String(s.icon))}</div>
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);margin-bottom:.2rem">${DOMPurify.sanitize(String(s.label))}</div>
+      <div style="font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;color:var(--ink);margin-bottom:.2rem">${DOMPurify.sanitize(String(s.value))}</div>
+      <div style="font-size:11px;color:var(--ink4)">${DOMPurify.sanitize(String(s.sub))}</div>
     </div>`).join('');
 }
 
@@ -2617,11 +2619,17 @@ function fallbackAssessment(sc,streak){
 }
 
 function renderMyTrack(){
-  document.getElementById('mtrole').textContent=S.detectedRole||'Your role';
-  document.getElementById('mtind').textContent=S.detectedIndustry||S.company||'Your organisation';
-  document.getElementById('field-count').textContent=S.trackFields.length+' fields';
-  document.getElementById('mtfields').innerHTML=S.trackFields.map(f=>`
-    <div class="ri"><span class="rlbl">${f.label}</span><span class="badge bv">${f.type}</span></div>`).join('');
+  // Using textContent is naturally safe against XSS
+  document.getElementById('mtrole').textContent = S.detectedRole || 'Your role';
+  document.getElementById('mtind').textContent = S.detectedIndustry || S.company || 'Your organisation';
+  document.getElementById('field-count').textContent = S.trackFields.length + ' fields';
+  
+  // 🔒 Security: Sanitize dynamic array data mapped to innerHTML
+  document.getElementById('mtfields').innerHTML = S.trackFields.map(f => `
+    <div class="ri">
+      <span class="rlbl">${DOMPurify.sanitize(f.label)}</span>
+      <span class="badge bv">${DOMPurify.sanitize(f.type)}</span>
+    </div>`).join('');
 }
 function editTrack(){goTo('onboarding');setOB(2);renderTList();}
 
@@ -2678,16 +2686,26 @@ function renderFeed(){
 }
 
 function renderFeedPosts(all){
-  document.getElementById('feedlist').innerHTML=all.map(p=>{
-    const ini=initials(p.author);
-    const tags=p.tags.map(t=>`<span class="ptag" style="background:${p.color}22;color:${p.color}">${t}</span>`).join('');
+  document.getElementById('feedlist').innerHTML = all.map(p => {
+    // 🔒 Security: Sanitize all user-generated strings before injecting into HTML
+    const safeAuthor = DOMPurify.sanitize(p.author);
+    const safeRole = DOMPurify.sanitize(p.role);
+    const safeCompany = DOMPurify.sanitize(p.company);
+    const safeText = DOMPurify.sanitize(p.text);
+    const safeTime = DOMPurify.sanitize(p.time);
+    
+    // Sanitize tags as well
+    const tags = p.tags.map(t => 
+      `<span class="ptag" style="background:${p.color}22;color:${p.color}">${DOMPurify.sanitize(t)}</span>`
+    ).join('');
+
     return `<div class="pcard" id="pc${p.id}">
       <div class="phead2">
-        <div class="pav" style="background:${p.color}">${ini}</div>
-        <div><div class="pname">${p.author}</div><div class="prole">${p.role} · ${p.company}</div></div>
-        <div class="ptime">${p.time}</div>
+        <div class="pav" style="background:${p.color}">${initials(safeAuthor)}</div>
+        <div><div class="pname">${safeAuthor}</div><div class="prole">${safeRole} · ${safeCompany}</div></div>
+        <div class="ptime">${safeTime}</div>
       </div>
-      <div class="pbody">${p.text}</div>
+      <div class="pbody">${safeText}</div>
       <div style="margin-bottom:.5rem">${tags}</div>
       <div><span class="pstat">✅ ${p.checkins} check-ins</span></div>
       <div class="pacts">
@@ -2698,7 +2716,6 @@ function renderFeedPosts(all){
     </div>`;
   }).join('');
 }
-
 function likeP(id,btn){
   const all=[...S.feedPosts,...SAMPLE_POSTS];const p=all.find(x=>x.id===id);if(!p)return;
   p.liked=!p.liked;p.likes+=p.liked?1:-1;
@@ -2970,11 +2987,22 @@ function uzLeave(){document.getElementById('uzn').classList.remove('active');}
 function uzDrop(e){e.preventDefault();uzLeave();if(e.dataTransfer.files[0])uzHandle(e.dataTransfer.files[0]);}
 function uzFile(e){if(e.target.files[0])uzHandle(e.target.files[0]);}
 function uzHandle(file){
-  const zone=document.getElementById('uzn');
+  // 🔒 Security: Reject non-text files to prevent binary parsing bugs
+  if (file.type !== "text/plain" && !file.name.endsWith('.txt')) {
+    showToast('⚠️', 'For security and accuracy, please upload .txt files only.');
+    uzLeave();
+    return;
+  }
+
+  // 🔒 Security: Sanitize the file name to prevent malicious file name injection
+  const safeFileName = DOMPurify.sanitize(file.name);
+  const zone = document.getElementById('uzn');
+  
   zone.classList.add('done');
-  document.getElementById('uzc').innerHTML=`<div style="font-size:2rem;margin-bottom:.5rem">✅</div><div style="font-size:14px;font-weight:600;color:#085041;margin-bottom:.25rem">${file.name}</div><div style="font-size:12px;color:#085041">File ready — click Analyse to continue</div>`;
-  const reader=new FileReader();
-  reader.onload=e=>{document.getElementById('jd-text').value=e.target.result.slice(0,3000);};
+  document.getElementById('uzc').innerHTML = `<div style="font-size:2rem;margin-bottom:.5rem">✅</div><div style="font-size:14px;font-weight:600;color:#085041;margin-bottom:.25rem">${safeFileName}</div><div style="font-size:12px;color:#085041">File ready — click Analyse to continue</div>`;
+  
+  const reader = new FileReader();
+  reader.onload = e => { document.getElementById('jd-text').value = e.target.result.slice(0,3000); };
   reader.readAsText(file);
 }
 
