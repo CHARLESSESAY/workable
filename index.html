@@ -1849,10 +1849,16 @@ async function sbUpsertCompany(name){
   if(!fbDb) return null;
   const existing = await fbDb.collection('companies')
     .where('owner_uid', '==', currentUser.uid).limit(1).get();
-  if(!existing.empty) return existing.docs[0].id;
-  const code = Math.random().toString(36).slice(2,8).toUpperCase();
+    
+  if(!existing.empty) {
+    // FIX: Actually grab the existing code from Firebase
+    S.companyCode = existing.docs[0].data().code; 
+    return existing.docs[0].id;
+  }
+  
+  const code = S.companyCode || Math.random().toString(36).slice(2,8).toUpperCase();
   const ref = await fbDb.collection('companies').add({
-    name, code, owner_uid: currentUser.uid, created_at: firebase.firestore.FieldValue.serverTimestamp()
+    name: name || "My Team", code, owner_uid: currentUser.uid, created_at: firebase.firestore.FieldValue.serverTimestamp()
   });
   S.companyCode = code;
   return ref.id;
@@ -2859,8 +2865,16 @@ function resetData(){
 
 function openInvite() {
   document.getElementById('invmodal').style.display='flex';
+  
+  // FIX: Force generate a code immediately if one is missing
+  if (!S.companyCode) {
+    S.companyCode = Math.random().toString(36).slice(2,8).toUpperCase();
+    saveState();
+    if(fbDb && currentUser) sbSaveProfile().catch(e=>console.warn(e));
+  }
+  
   const display = document.getElementById('inv-code-display');
-  if(display) { display.textContent = S.companyCode || "WAITING..."; }
+  if(display) { display.textContent = S.companyCode; }
 }
 
 function closeInvite() {
