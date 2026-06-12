@@ -1695,11 +1695,20 @@ a{text-decoration:none;color:var(--purple)}
     <div class="page" id="page-settings">
       <div class="phead"><div><h1 class="ptitle">Settings ⚙️</h1><p class="psub">Manage your Workable experience</p></div></div>
       <div style="max-width:580px">
-        <div class="card">
+       <div class="card">
           <div class="chead"><span class="ctitle">Account</span></div>
+          
+          <div class="fld">
+            <label>Account Type (Unlocks Team Features)</label>
+            <select id="set-acct-type" style="border-color:var(--purple); background:var(--purple-pale); font-weight:bold; color:var(--purple)">
+              <option value="employee">Individual Contributor (Employee)</option>
+              <option value="employer">Leader / Manager</option>
+            </select>
+          </div>
+
           <div class="fld"><label>Display name</label><input type="text" id="set-name" placeholder="Your name"></div>
           <div class="fld"><label>Company / organisation</label><input type="text" id="set-company" placeholder="Your company"></div>
-          <div class="fld"><label>Role / Title</label><input type="text" id="set-role" placeholder="Your role"></div>
+          <div class="fld"><label>Job Title</label><input type="text" id="set-role" placeholder="Your job title"></div>
           <div class="fld"><label>Monthly goal</label><textarea id="set-goal" rows="2" placeholder="Your goal this month..."></textarea></div>
           <button onclick="saveSettings()" style="background:var(--purple);color:#fff;border:none;padding:12px 22px;border-radius:var(--r);font-size:14px;font-weight:600;margin-top:.5rem">Save changes</button>
         </div>
@@ -2808,6 +2817,10 @@ function initSettings(){
   document.getElementById('set-company').value = S.company;
   document.getElementById('set-role').value = S.detectedRole || '';
   document.getElementById('set-goal').value = S.goal;
+  
+  // ADDED: Loads your saved role into the dropdown
+  document.getElementById('set-acct-type').value = S.role || 'employee'; 
+}
 }
 
 function saveSettings(){
@@ -2815,6 +2828,9 @@ function saveSettings(){
   S.company = document.getElementById('set-company').value.trim() || S.company;
   S.detectedRole = document.getElementById('set-role').value.trim() || S.detectedRole;
   S.goal = document.getElementById('set-goal').value.trim() || S.goal;
+  
+  // ADDED: Grabs the new role from the dropdown
+  S.role = document.getElementById('set-acct-type').value; 
   
   document.getElementById('sbname').textContent = S.name.split(' ')[0];
   const ini = initials(S.name);
@@ -2824,6 +2840,9 @@ function saveSettings(){
   saveState();
   if(fbDb && currentUser) sbSaveProfile().catch(e => console.warn('Firebase profile:', e));
   showToast('✅', 'Settings saved!');
+  
+  // ADDED: Re-run launch() so the mobile menu instantly updates
+  launch(); 
   refreshDashboard(); 
 }
 
