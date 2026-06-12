@@ -2993,26 +2993,29 @@ function loadState(){
 async function callOpenRouter(promptText) {
   const PROXY_URL = "https://broken-glade-bcb9.sesaycharle.workers.dev"; 
   
-  // 🔒 Security: Ensure the user is authenticated
-  if (!currentUser) throw new Error('Must be logged in to use the AI assistant.');
+  // 1. Ensure the user is actually logged in before making the call
+  if (!currentUser) throw new Error('You must be logged in to use the AI assistant.');
   
-  // 🔒 Security: Fetch the secure JWT token from Firebase
+  // 2. Fetch the secure JSON Web Token from Firebase
   const idToken = await currentUser.getIdToken();
 
   const response = await fetch(PROXY_URL, {
     method: 'POST',
     headers: { 
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${idToken}` // 🔒 Pass the token to your Worker
+      'Authorization': `Bearer ${idToken}` // <-- Sending the token to the Worker
     },
     body: JSON.stringify({
       messages: [{ role: 'user', content: promptText }]
     })
   });
 
-  if (!response.ok) throw new Error('Proxy API Error');
-  const data = await response.json();
+  if (!response.ok) {
+    const errData = await response.json();
+    throw new Error(errData.error || 'Proxy API Error');
+  }
   
+  const data = await response.json();
   if (data.error) throw new Error(data.error.message || 'AI generation failed');
   
   return { content: [{ text: data.choices[0].message.content }] };
