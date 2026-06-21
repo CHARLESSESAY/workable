@@ -10,6 +10,3 @@ export function validatePassword(password) {
 export function validateGoal(goal) {
   return goal && goal.trim().length >= 10;
 }
-export function validateCheckinScore(score) {
-  return score >= 0 && score <= 100;
-}
