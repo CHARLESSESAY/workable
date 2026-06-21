@@ -3,10 +3,16 @@ let S = {
   name: '',
   company: '',
   detectedRole: '',
+  detectedIndustry: '',
   goal: '',
   trackFields: [],
   checkins: [],
-  feedPosts: []
+  feedPosts: [],
+  bestStreak: 0,
+  daysActive: 0,
+  perfLevel: 'performing',
+  deliverables: [],
+  companyCode: ''
 };
 
 export function getState() { return S; }
@@ -19,8 +25,8 @@ export function goTo(screenId) {
 
 export function showToast(icon, msg, duration = 3000) {
   const t = document.getElementById('toast');
-  t.querySelector('.toast-ic').textContent = icon;
-  t.querySelector('.toast-msg').textContent = msg;
+  document.getElementById('toast-ic').textContent = DOMPurify.sanitize(icon);
+  document.getElementById('toast-msg').textContent = DOMPurify.sanitize(msg);
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), duration);
 }
@@ -33,7 +39,8 @@ export function fmtDate(d) {
   return new Date(d).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
 }
 
-export function getStreak(checkins) {
+export function getStreak() {
+  const checkins = S.checkins;
   if (!checkins.length) return 0;
   const dates = [...new Set(checkins.map(c => c.date))].sort().reverse();
   let s = 0;
@@ -46,8 +53,21 @@ export function getStreak(checkins) {
   return s;
 }
 
-export function getAvg(checkins) {
+export function getAvg() {
+  const checkins = S.checkins;
   if (!checkins.length) return 0;
-  const scores = checkins.map(c => parseInt(c.score || c._s || 65));
+  const scores = checkins.map(c => parseInt(c._s || c.score || 65));
   return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+}
+
+export function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export function timeAgo(iso) {
+  const d = Date.now() - new Date(iso).getTime();
+  if (d < 60000) return 'Just now';
+  if (d < 3600000) return Math.floor(d / 60000) + 'm ago';
+  if (d < 86400000) return Math.floor(d / 3600000) + 'h ago';
+  return Math.floor(d / 86400000) + 'd ago';
 }
