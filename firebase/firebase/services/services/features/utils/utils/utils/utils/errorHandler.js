@@ -1,6 +1,6 @@
 export function handleError(error, context = '') {
   console.error(`[${context}]`, error);
-  // Optional: send to monitoring service
+  // Optional: send to Sentry or LogRocket
 }
 
 export function showUserError(error) {
