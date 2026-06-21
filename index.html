@@ -17,7 +17,6 @@
    Style: LinkedIn-professional × modern SaaS
 ═══════════════════════════════════════════════════════════ */
 :root {
-  /* Brand */
   --purple:       #5C2D91;
   --purple2:      #7B3FB5;
   --purple3:      #9B59D0;
@@ -31,7 +30,6 @@
   --gold-light:   #FDF3D8;
   --gold-dark:    #A07D10;
 
-  /* Neutrals */
   --ink:          #1B1040;
   --ink2:         #3D2E6B;
   --ink3:         #7B6FA0;
@@ -42,7 +40,6 @@
   --surface3:     #E8E2F5;
   --white:        #FFFFFF;
 
-  /* Semantic */
   --green:        #10B981;
   --green-light:  #D1FAE5;
   --red:          #EF4444;
@@ -54,25 +51,21 @@
   --teal:         #0D9488;
   --teal-light:   #CCFBF1;
 
-  /* Radii */
   --r:            10px;
   --r2:           16px;
   --r3:           24px;
 
-  /* Shadows */
   --sh1: 0 1px 4px rgba(92,45,145,.08);
   --sh2: 0 4px 20px rgba(92,45,145,.12);
   --sh3: 0 8px 40px rgba(92,45,145,.18);
   --sh-gold: 0 4px 20px rgba(201,162,39,.25);
 
-  /* Gradients */
   --grad-purple: linear-gradient(135deg, #5C2D91 0%, #7B3FB5 100%);
   --grad-gold:   linear-gradient(135deg, #C9A227 0%, #E2B93B 100%);
   --grad-hero:   linear-gradient(135deg, #3D1A6E 0%, #5C2D91 50%, #7B3FB5 100%);
   --grad-card:   linear-gradient(145deg, #ffffff 0%, #F6F0FD 100%);
 }
 
-/* ── RESET & BASE ──────────────────────────────────────── */
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'Instrument Sans',sans-serif;background:var(--surface);color:var(--ink);min-height:100vh;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
@@ -90,103 +83,38 @@ a{text-decoration:none;color:var(--purple)}
 .screen.active{display:flex}
 
 /* ══════════════════════════════════════════════════════
-   LANDING PAGE — Hero dark with gold accents
+   LANDING PAGE
 ══════════════════════════════════════════════════════ */
-#landing{
-  background:var(--ink);
-  overflow:hidden;position:relative;
-  align-items:center;justify-content:center;
-  padding:2rem;text-align:center
-}
-/* Layered background */
+#landing{background:var(--ink);overflow:hidden;position:relative;align-items:center;justify-content:center;padding:2rem;text-align:center}
 .lb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.22;pointer-events:none}
 .lb1{width:600px;height:600px;background:var(--purple2);top:-150px;left:-120px}
 .lb2{width:500px;height:500px;background:#1a0a3d;bottom:-100px;right:-80px}
 .lb3{width:350px;height:350px;background:var(--gold-dark);bottom:80px;left:40%}
 .lb4{width:200px;height:200px;background:var(--teal);top:30%;right:10%}
-.lgrid{
-  position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(201,162,39,.06) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(201,162,39,.06) 1px,transparent 1px);
-  background-size:48px 48px;pointer-events:none
-}
-/* Gold corner accents */
+.lgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,162,39,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(201,162,39,.06) 1px,transparent 1px);background-size:48px 48px;pointer-events:none}
 .lcorner{position:absolute;pointer-events:none}
 .lcorner-tl{top:0;left:0;width:200px;height:200px;background:linear-gradient(135deg,rgba(201,162,39,.12) 0%,transparent 60%)}
 .lcorner-br{bottom:0;right:0;width:200px;height:200px;background:linear-gradient(315deg,rgba(92,45,145,.2) 0%,transparent 60%)}
-
 .li{position:relative;z-index:1;max-width:680px;animation:riseUp .9s ease both}
-
-/* Nav bar */
-.lnav{
-  position:absolute;top:0;left:0;right:0;z-index:10;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:1.25rem 2.5rem;
-}
+.lnav{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2.5rem}
 .lnav-logo{display:flex;align-items:center;gap:10px;font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#fff}
 .lnav-lm{width:34px;height:34px;border-radius:9px;background:var(--grad-gold);display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:var(--sh-gold)}
 .lnav-actions{display:flex;gap:10px}
 .lnav-login{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.18);padding:8px 20px;border-radius:var(--r);font-size:13px;font-weight:600;backdrop-filter:blur(8px)}
 .lnav-login:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3)}
-
-.lbadge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(201,162,39,.15);
-  border:1px solid rgba(201,162,39,.35);
-  border-radius:99px;padding:6px 16px;
-  font-size:12px;font-weight:600;color:var(--gold3);
-  margin-bottom:2rem;letter-spacing:.03em;
-  backdrop-filter:blur(8px)
-}
+.lbadge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,162,39,.15);border:1px solid rgba(201,162,39,.35);border-radius:99px;padding:6px 16px;font-size:12px;font-weight:600;color:var(--gold3);margin-bottom:2rem;letter-spacing:.03em;backdrop-filter:blur(8px)}
 .ldot{width:6px;height:6px;border-radius:50%;background:var(--gold2);box-shadow:0 0 8px var(--gold2);animation:pulse 2s infinite}
-
-.lh1{
-  font-size:clamp(2.8rem,7vw,5rem);color:#fff;
-  margin-bottom:1.25rem;letter-spacing:-.025em;
-  text-shadow:0 2px 20px rgba(0,0,0,.3)
-}
-.lh1 .grad-text{
-  background:linear-gradient(135deg,var(--gold2) 0%,var(--gold3) 50%,#fff 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
-}
-.lsub{
-  font-size:17px;color:rgba(255,255,255,.65);
-  margin-bottom:2.5rem;line-height:1.75;
-  max-width:520px;margin-left:auto;margin-right:auto
-}
-
+.lh1{font-size:clamp(2.8rem,7vw,5rem);color:#fff;margin-bottom:1.25rem;letter-spacing:-.025em;text-shadow:0 2px 20px rgba(0,0,0,.3)}
+.lh1 .grad-text{background:linear-gradient(135deg,var(--gold2) 0%,var(--gold3) 50%,#fff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.lsub{font-size:17px;color:rgba(255,255,255,.65);margin-bottom:2.5rem;line-height:1.75;max-width:520px;margin-left:auto;margin-right:auto}
 .lbtns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:3.5rem}
-
-/* Primary CTA — Gold */
-.bth{
-  background:var(--grad-gold);color:var(--ink);
-  border:none;padding:16px 36px;border-radius:var(--r);
-  font-size:15px;font-weight:700;
-  box-shadow:var(--sh-gold);letter-spacing:.01em
-}
+.bth{background:var(--grad-gold);color:var(--ink);border:none;padding:16px 36px;border-radius:var(--r);font-size:15px;font-weight:700;box-shadow:var(--sh-gold);letter-spacing:.01em}
 .bth:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(201,162,39,.4)}
-
-/* Secondary — ghost */
-.btg{
-  background:rgba(255,255,255,.07);color:rgba(255,255,255,.9);
-  border:1.5px solid rgba(255,255,255,.2);
-  padding:16px 36px;border-radius:var(--r);font-size:15px;font-weight:500;
-  backdrop-filter:blur(8px)
-}
+.btg{background:rgba(255,255,255,.07);color:rgba(255,255,255,.9);border:1.5px solid rgba(255,255,255,.2);padding:16px 36px;border-radius:var(--r);font-size:15px;font-weight:500;backdrop-filter:blur(8px)}
 .btg:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.35)}
-
-/* Feature pills */
 .lfeatures{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:3rem}
-.lfeat{
-  display:flex;align-items:center;gap:7px;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:99px;padding:7px 14px;
-  font-size:12px;font-weight:500;color:rgba(255,255,255,.75)
-}
+.lfeat{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:99px;padding:7px 14px;font-size:12px;font-weight:500;color:rgba(255,255,255,.75)}
 .lfeat-ic{font-size:14px}
-
 .lstats{display:flex;gap:0;justify-content:center;margin-top:1rem}
 .lstat{text-align:center;padding:0 2.5rem;border-right:1px solid rgba(255,255,255,.1)}
 .lstat:last-child{border-right:none}
@@ -196,123 +124,45 @@ a{text-decoration:none;color:var(--purple)}
 /* ══════════════════════════════════════════════════════
    LOGIN SCREEN
 ══════════════════════════════════════════════════════ */
-#login{
-  background:var(--surface);align-items:center;justify-content:center;
-  padding:1.5rem;position:relative;overflow:hidden
-}
-#login::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:280px;
-  background:var(--grad-hero);clip-path:ellipse(120% 100% at 50% 0%)
-}
+#login{background:var(--surface);align-items:center;justify-content:center;padding:1.5rem;position:relative;overflow:hidden}
+#login::before{content:'';position:absolute;top:0;left:0;right:0;height:280px;background:var(--grad-hero);clip-path:ellipse(120% 100% at 50% 0%)}
 .login-wrap{position:relative;z-index:1;width:100%;max-width:420px;margin-top:3rem}
-.login-logo{
-  display:flex;align-items:center;gap:10px;
-  font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#fff;
-  justify-content:center;margin-bottom:2rem
-}
+.login-logo{display:flex;align-items:center;gap:10px;font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#fff;justify-content:center;margin-bottom:2rem}
 .login-lm{width:38px;height:38px;border-radius:11px;background:var(--grad-gold);display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:var(--sh-gold)}
-.login-card{
-  background:var(--white);border-radius:var(--r3);
-  padding:2.25rem;box-shadow:var(--sh3);
-  border:1px solid var(--surface3)
-}
+.login-card{background:var(--white);border-radius:var(--r3);padding:2.25rem;box-shadow:var(--sh3);border:1px solid var(--surface3)}
 .login-card h2{font-size:1.5rem;color:var(--ink);margin-bottom:.3rem}
 .login-card p{font-size:13px;color:var(--ink3);margin-bottom:1.5rem}
-.back-link{
-  display:inline-flex;align-items:center;gap:5px;
-  font-size:12px;color:rgba(255,255,255,.7);
-  margin-bottom:1rem;cursor:pointer;
-  background:none;border:none;padding:0
-}
+.back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:rgba(255,255,255,.7);margin-bottom:1rem;cursor:pointer;background:none;border:none;padding:0}
 .back-link:hover{color:#fff}
 
 /* ══════════════════════════════════════════════════════
    ONBOARDING
 ══════════════════════════════════════════════════════ */
-#onboarding{
-  background:var(--surface);align-items:center;justify-content:center;
-  padding:1.5rem 1rem;position:relative;overflow:hidden;min-height:100vh
-}
-#onboarding::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:220px;
-  background:var(--grad-hero);clip-path:ellipse(130% 100% at 50% 0%);z-index:0
-}
+#onboarding{background:var(--surface);align-items:center;justify-content:center;padding:1.5rem 1rem;position:relative;overflow:hidden;min-height:100vh}
+#onboarding::before{content:'';position:absolute;top:0;left:0;right:0;height:220px;background:var(--grad-hero);clip-path:ellipse(130% 100% at 50% 0%);z-index:0}
 .obw{width:100%;max-width:520px;position:relative;z-index:1}
-.oblogo{
-  display:flex;align-items:center;gap:10px;
-  font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#fff;
-  margin-bottom:1.75rem;justify-content:center
-}
+.oblogo{display:flex;align-items:center;gap:10px;font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:1.75rem;justify-content:center}
 .oblm{width:34px;height:34px;border-radius:9px;background:var(--grad-gold);display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:var(--sh-gold)}
-
 .obprog{display:flex;gap:5px;margin-bottom:1.75rem}
 .ops{height:4px;border-radius:2px;flex:1;background:rgba(255,255,255,.2);transition:background .4s}
 .ops.done{background:var(--gold2)}
-
-.obc{
-  background:var(--white);
-  border:1px solid var(--surface3);
-  border-radius:var(--r3);
-  padding:2rem 2rem 1.75rem;
-  box-shadow:var(--sh3);
-  display:none;
-  animation:riseUp .35s ease both
-}
+.obc{background:var(--white);border:1px solid var(--surface3);border-radius:var(--r3);padding:2rem 2rem 1.75rem;box-shadow:var(--sh3);display:none;animation:riseUp .35s ease both}
 .obc.active{display:block}
-.obey{
-  font-size:10px;font-weight:700;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--purple);
-  margin-bottom:.4rem;
-  display:flex;align-items:center;gap:6px
-}
+.obey{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--purple);margin-bottom:.4rem;display:flex;align-items:center;gap:6px}
 .obey::before{content:'';display:inline-block;width:18px;height:2px;background:var(--gold);border-radius:1px}
 .obt{font-size:1.65rem;color:var(--ink);margin-bottom:.4rem}
 .obs{font-size:14px;color:var(--ink3);margin-bottom:1.5rem;line-height:1.65}
-
-/* Back button in onboarding */
-.ob-back{
-  display:inline-flex;align-items:center;gap:5px;
-  font-size:12px;font-weight:600;color:var(--ink3);
-  background:none;border:none;padding:0;margin-bottom:1.25rem;
-  cursor:pointer
-}
+.ob-back{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--ink3);background:none;border:none;padding:0;margin-bottom:1.25rem;cursor:pointer}
 .ob-back:hover{color:var(--purple)}
-
-/* Form fields */
 .fld{margin-bottom:1rem}
-.fld label{
-  display:block;font-size:12px;font-weight:700;
-  color:var(--ink2);margin-bottom:.4rem;
-  letter-spacing:.02em;text-transform:uppercase
-}
-.fld input,.fld textarea,.fld select{
-  width:100%;background:var(--surface);
-  border:1.5px solid var(--surface3);
-  border-radius:var(--r);padding:.8rem 1rem;
-  color:var(--ink);outline:none;
-  transition:all .18s;font-size:14px
-}
-.fld input:focus,.fld textarea:focus,.fld select:focus{
-  border-color:var(--purple);background:var(--white);
-  box-shadow:0 0 0 3px rgba(92,45,145,.08)
-}
+.fld label{display:block;font-size:12px;font-weight:700;color:var(--ink2);margin-bottom:.4rem;letter-spacing:.02em;text-transform:uppercase}
+.fld input,.fld textarea,.fld select{width:100%;background:var(--surface);border:1.5px solid var(--surface3);border-radius:var(--r);padding:.8rem 1rem;color:var(--ink);outline:none;transition:all .18s;font-size:14px}
+.fld input:focus,.fld textarea:focus,.fld select:focus{border-color:var(--purple);background:var(--white);box-shadow:0 0 0 3px rgba(92,45,145,.08)}
 .fld textarea{resize:vertical;min-height:85px}
 .fld-hint{font-size:11px;color:var(--ink4);margin-top:.3rem}
-
-/* Role cards */
 .rgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.25rem}
-.rcard{
-  background:var(--surface);
-  border:2px solid var(--surface3);
-  border-radius:var(--r2);
-  padding:1.4rem 1.2rem;
-  cursor:pointer;transition:all .2s;text-align:center;
-  position:relative;overflow:hidden
-}
-.rcard::after{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:var(--grad-gold);opacity:0;transition:opacity .2s
-}
+.rcard{background:var(--surface);border:2px solid var(--surface3);border-radius:var(--r2);padding:1.4rem 1.2rem;cursor:pointer;transition:all .2s;text-align:center;position:relative;overflow:hidden}
+.rcard::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad-gold);opacity:0;transition:opacity .2s}
 .rcard:hover{border-color:var(--purple3);background:var(--purple-pale);transform:translateY(-2px);box-shadow:var(--sh2)}
 .rcard:hover::after{opacity:1}
 .rcard.sel{border-color:var(--purple);background:var(--purple-light);box-shadow:0 0 0 3px rgba(92,45,145,.1)}
@@ -320,195 +170,63 @@ a{text-decoration:none;color:var(--purple)}
 .remoji{font-size:2.4rem;margin-bottom:.7rem;display:block}
 .rname{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--ink);margin-bottom:.3rem}
 .rdesc{font-size:12px;color:var(--ink3);line-height:1.5}
-
-/* Upload zone */
-.uzn{
-  border:2px dashed var(--surface3);
-  border-radius:var(--r2);padding:1.75rem;
-  text-align:center;cursor:pointer;
-  transition:all .2s;margin-bottom:.75rem;
-  position:relative;overflow:hidden;
-  background:var(--surface)
-}
+.uzn{border:2px dashed var(--surface3);border-radius:var(--r2);padding:1.75rem;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:.75rem;position:relative;overflow:hidden;background:var(--surface)}
 .uzn:hover,.uzn.active{border-color:var(--purple);background:var(--purple-pale)}
 .uzn.done{border-color:var(--green);background:var(--green-light)}
 .uzn input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
 .uz-ic{font-size:2rem;margin-bottom:.6rem;display:block}
 .uz-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:.25rem}
 .uz-sub{font-size:12px;color:var(--ink3)}
-
-/* AI reading pill */
-.aip{
-  display:none;align-items:flex-start;gap:10px;
-  background:var(--purple-pale);
-  border:1.5px solid var(--purple-light);
-  border-radius:var(--r);padding:.85rem 1rem;
-  margin:.75rem 0;font-size:13px;color:var(--purple2);line-height:1.6
-}
+.aip{display:none;align-items:flex-start;gap:10px;background:var(--purple-pale);border:1.5px solid var(--purple-light);border-radius:var(--r);padding:.85rem 1rem;margin:.75rem 0;font-size:13px;color:var(--purple2);line-height:1.6}
 .aip.show{display:flex}
 .aip.donep{background:var(--green-light);border-color:var(--green);color:#065f46}
-.aispin{
-  width:16px;height:16px;flex-shrink:0;margin-top:2px;
-  border:2px solid var(--purple-light);border-top-color:var(--purple);
-  border-radius:50%;animation:spin .7s linear infinite
-}
+.aispin{width:16px;height:16px;flex-shrink:0;margin-top:2px;border:2px solid var(--purple-light);border-top-color:var(--purple);border-radius:50%;animation:spin .7s linear infinite}
 .aip.donep .aispin{display:none}
-
-/* Track field items */
 .tlist{display:flex;flex-direction:column;gap:5px;margin-bottom:.75rem}
-.titem{
-  display:flex;align-items:center;gap:10px;
-  background:var(--surface);
-  border:1.5px solid var(--surface3);
-  border-radius:var(--r);padding:.65rem 1rem;
-  transition:border-color .15s
-}
+.titem{display:flex;align-items:center;gap:10px;background:var(--surface);border:1.5px solid var(--surface3);border-radius:var(--r);padding:.65rem 1rem;transition:border-color .15s}
 .titem:hover{border-color:var(--purple3)}
 .tihandle{color:var(--ink4);font-size:14px;cursor:grab}
 .tilabel{flex:1;font-size:13px;font-weight:500;color:var(--ink)}
-.titype{
-  font-size:10px;font-weight:700;padding:3px 9px;
-  border-radius:99px;background:var(--purple-light);color:var(--purple)
-}
-.tidel{
-  font-size:15px;color:var(--ink4);
-  border:none;background:none;padding:3px 5px;
-  border-radius:6px;line-height:1
-}
+.titype{font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;background:var(--purple-light);color:var(--purple)}
+.tidel{font-size:15px;color:var(--ink4);border:none;background:none;padding:3px 5px;border-radius:6px;line-height:1}
 .tidel:hover{background:var(--red-light);color:var(--red)}
-.addtf{
-  width:100%;background:transparent;
-  border:1.5px dashed var(--surface3);
-  border-radius:var(--r);padding:.65rem;
-  font-size:13px;font-weight:600;color:var(--ink3);
-  display:flex;align-items:center;justify-content:center;gap:6px
-}
+.addtf{width:100%;background:transparent;border:1.5px dashed var(--surface3);border-radius:var(--r);padding:.65rem;font-size:13px;font-weight:600;color:var(--ink3);display:flex;align-items:center;justify-content:center;gap:6px}
 .addtf:hover{border-color:var(--purple);color:var(--purple);background:var(--purple-pale)}
 
 /* Buttons */
-.btp{
-  background:var(--grad-purple);color:#fff;border:none;
-  padding:14px 28px;border-radius:var(--r);
-  font-size:15px;font-weight:600;width:100%;
-  margin-top:1rem;box-shadow:0 4px 16px rgba(92,45,145,.3);
-  letter-spacing:.01em
-}
+.btp{background:var(--grad-purple);color:#fff;border:none;padding:14px 28px;border-radius:var(--r);font-size:15px;font-weight:600;width:100%;margin-top:1rem;box-shadow:0 4px 16px rgba(92,45,145,.3);letter-spacing:.01em}
 .btp:hover{background:linear-gradient(135deg,#6d36a8,#8b4cc8);transform:translateY(-1px);box-shadow:0 6px 24px rgba(92,45,145,.4)}
 .btp:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.btp-gold{
-  background:var(--grad-gold);color:var(--ink);border:none;
-  padding:14px 28px;border-radius:var(--r);
-  font-size:15px;font-weight:700;width:100%;
-  margin-top:1rem;box-shadow:var(--sh-gold)
-}
+.btp-gold{background:var(--grad-gold);color:var(--ink);border:none;padding:14px 28px;border-radius:var(--r);font-size:15px;font-weight:700;width:100%;margin-top:1rem;box-shadow:var(--sh-gold)}
 .btp-gold:hover{transform:translateY(-1px);box-shadow:0 6px 28px rgba(201,162,39,.45)}
-.bts{
-  background:var(--surface);color:var(--ink3);
-  border:1.5px solid var(--surface3);
-  padding:13px 28px;border-radius:var(--r);
-  font-size:14px;font-weight:500;width:100%;margin-top:.5rem
-}
+.bts{background:var(--surface);color:var(--ink3);border:1.5px solid var(--surface3);padding:13px 28px;border-radius:var(--r);font-size:14px;font-weight:500;width:100%;margin-top:.5rem}
 .bts:hover{border-color:var(--purple3);color:var(--purple);background:var(--purple-pale)}
-
-/* Success circle */
-.sc{
-  width:60px;height:60px;border-radius:50%;
-  background:linear-gradient(135deg,var(--purple-light),var(--gold-light));
-  border:2px solid var(--gold);
-  display:flex;align-items:center;justify-content:center;
-  font-size:26px;margin:0 auto 1.25rem;
-  animation:pop .4s ease both;
-  box-shadow:var(--sh-gold)
-}
+.sc{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--purple-light),var(--gold-light));border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 1.25rem;animation:pop .4s ease both;box-shadow:var(--sh-gold)}
 
 /* ══════════════════════════════════════════════════════
    APP SHELL — Sidebar + Main
 ══════════════════════════════════════════════════════ */
 #app{flex-direction:row;background:var(--surface)}
-
-/* Sidebar */
-.sidebar{
-  width:252px;flex-shrink:0;
-  background:var(--white);
-  border-right:1px solid var(--surface3);
-  display:flex;flex-direction:column;
-  height:100vh;position:sticky;top:0;
-  overflow-y:auto;overflow-x:hidden
-}
-/* Sidebar header with gradient */
-.sblogo{
-  display:flex;align-items:center;gap:10px;
-  padding:1.25rem 1.25rem 1.1rem;
-  background:var(--grad-hero);
-  margin-bottom:.75rem
-}
-.sblm{
-  width:34px;height:34px;border-radius:9px;
-  background:var(--grad-gold);
-  display:flex;align-items:center;justify-content:center;
-  font-size:17px;flex-shrink:0;
-  box-shadow:var(--sh-gold)
-}
+.sidebar{width:252px;flex-shrink:0;background:var(--white);border-right:1px solid var(--surface3);display:flex;flex-direction:column;height:100vh;position:sticky;top:0;overflow-y:auto;overflow-x:hidden}
+.sblogo{display:flex;align-items:center;gap:10px;padding:1.25rem 1.25rem 1.1rem;background:var(--grad-hero);margin-bottom:.75rem}
+.sblm{width:34px;height:34px;border-radius:9px;background:var(--grad-gold);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;box-shadow:var(--sh-gold)}
 .sblt{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff}
 .sbver{font-size:10px;color:rgba(255,255,255,.4);margin-left:auto;font-weight:600;letter-spacing:.05em}
-
 .sbsec{padding:0 .75rem;margin-bottom:.5rem}
-.sbsl{
-  font-size:10px;font-weight:700;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--ink4);
-  padding:.6rem .5rem .25rem;display:flex;align-items:center;gap:6px
-}
-.sbi{
-  display:flex;align-items:center;gap:10px;
-  padding:.6rem .75rem;border-radius:var(--r);
-  font-size:13px;font-weight:500;color:var(--ink3);
-  cursor:pointer;transition:all .15s;margin-bottom:2px;
-  border:none;background:none;width:100%;text-align:left;
-  position:relative
-}
+.sbsl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);padding:.6rem .5rem .25rem;display:flex;align-items:center;gap:6px}
+.sbi{display:flex;align-items:center;gap:10px;padding:.6rem .75rem;border-radius:var(--r);font-size:13px;font-weight:500;color:var(--ink3);cursor:pointer;transition:all .15s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left;position:relative}
 .sbi:hover{background:var(--surface2);color:var(--ink)}
-.sbi.active{
-  background:linear-gradient(135deg,var(--purple-light),var(--gold-light));
-  color:var(--purple);font-weight:600
-}
-.sbi.active::before{
-  content:'';position:absolute;left:0;top:20%;bottom:20%;
-  width:3px;background:var(--grad-gold);border-radius:0 2px 2px 0
-}
-.sbii{
-  width:30px;height:30px;border-radius:8px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:15px;flex-shrink:0;
-  background:var(--surface2);transition:background .15s
-}
+.sbi.active{background:linear-gradient(135deg,var(--purple-light),var(--gold-light));color:var(--purple);font-weight:600}
+.sbi.active::before{content:'';position:absolute;left:0;top:20%;bottom:20%;width:3px;background:var(--grad-gold);border-radius:0 2px 2px 0}
+.sbii{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;background:var(--surface2);transition:background .15s}
 .sbi.active .sbii{background:var(--purple);font-size:14px}
-.sbbadge{
-  margin-left:auto;background:var(--red);color:#fff;
-  font-size:9px;font-weight:700;
-  padding:2px 7px;border-radius:99px;
-  animation:pulse 2s infinite
-}
+.sbbadge{margin-left:auto;background:var(--red);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:99px;animation:pulse 2s infinite}
 .sb-divider{height:1px;background:var(--surface3);margin:.5rem .75rem}
-
-/* Sidebar user */
 .sbuser{padding:1rem 1.25rem;border-top:1px solid var(--surface3);margin-top:auto}
-.sbav{
-  width:38px;height:38px;border-radius:50%;
-  background:var(--grad-purple);
-  display:flex;align-items:center;justify-content:center;
-  font-size:14px;font-weight:700;color:#fff;
-  flex-shrink:0;border:2px solid var(--gold)
-}
+.sbav{width:38px;height:38px;border-radius:50%;background:var(--grad-purple);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0;border:2px solid var(--gold)}
 .sbuname{font-size:13px;font-weight:600;color:var(--ink)}
 .sburole{font-size:11px;color:var(--ink4)}
-.sb-signout{
-  width:100%;background:transparent;
-  border:1px solid var(--red-light);color:var(--red);
-  border-radius:var(--r);padding:7px 12px;
-  font-size:12px;font-weight:600;
-  margin-top:.75rem;text-align:left;
-  display:flex;align-items:center;gap:6px
-}
+.sb-signout{width:100%;background:transparent;border:1px solid var(--red-light);color:var(--red);border-radius:var(--r);padding:7px 12px;font-size:12px;font-weight:600;margin-top:.75rem;text-align:left;display:flex;align-items:center;gap:6px}
 .sb-signout:hover{background:var(--red-light)}
 
 /* Mobile Header & Menu Base (Hidden on Desktop) */
@@ -519,105 +237,38 @@ a{text-decoration:none;color:var(--purple)}
 .main{flex:1;overflow-y:auto;min-height:100vh;background:var(--surface)}
 .page{display:none;padding:1.75rem 2rem;max-width:1080px}
 .page.active{display:block;animation:riseUp .3s ease both}
-
-/* Page header */
-.phead{
-  display:flex;justify-content:space-between;align-items:flex-start;
-  margin-bottom:1.75rem;flex-wrap:wrap;gap:1rem
-}
+.phead{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.75rem;flex-wrap:wrap;gap:1rem}
 .phead-left{display:flex;align-items:flex-start;gap:12px}
-/* Back button */
-.back-btn{
-  display:flex;align-items:center;justify-content:center;
-  width:36px;height:36px;border-radius:50%;
-  background:var(--white);border:1.5px solid var(--surface3);
-  font-size:16px;color:var(--ink3);flex-shrink:0;margin-top:4px;
-  box-shadow:var(--sh1)
-}
+.back-btn{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--white);border:1.5px solid var(--surface3);font-size:16px;color:var(--ink3);flex-shrink:0;margin-top:4px;box-shadow:var(--sh1)}
 .back-btn:hover{background:var(--purple-light);border-color:var(--purple);color:var(--purple);transform:scale(1.05)}
 .ptitle{font-size:1.85rem;color:var(--ink);margin-bottom:.2rem;letter-spacing:-.01em}
 .psub{font-size:13px;color:var(--ink3)}
-
-/* Action button (top right of pages) */
-.btn-action{
-  background:var(--grad-purple);color:#fff;border:none;
-  padding:10px 20px;border-radius:var(--r);
-  font-size:13px;font-weight:600;
-  display:flex;align-items:center;gap:7px;
-  box-shadow:0 2px 12px rgba(92,45,145,.25)
-}
+.btn-action{background:var(--grad-purple);color:#fff;border:none;padding:10px 20px;border-radius:var(--r);font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px;box-shadow:0 2px 12px rgba(92,45,145,.25)}
 .btn-action:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(92,45,145,.35)}
-.btn-gold{
-  background:var(--grad-gold);color:var(--ink);border:none;
-  padding:10px 20px;border-radius:var(--r);
-  font-size:13px;font-weight:700;
-  display:flex;align-items:center;gap:7px;
-  box-shadow:var(--sh-gold)
-}
+.btn-gold{background:var(--grad-gold);color:var(--ink);border:none;padding:10px 20px;border-radius:var(--r);font-size:13px;font-weight:700;display:flex;align-items:center;gap:7px;box-shadow:var(--sh-gold)}
 .btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(201,162,39,.4)}
-.btn-outline{
-  background:var(--white);color:var(--ink2);
-  border:1.5px solid var(--surface3);
-  padding:10px 20px;border-radius:var(--r);
-  font-size:13px;font-weight:600;
-  display:flex;align-items:center;gap:7px;
-  box-shadow:var(--sh1)
-}
+.btn-outline{background:var(--white);color:var(--ink2);border:1.5px solid var(--surface3);padding:10px 20px;border-radius:var(--r);font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px;box-shadow:var(--sh1)}
 .btn-outline:hover{border-color:var(--purple3);color:var(--purple);background:var(--purple-pale)}
 
 /* ── KPI GRID ─────────────────────────────────────── */
 .kgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.75rem}
-.kpi{
-  background:var(--white);
-  border:1px solid var(--surface3);
-  border-radius:var(--r2);
-  padding:1.25rem 1.4rem;
-  transition:all .2s;cursor:default;
-  position:relative;overflow:hidden
-}
-.kpi::after{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  opacity:0;transition:opacity .2s;
-  background:var(--grad-gold)
-}
+.kpi{background:var(--white);border:1px solid var(--surface3);border-radius:var(--r2);padding:1.25rem 1.4rem;transition:all .2s;cursor:default;position:relative;overflow:hidden}
+.kpi::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:0;transition:opacity .2s;background:var(--grad-gold)}
 .kpi:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
 .kpi:hover::after{opacity:1}
-.kpic{
-  width:46px;height:46px;border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:22px;margin-bottom:.9rem
-}
-.kpiv{
-  font-family:'Syne',sans-serif;font-size:1.9rem;
-  font-weight:800;color:var(--ink);line-height:1
-}
+.kpic{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:.9rem}
+.kpiv{font-family:'Syne',sans-serif;font-size:1.9rem;font-weight:800;color:var(--ink);line-height:1}
 .kpil{font-size:12px;color:var(--ink3);margin-top:.3rem;font-weight:500}
 .kpid{font-size:11px;font-weight:700;margin-top:.25rem;letter-spacing:.01em}
 .kpid.up{color:var(--green)}.kpid.dn{color:var(--red)}.kpid.fl{color:var(--ink4)}
 
 /* ── CARDS ──────────────────────────────────────── */
-.card{
-  background:var(--white);
-  border:1px solid var(--surface3);
-  border-radius:var(--r2);
-  padding:1.4rem 1.5rem;
-  margin-bottom:1rem;
-  box-shadow:var(--sh1)
-}
+.card{background:var(--white);border:1px solid var(--surface3);border-radius:var(--r2);padding:1.4rem 1.5rem;margin-bottom:1rem;box-shadow:var(--sh1)}
 .card:hover{box-shadow:var(--sh2)}
-.card-purple{
-  background:linear-gradient(135deg,var(--purple-dark) 0%,var(--purple) 100%);
-  border:none;color:#fff
-}
-.card-gold{
-  background:linear-gradient(135deg,#7A5F0A 0%,var(--gold-dark) 50%,var(--gold) 100%);
-  border:none;color:#fff
-}
+.card-purple{background:linear-gradient(135deg,var(--purple-dark) 0%,var(--purple) 100%);border:none;color:#fff}
+.card-gold{background:linear-gradient(135deg,#7A5F0A 0%,var(--gold-dark) 50%,var(--gold) 100%);border:none;color:#fff}
 .chead{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;gap:8px}
-.ctitle{
-  font-family:'Syne',sans-serif;font-size:14px;font-weight:700;
-  color:var(--ink);display:flex;align-items:center;gap:7px
-}
+.ctitle{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:7px}
 .ctitle-gold{color:var(--gold-dark)}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 
@@ -625,11 +276,7 @@ a{text-decoration:none;color:var(--purple)}
 .br2{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}
 .blbl{color:var(--ink2);font-weight:500}
 .bvl{font-weight:700;color:var(--ink)}
-.btrack{
-  height:8px;background:var(--surface2);
-  border-radius:4px;overflow:hidden;margin-bottom:.85rem;
-  box-shadow:inset 0 1px 2px rgba(0,0,0,.06)
-}
+.btrack{height:8px;background:var(--surface2);border-radius:4px;overflow:hidden;margin-bottom:.85rem;box-shadow:inset 0 1px 2px rgba(0,0,0,.06)}
 .bfill{height:100%;border-radius:4px;transition:width .9s cubic-bezier(.4,0,.2,1)}
 
 /* Sparkline */
@@ -648,298 +295,107 @@ a{text-decoration:none;color:var(--purple)}
 
 /* ── ROW LISTS ──────────────────────────────────── */
 .rl2{display:flex;flex-direction:column}
-.ri{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:.75rem 0;border-bottom:1px solid var(--surface2);gap:8px
-}
+.ri{display:flex;justify-content:space-between;align-items:center;padding:.75rem 0;border-bottom:1px solid var(--surface2);gap:8px}
 .ri:last-child{border-bottom:none}
 .rlbl{font-size:13px;color:var(--ink2);flex:1;line-height:1.5;font-weight:500}
 .rvl{font-size:13px;font-weight:700;color:var(--ink)}
 
 /* ── STREAK BANNER ──────────────────────────────── */
-.streak-banner{
-  background:linear-gradient(135deg,var(--purple-dark),var(--purple2));
-  border-radius:var(--r2);padding:1rem 1.25rem;
-  display:none;align-items:center;gap:12px;
-  margin-bottom:1rem;position:relative;overflow:hidden
-}
-.streak-banner::after{
-  content:'';position:absolute;right:-20px;top:-20px;
-  width:100px;height:100px;border-radius:50%;
-  background:rgba(201,162,39,.15)
-}
+.streak-banner{background:linear-gradient(135deg,var(--purple-dark),var(--purple2));border-radius:var(--r2);padding:1rem 1.25rem;display:none;align-items:center;gap:12px;margin-bottom:1rem;position:relative;overflow:hidden}
+.streak-banner::after{content:'';position:absolute;right:-20px;top:-20px;width:100px;height:100px;border-radius:50%;background:rgba(201,162,39,.15)}
 .streak-fire{font-size:2rem;flex-shrink:0;animation:bounce 1s ease infinite}
 .streak-text{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff}
 .streak-sub{font-size:12px;color:rgba(255,255,255,.65);margin-top:2px}
 
 /* ── CHECK-IN FIELDS ──────────────────────────── */
 .cif{margin-bottom:1.25rem}
-.cilbl{
-  font-size:14px;font-weight:700;color:var(--ink);
-  margin-bottom:.65rem;display:flex;align-items:center;gap:7px
-}
-.cilbl-num{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:22px;height:22px;border-radius:50%;
-  background:var(--grad-gold);color:var(--ink);
-  font-size:10px;font-weight:800;flex-shrink:0
-}
+.cilbl{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:.65rem;display:flex;align-items:center;gap:7px}
+.cilbl-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--grad-gold);color:var(--ink);font-size:10px;font-weight:800;flex-shrink:0}
 .rrow{display:flex;gap:8px;flex-wrap:wrap}
-.rbtn{
-  flex:1;min-width:44px;padding:.75rem .5rem;
-  border-radius:var(--r);
-  border:2px solid var(--surface3);
-  background:var(--surface);
-  color:var(--ink2);font-size:15px;font-weight:700;
-  text-align:center;transition:all .15s
-}
+.rbtn{flex:1;min-width:44px;padding:.75rem .5rem;border-radius:var(--r);border:2px solid var(--surface3);background:var(--surface);color:var(--ink2);font-size:15px;font-weight:700;text-align:center;transition:all .15s}
 .rbtn:hover{border-color:var(--purple3);background:var(--purple-pale)}
-.rbtn.sel{
-  border-color:var(--purple);
-  background:var(--grad-purple);
-  color:#fff;
-  box-shadow:0 2px 10px rgba(92,45,145,.3)
-}
+.rbtn.sel{border-color:var(--purple);background:var(--grad-purple);color:#fff;box-shadow:0 2px 10px rgba(92,45,145,.3)}
 .trow{display:flex;gap:8px}
-.tbtn{
-  flex:1;padding:.8rem;border-radius:var(--r);
-  border:2px solid var(--surface3);
-  background:var(--surface);
-  font-size:14px;font-weight:600;text-align:center
-}
+.tbtn{flex:1;padding:.8rem;border-radius:var(--r);border:2px solid var(--surface3);background:var(--surface);font-size:14px;font-weight:600;text-align:center}
 .tbtn.yes{border-color:var(--green);background:var(--green-light);color:#065f46}
 .tbtn.no{border-color:var(--red);background:var(--red-light);color:#991b1b}
-.cita{
-  width:100%;background:var(--surface);
-  border:1.5px solid var(--surface3);
-  border-radius:var(--r);padding:.85rem 1rem;
-  font-size:14px;color:var(--ink);outline:none;
-  resize:vertical;min-height:75px;transition:all .18s
-}
-.cita:focus,.cinum:focus{
-  border-color:var(--purple);background:var(--white);
-  box-shadow:0 0 0 3px rgba(92,45,145,.08)
-}
-.cinum{
-  width:100%;background:var(--surface);
-  border:1.5px solid var(--surface3);
-  border-radius:var(--r);padding:.85rem 1rem;
-  font-size:14px;color:var(--ink);outline:none;transition:all .18s
-}
-/* "Already done today" state */
-.ci-done-today{
-  background:linear-gradient(135deg,var(--purple-light),var(--gold-light));
-  border:1.5px solid var(--purple-light);
-  border-radius:var(--r2);padding:2rem;text-align:center;
-  margin-bottom:1rem
-}
+.cita{width:100%;background:var(--surface);border:1.5px solid var(--surface3);border-radius:var(--r);padding:.85rem 1rem;font-size:14px;color:var(--ink);outline:none;resize:vertical;min-height:75px;transition:all .18s}
+.cita:focus,.cinum:focus{border-color:var(--purple);background:var(--white);box-shadow:0 0 0 3px rgba(92,45,145,.08)}
+.cinum{width:100%;background:var(--surface);border:1.5px solid var(--surface3);border-radius:var(--r);padding:.85rem 1rem;font-size:14px;color:var(--ink);outline:none;transition:all .18s}
+.ci-done-today{background:linear-gradient(135deg,var(--purple-light),var(--gold-light));border:1.5px solid var(--purple-light);border-radius:var(--r2);padding:2rem;text-align:center;margin-bottom:1rem}
 .ci-done-ic{font-size:2.5rem;margin-bottom:.75rem;display:block}
 
 /* ── AI CHAT ───────────────────────────────────── */
-.chatbox{
-  background:var(--white);
-  border:1px solid var(--surface3);
-  border-radius:var(--r2);
-  overflow:hidden;
-  box-shadow:var(--sh2)
-}
-.chatmsgs{
-  height:370px;overflow-y:auto;
-  padding:1.25rem;
-  display:flex;flex-direction:column;gap:12px;
-  background:linear-gradient(180deg,var(--surface) 0%,var(--white) 100%)
-}
+.chatbox{background:var(--white);border:1px solid var(--surface3);border-radius:var(--r2);overflow:hidden;box-shadow:var(--sh2)}
+.chatmsgs{height:370px;overflow-y:auto;padding:1.25rem;display:flex;flex-direction:column;gap:12px;background:linear-gradient(180deg,var(--surface) 0%,var(--white) 100%)}
 .cm{display:flex;gap:9px;max-width:87%}
 .cm.user{flex-direction:row-reverse;align-self:flex-end}
-.cmav{
-  width:32px;height:32px;border-radius:50%;
-  flex-shrink:0;display:flex;align-items:center;justify-content:center;
-  font-size:13px;font-weight:700
-}
+.cmav{width:32px;height:32px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
 .cm.ai .cmav{background:var(--grad-purple);color:#fff;box-shadow:0 2px 8px rgba(92,45,145,.25)}
 .cm.user .cmav{background:var(--surface3);color:var(--ink3)}
 .cmbub{padding:.8rem 1rem;border-radius:14px;font-size:13px;line-height:1.65}
-.cm.ai .cmbub{
-  background:var(--white);
-  border:1.5px solid var(--surface3);
-  color:var(--ink);
-  border-radius:4px 14px 14px 14px;
-  box-shadow:var(--sh1)
-}
-.cm.user .cmbub{
-  background:var(--grad-purple);color:#fff;
-  border-radius:14px 4px 14px 14px
-}
-.cirow{
-  display:flex;gap:8px;padding:1rem 1.1rem;
-  border-top:1px solid var(--surface3);
-  background:var(--white)
-}
-.cinput{
-  flex:1;background:var(--surface);
-  border:1.5px solid var(--surface3);
-  border-radius:var(--r);padding:.7rem 1rem;
-  font-size:13px;color:var(--ink);outline:none;transition:all .18s
-}
+.cm.ai .cmbub{background:var(--white);border:1.5px solid var(--surface3);color:var(--ink);border-radius:4px 14px 14px 14px;box-shadow:var(--sh1)}
+.cm.user .cmbub{background:var(--grad-purple);color:#fff;border-radius:14px 4px 14px 14px}
+.cirow{display:flex;gap:8px;padding:1rem 1.1rem;border-top:1px solid var(--surface3);background:var(--white)}
+.cinput{flex:1;background:var(--surface);border:1.5px solid var(--surface3);border-radius:var(--r);padding:.7rem 1rem;font-size:13px;color:var(--ink);outline:none;transition:all .18s}
 .cinput:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(92,45,145,.08)}
-.csbtn{
-  background:var(--grad-purple);color:#fff;border:none;
-  border-radius:var(--r);padding:.7rem 1.25rem;
-  font-size:13px;font-weight:700;
-  box-shadow:0 2px 8px rgba(92,45,145,.25)
-}
+.csbtn{background:var(--grad-purple);color:#fff;border:none;border-radius:var(--r);padding:.7rem 1.25rem;font-size:13px;font-weight:700;box-shadow:0 2px 8px rgba(92,45,145,.25)}
 .csbtn:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(92,45,145,.35)}
-.schip{
-  font-size:12px;padding:6px 14px;border-radius:99px;
-  border:1.5px solid var(--surface3);
-  background:var(--white);color:var(--ink3);cursor:pointer;
-  font-weight:500;transition:all .15s
-}
+.schip{font-size:12px;padding:6px 14px;border-radius:99px;border:1.5px solid var(--surface3);background:var(--white);color:var(--ink3);cursor:pointer;font-weight:500;transition:all .15s}
 .schip:hover{border-color:var(--purple);color:var(--purple);background:var(--purple-pale)}
 
 /* ── COMMUNITY ─────────────────────────────────── */
-.fcomp{
-  background:var(--white);
-  border:1px solid var(--surface3);
-  border-radius:var(--r2);
-  padding:1.25rem;margin-bottom:1rem;
-  box-shadow:var(--sh1)
-}
+.fcomp{background:var(--white);border:1px solid var(--surface3);border-radius:var(--r2);padding:1.25rem;margin-bottom:1rem;box-shadow:var(--sh1)}
 .ctop{display:flex;gap:12px;margin-bottom:.85rem}
-.cav2{
-  width:44px;height:44px;border-radius:50%;
-  background:var(--grad-purple);
-  display:flex;align-items:center;justify-content:center;
-  font-size:15px;font-weight:700;color:#fff;flex-shrink:0;
-  border:2px solid var(--gold);
-  box-shadow:var(--sh-gold)
-}
-.cta2{
-  flex:1;background:var(--surface);
-  border:1.5px solid var(--surface3);
-  border-radius:var(--r);padding:.8rem 1rem;
-  font-size:14px;color:var(--ink);outline:none;
-  resize:none;min-height:72px;transition:all .18s
-}
+.cav2{width:44px;height:44px;border-radius:50%;background:var(--grad-purple);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0;border:2px solid var(--gold);box-shadow:var(--sh-gold)}
+.cta2{flex:1;background:var(--surface);border:1.5px solid var(--surface3);border-radius:var(--r);padding:.8rem 1rem;font-size:14px;color:var(--ink);outline:none;resize:none;min-height:72px;transition:all .18s}
 .cta2:focus{border-color:var(--purple);background:var(--white);box-shadow:0 0 0 3px rgba(92,45,145,.08)}
 .cbot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
 .ctags{display:flex;gap:6px;flex-wrap:wrap}
-.tchip{
-  font-size:12px;padding:5px 12px;border-radius:99px;
-  border:1.5px solid var(--surface3);
-  background:var(--surface);color:var(--ink3);cursor:pointer;
-  font-weight:600;transition:all .15s
-}
+.tchip{font-size:12px;padding:5px 12px;border-radius:99px;border:1.5px solid var(--surface3);background:var(--surface);color:var(--ink3);cursor:pointer;font-weight:600;transition:all .15s}
 .tchip:hover{border-color:var(--purple3);color:var(--purple)}
 .tchip.sel{border-color:var(--gold);background:var(--gold-light);color:var(--gold-dark)}
-.cpbtn{
-  background:var(--grad-purple);color:#fff;border:none;
-  border-radius:var(--r);padding:9px 22px;
-  font-size:13px;font-weight:700;
-  box-shadow:0 2px 12px rgba(92,45,145,.25)
-}
+.cpbtn{background:var(--grad-purple);color:#fff;border:none;border-radius:var(--r);padding:9px 22px;font-size:13px;font-weight:700;box-shadow:0 2px 12px rgba(92,45,145,.25)}
 .cpbtn:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(92,45,145,.35)}
 
 /* Post cards */
-.pcard{
-  background:var(--white);
-  border:1px solid var(--surface3);
-  border-radius:var(--r2);
-  padding:1.25rem 1.4rem;
-  margin-bottom:.9rem;
-  transition:all .2s;
-  box-shadow:var(--sh1)
-}
+.pcard{background:var(--white);border:1px solid var(--surface3);border-radius:var(--r2);padding:1.25rem 1.4rem;margin-bottom:.9rem;transition:all .2s;box-shadow:var(--sh1)}
 .pcard:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
 .phead2{display:flex;align-items:center;gap:10px;margin-bottom:.9rem}
-.pav{
-  width:42px;height:42px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:15px;font-weight:700;color:#fff;
-  flex-shrink:0;border:2px solid var(--gold)
-}
+.pav{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0;border:2px solid var(--gold)}
 .pname{font-size:14px;font-weight:700;color:var(--ink)}
 .prole{font-size:12px;color:var(--ink3);font-weight:500}
 .ptime{font-size:11px;color:var(--ink4);margin-left:auto}
 .pbody{font-size:14px;color:var(--ink2);line-height:1.75;margin-bottom:.85rem}
-.ptag{
-  display:inline-block;font-size:11px;font-weight:700;
-  padding:3px 9px;border-radius:99px;
-  margin-right:4px;margin-bottom:5px
-}
-.pstat{
-  display:inline-flex;align-items:center;gap:5px;
-  background:var(--surface2);
-  border:1px solid var(--surface3);
-  border-radius:8px;padding:.35rem .85rem;
-  font-size:12px;font-weight:600;color:var(--ink2);
-  margin-bottom:.75rem;margin-right:.4rem
-}
+.ptag{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:99px;margin-right:4px;margin-bottom:5px}
+.pstat{display:inline-flex;align-items:center;gap:5px;background:var(--surface2);border:1px solid var(--surface3);border-radius:8px;padding:.35rem .85rem;font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:.75rem;margin-right:.4rem}
 .pacts{display:flex;gap:4px;flex-wrap:wrap}
-.pabtn{
-  display:flex;align-items:center;gap:5px;
-  background:var(--surface2);border:none;
-  font-size:12px;font-weight:600;color:var(--ink3);
-  padding:6px 12px;border-radius:99px;transition:all .15s
-}
+.pabtn{display:flex;align-items:center;gap:5px;background:var(--surface2);border:none;font-size:12px;font-weight:600;color:var(--ink3);padding:6px 12px;border-radius:99px;transition:all .15s}
 .pabtn:hover{background:var(--purple-light);color:var(--purple)}
 .pabtn.liked{background:var(--red-light);color:var(--red)}
 
 /* ── EMPTY STATES ──────────────────────────────── */
-.empty{
-  text-align:center;padding:4rem 1.5rem;
-  background:var(--white);border-radius:var(--r2);
-  border:1px solid var(--surface3);
-  box-shadow:var(--sh1)
-}
+.empty{text-align:center;padding:4rem 1.5rem;background:var(--white);border-radius:var(--r2);border:1px solid var(--surface3);box-shadow:var(--sh1)}
 .eicon{font-size:3.5rem;margin-bottom:1.1rem;display:block}
 .etitle{font-family:'Syne',sans-serif;font-size:1.3rem;color:var(--ink);margin-bottom:.5rem}
 .esub{font-size:14px;color:var(--ink3);margin-bottom:1.75rem;line-height:1.7;max-width:300px;margin-left:auto;margin-right:auto}
 
 /* ── SETTINGS ──────────────────────────────────── */
-.settings-item{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:.85rem 0;border-bottom:1px solid var(--surface2);gap:10px
-}
+.settings-item{display:flex;justify-content:space-between;align-items:center;padding:.85rem 0;border-bottom:1px solid var(--surface2);gap:10px}
 .settings-item:last-child{border-bottom:none}
 .settings-label{font-size:13px;font-weight:600;color:var(--ink)}
 .settings-sub{font-size:12px;color:var(--ink3);margin-top:2px}
-/* Toggle switch */
 .toggle-sw{position:relative;display:inline-block;width:42px;height:24px;flex-shrink:0}
 .toggle-sw input{opacity:0;width:0;height:0}
-.toggle-slider{
-  position:absolute;cursor:pointer;inset:0;
-  background:var(--surface3);border-radius:34px;transition:.3s
-}
-.toggle-slider::before{
-  content:'';position:absolute;height:18px;width:18px;left:3px;bottom:3px;
-  background:white;border-radius:50%;transition:.3s;box-shadow:var(--sh1)
-}
+.toggle-slider{position:absolute;cursor:pointer;inset:0;background:var(--surface3);border-radius:34px;transition:.3s}
+.toggle-slider::before{content:'';position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:white;border-radius:50%;transition:.3s;box-shadow:var(--sh1)}
 .toggle-sw input:checked+.toggle-slider{background:var(--purple)}
 .toggle-sw input:checked+.toggle-slider::before{transform:translateX(18px)}
 
 /* ── PROFILE PAGE ──────────────────────────────── */
-.profile-header{
-  background:var(--grad-hero);
-  border-radius:var(--r2);padding:2rem;
-  margin-bottom:1rem;position:relative;overflow:hidden;
-  box-shadow:var(--sh3);display:flex;align-items:center;gap:1.5rem;
-  flex-wrap:wrap
-}
-.profile-header::after{
-  content:'';position:absolute;top:-30px;right:-30px;
-  width:150px;height:150px;border-radius:50%;
-  background:rgba(201,162,39,.15);pointer-events:none
-}
-.profile-av{
-  width:72px;height:72px;border-radius:50%;
-  background:var(--grad-gold);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Syne',sans-serif;font-size:26px;font-weight:800;
-  color:var(--ink);flex-shrink:0;
-  border:3px solid rgba(255,255,255,.3);
-  box-shadow:var(--sh-gold);position:relative;z-index:1
-}
+.profile-header{background:var(--grad-hero);border-radius:var(--r2);padding:2rem;margin-bottom:1rem;position:relative;overflow:hidden;box-shadow:var(--sh3);display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.profile-header::after{content:'';position:absolute;top:-30px;right:-30px;width:150px;height:150px;border-radius:50%;background:rgba(201,162,39,.15);pointer-events:none}
+.profile-av{width:72px;height:72px;border-radius:50%;background:var(--grad-gold);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--ink);flex-shrink:0;border:3px solid rgba(255,255,255,.3);box-shadow:var(--sh-gold);position:relative;z-index:1}
 .profile-name{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.25rem}
 .profile-role{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:.75rem}
 .profile-stats{display:flex;gap:1.25rem;flex-wrap:wrap}
@@ -949,61 +405,24 @@ a{text-decoration:none;color:var(--purple)}
 
 /* ── TEAM TABLE ────────────────────────────────── */
 .team-table{width:100%;border-collapse:separate;border-spacing:0 6px}
-.team-table thead th{
-  text-align:left;padding:.6rem .9rem;
-  font-size:10px;font-weight:700;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--ink3);
-  border-bottom:2px solid var(--surface3)
-}
-.team-table tbody tr{
-  background:var(--white);
-  box-shadow:var(--sh1);
-  transition:all .15s
-}
+.team-table thead th{text-align:left;padding:.6rem .9rem;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);border-bottom:2px solid var(--surface3)}
+.team-table tbody tr{background:var(--white);box-shadow:var(--sh1);transition:all .15s}
 .team-table tbody tr:hover{box-shadow:var(--sh2);transform:translateX(2px)}
-.team-table td{
-  padding:.85rem .9rem;font-size:13px;color:var(--ink2);
-  border-top:1px solid var(--surface2);
-  border-bottom:1px solid var(--surface2)
-}
+.team-table td{padding:.85rem .9rem;font-size:13px;color:var(--ink2);border-top:1px solid var(--surface2);border-bottom:1px solid var(--surface2)}
 .team-table td:first-child{border-left:1px solid var(--surface2);border-radius:var(--r) 0 0 var(--r)}
 .team-table td:last-child{border-right:1px solid var(--surface2);border-radius:0 var(--r) var(--r) 0}
 .team-name{font-weight:700;color:var(--ink)}
-.team-av{
-  width:32px;height:32px;border-radius:50%;
-  display:inline-flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:700;color:#fff;margin-right:8px;vertical-align:middle
-}
+.team-av{width:32px;height:32px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;margin-right:8px;vertical-align:middle}
 
 /* ── TOAST ──────────────────────────────────────── */
-.toast{
-  position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);
-  background:var(--ink);color:#fff;
-  padding:.75rem 1.25rem;border-radius:99px;
-  font-size:13px;font-weight:600;
-  display:flex;align-items:center;gap:8px;
-  opacity:0;transition:all .3s;z-index:1000;
-  white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,.25);
-  max-width:90vw
-}
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:.75rem 1.25rem;border-radius:99px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;opacity:0;transition:all .3s;z-index:1000;white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,.25);max-width:90vw}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast-ic{font-size:16px}
 
 /* ── MODAL ─────────────────────────────────────── */
-.modal-overlay{
-  display:none;position:fixed;inset:0;
-  background:rgba(27,16,64,.55);
-  backdrop-filter:blur(4px);
-  z-index:100;align-items:center;justify-content:center;padding:1rem
-}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(27,16,64,.55);backdrop-filter:blur(4px);z-index:100;align-items:center;justify-content:center;padding:1rem}
 .modal-overlay.open{display:flex}
-.modal{
-  background:var(--white);
-  border-radius:var(--r3);
-  padding:2.25rem;width:100%;max-width:460px;
-  animation:riseUp .25s ease both;
-  box-shadow:var(--sh3)
-}
+.modal{background:var(--white);border-radius:var(--r3);padding:2.25rem;width:100%;max-width:460px;animation:riseUp .25s ease both;box-shadow:var(--sh3)}
 .modal h3{font-size:1.3rem;color:var(--ink);margin-bottom:.35rem}
 .modal p{font-size:13px;color:var(--ink3);margin-bottom:1.25rem;line-height:1.6}
 .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:1.5rem}
@@ -1015,78 +434,16 @@ a{text-decoration:none;color:var(--purple)}
 @keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.1)}100%{transform:scale(1)}}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-
 .typing::after{content:'▋';animation:blink .8s infinite;font-size:11px;vertical-align:middle}
 
 /* ── RESPONSIVE ────────────────────────────────── */
-@media(max-width:900px){
-  .sidebar{width:200px}
-  .ptitle{font-size:1.5rem}
-  .two{grid-template-columns:1fr}
-}
-
-@media(max-width:768px){
-  .sidebar { display:none }
-  
-  .mob-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 1.25rem;
-    background: var(--white);
-    border-bottom: 1px solid var(--surface3);
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-  }
-  
-  .hamburger {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: var(--ink);
-    cursor: pointer;
-  }
-
-  .mobnav {
-    display: block; position: fixed; top: -120%; left: 0; right: 0;
-    background: var(--white); z-index: 90;
-    padding: 5rem 1.5rem 2rem; 
-    transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 10px 30px rgba(92,45,145,.15);
-    border-bottom-left-radius: var(--r3);
-    border-bottom-right-radius: var(--r3);
-    max-height: 100vh;
-    overflow-y: auto;
-  }
-  .mobnav.open { top: 0; }
-  
-  .mobnav-inner { display: flex; flex-direction: column; gap: 4px; }
-  
-  .mni {
-    display: flex; flex-direction: row; align-items: center; justify-content: flex-start;
-    gap: 12px; padding: 1rem 1.25rem; border-radius: var(--r);
-    border: none; background: none; font-size: 14px; font-weight: 600;
-    color: var(--ink3); cursor: pointer; width: 100%; transition: all .15s;
-  }
-  .mni.active { color: var(--purple); background: var(--purple-pale); }
-  .mni-ic { font-size: 18px; width: 24px; text-align: center; }
-
-  .main .page { padding: 5.5rem 1rem 2rem; }
-  .kgrid { grid-template-columns: 1fr 1fr; }
-  .lnav { padding: 1rem 1.25rem; }
-}
-
-@media(max-width:480px){
-  .kgrid{grid-template-columns:1fr 1fr}
-  .rgrid{grid-template-columns:1fr}
-  .lstat{padding:0 1.25rem}
-  .obc{padding:1.5rem 1.25rem}
-}
+@media(max-width:900px){.sidebar{width:200px}.ptitle{font-size:1.5rem}.two{grid-template-columns:1fr}}
+@media(max-width:768px){.sidebar{display:none}.mob-header{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;background:var(--white);border-bottom:1px solid var(--surface3);position:fixed;top:0;left:0;right:0;z-index:100}.hamburger{background:none;border:none;font-size:1.5rem;color:var(--ink);cursor:pointer}.mobnav{display:block;position:fixed;top:-120%;left:0;right:0;background:var(--white);z-index:90;padding:5rem 1.5rem 2rem;transition:top 0.3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 10px 30px rgba(92,45,145,.15);border-bottom-left-radius:var(--r3);border-bottom-right-radius:var(--r3);max-height:100vh;overflow-y:auto}.mobnav.open{top:0}.mobnav-inner{display:flex;flex-direction:column;gap:4px}.mni{display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:12px;padding:1rem 1.25rem;border-radius:var(--r);border:none;background:none;font-size:14px;font-weight:600;color:var(--ink3);cursor:pointer;width:100%;transition:all .15s}.mni.active{color:var(--purple);background:var(--purple-pale)}.mni-ic{font-size:18px;width:24px;text-align:center}.main .page{padding:5.5rem 1rem 2rem}.kgrid{grid-template-columns:1fr 1fr}.lnav{padding:1rem 1.25rem}}@media(max-width:480px){.kgrid{grid-template-columns:1fr 1fr}.rgrid{grid-template-columns:1fr}.lstat{padding:0 1.25rem}.obc{padding:1.5rem 1.25rem}}
 </style>
 </head>
 <body>
 
+<!-- LANDING SCREEN -->
 <div id="landing" class="screen active">
   <div class="lnav">
     <div class="lnav-logo"><div class="lnav-lm">⚡</div>Workable</div>
@@ -1112,6 +469,7 @@ a{text-decoration:none;color:var(--purple)}
 </div>
 </div>
 
+<!-- ONBOARDING SCREEN -->
 <div id="onboarding" class="screen">
 <div class="obw">
 
@@ -1362,6 +720,7 @@ a{text-decoration:none;color:var(--purple)}
 </div>
 </div>
 
+<!-- LOGIN SCREEN -->
 <div id="login" class="screen">
   <div style="background:var(--surface);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem;position:relative;overflow:hidden;width:100%;">
     <div style="position:absolute;top:0;left:0;right:0;height:260px;background:var(--grad-hero);clip-path:ellipse(120% 100% at 50% 0%)"></div>
@@ -1386,6 +745,7 @@ a{text-decoration:none;color:var(--purple)}
   </div>
 </div>
 
+<!-- APP SHELL -->
 <div id="app" class="screen">
   <div class="sidebar">
     <div class="sblogo"><div class="sblm">⚡</div><div class="sblt">Workable</div></div>
@@ -1721,7 +1081,10 @@ a{text-decoration:none;color:var(--purple)}
       </div>
     </div>
 
-  </div></div><div id="invmodal" style="display:none;position:fixed;inset:0;background:rgba(14,14,20,.55);z-index:100;align-items:center;justify-content:center;padding:1rem">
+  </div>
+</div>
+
+<div id="invmodal" style="display:none;position:fixed;inset:0;background:rgba(14,14,20,.55);z-index:100;align-items:center;justify-content:center;padding:1rem">
   <div style="background:var(--white);border-radius:var(--r2);padding:2rem;width:100%;max-width:440px;animation:riseUp .25s ease both">
     <h3 style="font-family:'Syne',sans-serif;font-size:1.25rem;margin-bottom:.35rem">Invite your team</h3>
     <p style="font-size:13px;color:var(--ink3);margin-bottom:1.25rem">Share this link with your employees. When they sign up, they will automatically be linked to your manager dashboard.</p>
@@ -1750,1461 +1113,8 @@ a{text-decoration:none;color:var(--purple)}
 
 <div class="toast" id="toast"><span class="toast-ic" id="toast-ic">🔥</span><span id="toast-msg" style="margin-left: 8px;">Toast message</span></div>
 
-<script>
-// FIX: Declare jdPath explicitly
-let jdPath = 'title';
+<!-- Load the modular JavaScript entry point -->
+<script type="module" src="app.js"></script>
 
-const FIREBASE_CONFIG = {
-  apiKey:            "AIzaSyCtYnisVl-LuEbNCAMjrsFBnWII-06ybh0",
-  authDomain:        "workable-ac89e.firebaseapp.com",
-  projectId:         "workable-ac89e",
-  storageBucket:     "workable-ac89e.firebasestorage.app",
-  messagingSenderId: "599796161240",
-  appId:             "1:599796161240:web:8a22bbcd4c853a457a15ad"
-};
-
-let fbApp = null, fbAuth = null, fbDb = null, currentUser = null;
-
-function initSupabase(){
-  if(typeof firebase === 'undefined') return;
-  if(FIREBASE_CONFIG.apiKey === 'YOUR_API_KEY') return;
-  try{
-    fbApp  = firebase.initializeApp(FIREBASE_CONFIG);
-    fbAuth = firebase.auth();
-    fbDb   = firebase.firestore();
-    fbAuth.onAuthStateChanged(async (user) => {
-      if(user && !currentUser){
-        currentUser = user;
-        const ok = await sbRestoreState();
-        if(ok && document.getElementById('landing').classList.contains('active')){
-          launch();
-        }
-      }
-    });
-  } catch(e){ console.warn('Firebase init error:',e); }
-}
-
-const db = { ready: () => !!fbDb && !!currentUser };
-
-async function sbSignUp(email, password){
-  if(!fbAuth) throw new Error('Firebase not configured.');
-  const cred = await fbAuth.createUserWithEmailAndPassword(email, password);
-  currentUser = cred.user;
-  return cred.user;
-}
-
-async function sbSignIn(email, password){
-  if(!fbAuth) throw new Error('Firebase not configured.');
-  const cred = await fbAuth.signInWithEmailAndPassword(email, password);
-  currentUser = cred.user;
-  return cred.user;
-}
-
-async function sbSignInGoogle(){
-  if(!fbAuth) throw new Error('Firebase not configured.');
-  const provider = new firebase.auth.GoogleAuthProvider();
-  const cred = await fbAuth.signInWithPopup(provider);
-  currentUser = cred.user;
-  return cred.user;
-}
-
-async function sbSignOut(){
-  if(fbAuth) await fbAuth.signOut();
-  currentUser = null;
-  S = {...DEFAULT_STATE};
-  saveState();
-  goTo('landing');
-  showToast('👋','Signed out successfully.');
-}
-
-async function sbSaveProfile(){
-  if(!fbDb || !currentUser) return;
-  let companyId = null;
-  if(S.role === 'employer' && S.company){
-    companyId = await sbUpsertCompany(S.company);
-  }
-  await fbDb.collection('profiles').doc(currentUser.uid).set({
-    uid:               currentUser.uid,
-    email:             currentUser.email,
-    full_name:         S.name,
-    role:              S.role,
-    company_id:        companyId,
-    company_name:      S.company,
-    detected_role:     S.detectedRole  || '',
-    detected_industry: S.detectedIndustry || '',
-    goal:              S.goal || '',
-    perf_level:        S.perfLevel || 'performing',
-    avatar_initials:   initials(S.name),
-    updated_at:        firebase.firestore.FieldValue.serverTimestamp()
-  }, { merge: true });
-}
-
-async function sbLoadProfile(){
-  if(!fbDb || !currentUser) return null;
-  const doc = await fbDb.collection('profiles').doc(currentUser.uid).get();
-  return doc.exists ? doc.data() : null;
-}
-
-async function sbUpsertCompany(name){
-  if(!fbDb) return null;
-  const existing = await fbDb.collection('companies')
-    .where('owner_uid', '==', currentUser.uid).limit(1).get();
-    
-  if(!existing.empty) {
-    // FIX: Actually grab the existing code from Firebase
-    S.companyCode = existing.docs[0].data().code; 
-    return existing.docs[0].id;
-  }
-  
-  const code = S.companyCode || Math.random().toString(36).slice(2,8).toUpperCase();
-  const ref = await fbDb.collection('companies').add({
-    name: name || "My Team", code, owner_uid: currentUser.uid, created_at: firebase.firestore.FieldValue.serverTimestamp()
-  });
-  S.companyCode = code;
-  return ref.id;
-}
-
-async function sbSaveTrackFields(){
-  if(!fbDb || !currentUser) return;
-  await fbDb.collection('profiles').doc(currentUser.uid).set({
-    track_fields: S.trackFields.map((f,i) => ({ id: f.id, label: f.label, type: f.type, why: f.why || '', position: i }))
-  }, { merge: true });
-}
-
-async function sbLoadTrackFields(){
-  if(!fbDb || !currentUser) return [];
-  const doc = await fbDb.collection('profiles').doc(currentUser.uid).get();
-  if(!doc.exists) return [];
-  return doc.data().track_fields || [];
-}
-
-async function sbSaveCheckin(ci){
-  if(!fbDb || !currentUser) return;
-  const docId = `${currentUser.uid}_${ci.date}`;
-  const fieldData = Object.fromEntries(
-    Object.entries(ci).filter(([k]) => !['date','_s','flag','_shared'].includes(k))
-  );
-  await fbDb.collection('checkins').doc(docId).set({
-    uid: currentUser.uid, date: ci.date, score: ci._s || 70, flag_text: ci.flag || '', shared: ci._shared || false, field_data: fieldData, created_at: firebase.firestore.FieldValue.serverTimestamp()
-  }, { merge: true });
-}
-
-async function sbLoadCheckins(){
-  if(!fbDb || !currentUser) return [];
-  const snap = await fbDb.collection('checkins').where('uid', '==', currentUser.uid).orderBy('date', 'asc').get();
-  return snap.docs.map(doc => {
-    const d = doc.data();
-    return { date: d.date, _s: d.score, flag: d.flag_text, ...d.field_data };
-  });
-}
-
-async function sbLoadTeam(){
-  if(!fbDb || !currentUser) return [];
-  const profile = await sbLoadProfile();
-  if(!profile?.company_id) return [];
-  
-  const snap = await fbDb.collection('profiles').where('company_id', '==', profile.company_id).where('role', '==', 'employee').get();
-  const team = [];
-  for (const doc of snap.docs) {
-    const member = doc.data();
-    const lastCI = await fbDb.collection('checkins').where('uid', '==', member.uid).orderBy('date', 'desc').limit(1).get();
-    team.push({ ...member, lastScore: !lastCI.empty ? lastCI.docs[0].data().score : '—', lastDate: !lastCI.empty ? lastCI.docs[0].data().date : 'Never' });
-  }
-  return team;
-}
-
-async function sbLoadPosts(){
-  if(!fbDb) return [];
-  const snap = await fbDb.collection('community_posts').orderBy('created_at', 'desc').limit(50).get();
-  return snap.docs.map(doc => {
-    const d = doc.data();
-    return {
-      id: doc.id, author: d.author_name, role: d.author_role || '', company: d.company_name || '',
-      color: FCOLORS[Math.abs(doc.id.charCodeAt(0)) % FCOLORS.length], text: d.body, tags: d.tags || [],
-      likes: d.likes || 0, liked: false, time: timeAgo(d.created_at?.toDate?.() || new Date()), checkins: d.checkin_count || 0
-    };
-  });
-}
-
-async function sbCreatePost(post){
-  if(!fbDb || !currentUser) return null;
-  const ref = await fbDb.collection('community_posts').add({
-    uid: currentUser.uid, author_name: post.author, author_role: post.role || '', company_name: post.company || '',
-    body: post.text, tags: post.tags || [], checkin_count: post.checkins || 0, likes: 0, created_at: firebase.firestore.FieldValue.serverTimestamp()
-  });
-  return { ...post, id: ref.id };
-}
-
-async function sbToggleLike(postId){
-  if(!fbDb || !currentUser) return;
-  const likeRef = fbDb.collection('post_likes').doc(`${currentUser.uid}_${postId}`);
-  const likeDoc = await likeRef.get();
-  const postRef = fbDb.collection('community_posts').doc(postId);
-  if(likeDoc.exists){
-    await likeRef.delete();
-    await postRef.update({ likes: firebase.firestore.FieldValue.increment(-1) });
-    return { liked: false };
-  } else {
-    await likeRef.set({ uid: currentUser.uid, post_id: postId, created_at: firebase.firestore.FieldValue.serverTimestamp() });
-    await postRef.update({ likes: firebase.firestore.FieldValue.increment(1) });
-    return { liked: true };
-  }
-}
-
-async function sbRestoreState(){
-  try{
-    const [profile, fields, checkins] = await Promise.all([ sbLoadProfile(), sbLoadTrackFields(), sbLoadCheckins() ]);
-    if(!profile) return false;
-    
-    // 🔒 Security: Overwrite local state with authoritative Firestore data
-    S.name             = profile.full_name       || '';
-    S.role             = profile.role            || 'employee';
-    S.company          = profile.company_name    || '';
-    S.detectedRole     = profile.detected_role   || '';
-    S.detectedIndustry = profile.detected_industry || '';
-    S.goal             = profile.goal            || '';
-    S.perfLevel        = profile.perf_level      || 'performing';
-    S.trackFields      = fields.length ? fields : DFIELDS.map(f=>({...f}));
-    
-    // 🔒 Security: Use secure check-in data directly from the backend
-    S.checkins         = checkins; 
-    
-    // 🔒 Security: Recalculate stats dynamically so they cannot be spoofed
-    S.daysActive       = new Set(checkins.map(c=>c.date)).size;
-    S.bestStreak       = calculateMaxStreak(checkins); // We need a helper for this
-    
-    // Sync the secure data back to localStorage for smooth offline caching
-    saveState(); 
-    return true;
-  } catch(e){ 
-    console.error('Firebase restore error:', e); 
-    return false; 
-  }
-}
-
-// Helper to safely calculate the maximum streak from secured data
-function calculateMaxStreak(checkinsData) {
-  if (!checkinsData.length) return 0;
-  const dates = [...new Set(checkinsData.map(c => c.date))].sort();
-  let max = 0, current = 1;
-  for (let i = 1; i < dates.length; i++) {
-    const prev = new Date(dates[i-1]);
-    const curr = new Date(dates[i]);
-    const diff = Math.round((curr - prev) / 86400000);
-    if (diff === 1) { current++; } 
-    else { max = Math.max(max, current); current = 1; }
-  }
-  return Math.max(max, current);
-}
-
-function timeAgo(iso){
-  const d=Date.now()-new Date(iso).getTime();
-  if(d<60000) return 'Just now';
-  if(d<3600000) return Math.floor(d/60000)+'m ago';
-  if(d<86400000) return Math.floor(d/3600000)+'h ago';
-  return Math.floor(d/86400000)+'d ago';
-}
-
-const DFIELDS = [
-  {id:'d1',label:'High-priority tasks completed',type:'Number'},
-  {id:'d2',label:'Output quality (self-assessment)',type:'Rating 1-5'},
-  {id:'d3',label:'Critical blocker or dependency today',type:'Text'},
-  {id:'d4',label:'Stakeholder or team collaboration',type:'Rating 1-5'},
-  {id:'d5',label:'Most significant achievement today',type:'Text'},
-];
-
-const INDUSTRY_DELIVERABLES = {
-  'Mining & Natural Resources': ['Zero LTI days','Safety inspection rate','Equipment uptime %','Shift compliance reports','Hazard observations logged','PPE adherence rate'],
-  'Agriculture & Food Systems': ['Hectares monitored','Yield vs target','Irrigation compliance','Pest/disease reports filed','Harvest quality score','Input cost per unit'],
-  'Healthcare & Medicine': ['Patients seen','Clinical notes completed','Medication error rate','Handover completion','Patient satisfaction score','Incident reports filed'],
-  'Education & Training': ['Lessons delivered','Curriculum coverage %','Student engagement score','Assessment marking rate','Attendance tracking','Professional development hours'],
-  'Technology & Engineering': ['Tickets resolved','Code reviews completed','Deployment success rate','Bug fix turnaround','Sprint velocity','System uptime %'],
-  'Human Resources & People Ops': ['Candidates screened','Interviews conducted','Onboarding completions','Policy queries resolved','Training sessions delivered','Retention conversations held'],
-  'Finance & Banking': ['Transactions processed','Compliance checks completed','Client calls made','Reports filed on time','Error/variance rate','Regulatory items actioned'],
-  'Construction & Real Estate': ['Milestones hit','Safety checks completed','Subcontractor coordination','Material delivery tracking','Quality inspections','Rework rate'],
-  'Logistics & Supply Chain': ['Deliveries completed','On-time delivery rate','Route adherence','Vehicle inspections done','Inventory discrepancies flagged','Supplier communications'],
-  'Non-profit & International Development': ['Beneficiaries reached','Programme activities delivered','Donor reports submitted','Field visits completed','Data collection quality','Budget utilisation rate'],
-  'Government & Public Sector': ['Cases/applications processed','Public enquiries resolved','Compliance audits completed','Policy reviews actioned','Stakeholder meetings held','Service delivery rate'],
-  'default': ['Key deliverables completed','Stakeholder satisfaction','Quality of output','Strategic tasks progressed','Learning & development','Process improvements made'],
-};
-
-const INDUSTRY_GOALS = {
-  'Mining & Natural Resources': ['Achieve zero LTIs across all shifts this month','Maintain 98%+ safety inspection completion rate','Reduce equipment downtime by 15% through proactive checks'],
-  'Healthcare & Medicine': ['Complete 100% of clinical documentation on the same day as patient contact','Reduce medication error rate to zero for the quarter','Improve patient handover completeness score above 95%'],
-  'Technology & Engineering': ['Close 95% of sprint tickets on time with zero critical defects','Reduce average bug resolution time from 3 days to 1','Achieve 99.9% system uptime through proactive monitoring'],
-  'Human Resources & People Ops': ['Reduce time-to-hire by 20% while maintaining candidate quality scores above 4.2','Complete all onboarding checklists within 5 days of start date','Conduct monthly 1:1s with all 15 direct reports without exception'],
-  'Agriculture & Food Systems': ['Achieve target yield within 5% of projection across all monitored plots','Reduce input cost per hectare by 10% through precision scheduling','File daily field reports with zero missed submissions this season'],
-  'default': ['Deliver all key responsibilities at or above target with zero critical misses','Reduce my top blocker by 50% through proactive communication','Build a daily check-in streak of 20+ consecutive working days'],
-};
-
-const DEFAULT_STATE = {
-  role:'employee', name:'', company:'',
-  jdText:'', detectedRole:'', detectedIndustry:'',
-  trackFields:[], goal:'', checkins:[], feedPosts:[],
-  bestStreak:0, daysActive:0, perfLevel:'performing',
-  seniority:'mid', deliverables:[], companyCode:''
-};
-
-let S = {...DEFAULT_STATE};
-const FCOLORS = ['#5B3FF8','#00C896','#FF9F1C','#3B82F6','#EC4899','#8B5CF6'];
-const CTAGS   = ['💪 Win','📚 Lesson','🚀 Milestone','🤝 Teamwork','💡 Insight','🔥 Streak'];
-
-function goTo(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-async function renderTeamTable() {
-  const tbody = document.querySelector('.team-table tbody');
-  if(!tbody) return;
-  const team = await sbLoadTeam();
-  if (team.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:20px; color:var(--ink3);">No team members found.</td></tr>';
-    return;
-  }
-  tbody.innerHTML = team.map(m => `
-    <tr>
-      <td class="team-name">
-        <div class="team-av" style="background:var(--grad-purple)">${initials(m.full_name)}</div>
-        ${m.full_name}
-      </td>
-      <td>${m.detected_role || 'Employee'}</td>
-      <td><span class="badge ${m.lastScore >= 70 ? 'bg' : 'ba'}">${m.lastScore}%</span></td>
-      <td>${m.lastDate}</td>
-    </tr>
-  `).join('');
-}
-
-function toggleMenu() {
-  const menu = document.getElementById('mobnav');
-  const btn = document.querySelector('.hamburger');
-  menu.classList.toggle('open');
-  btn.textContent = menu.classList.contains('open') ? '✕' : '☰';
-}
-
-function nav(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-'+id).classList.add('active');
-  
-  document.querySelectorAll('.sbi').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.sbi').forEach(b=>{if(b.textContent.toLowerCase().includes(id.slice(0,5)))b.classList.add('active');});
-  
-  document.querySelectorAll('.mni').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.mni').forEach(b=>{if(b.textContent.toLowerCase().includes(id.slice(0,4)))b.classList.add('active');});
-
-  const menu = document.getElementById('mobnav');
-  const btn = document.querySelector('.hamburger');
-  if (menu && menu.classList.contains('open')) {
-    menu.classList.remove('open');
-    if (btn) btn.textContent = '☰';
-  }
-
-  if(id==='checkin') initCheckin();
-  if(id==='community') loadAndRenderFeed();
-  if(id==='reports') initReports();
-  if(id==='profile') renderProfile();
-  if(id==='settings') initSettings();
-  if(id==='dashboard') refreshDashboard();
-  if(id==='team') renderTeamTable();
-}
-
-// FIX: New function to manage proper onboarding steps
-function setOB(n) {
-  document.querySelectorAll('.obc').forEach(c => c.classList.remove('active'));
-  const target = document.getElementById('ob' + n);
-  if (target) target.classList.add('active');
-
-  const ops = document.querySelectorAll('.ops');
-  ops.forEach((op, idx) => {
-    if (idx <= n) op.classList.add('done');
-    else op.classList.remove('done');
-  });
-}
-
-function pickRole(r,el){
-  S.role=r;
-  document.querySelectorAll('.rgrid .rcard').forEach(c=>c.classList.remove('sel'));
-  el.classList.add('sel');
-}
-
-function pickPerf(level,el){
-  S.perfLevel=level;
-  el.closest('.fld').querySelectorAll('.rcard').forEach(c=>c.classList.remove('sel'));
-  el.classList.add('sel');
-  document.getElementById('ob-perf-level').value=level;
-}
-
-function showJDPath(path, cardEl){
-  jdPath=path;
-  document.querySelectorAll('#jd-path-select .rcard').forEach(c=>c.classList.remove('sel'));
-  cardEl.classList.add('sel');
-  ['upload','guided','title'].forEach(p=>{
-    const r=document.getElementById('path-radio-'+p);
-    if(r) r.style.background=p===path?'var(--purple)':'';
-  });
-  document.getElementById('path-upload').style.display=path==='upload'?'block':'none';
-  document.getElementById('path-guided').style.display=path==='guided'?'block':'none';
-  document.getElementById('path-title').style.display=path==='title'?'block':'none';
-  document.getElementById('ob1btn').style.display='block';
-}
-
-async function obStep(n){
-  if(n===0){
-    const fname=document.getElementById('ob-fname').value.trim();
-    const lname=document.getElementById('ob-lname').value.trim();
-    if(!fname){showToast('⚠️','Please enter your first name.');return;}
-    S.name=(fname+' '+lname).trim();
-    S.company=document.getElementById('ob-company').value.trim();
-    S.detectedIndustry=document.getElementById('ob-industry').value;
-    if(!S.role){showToast('⚠️','Please select your role type.');return;}
-    setOB(1);
-  }
-  else if(n===1){
-    const btn=document.getElementById('ob1btn');
-    const pill=document.getElementById('aip');
-    const pt=document.getElementById('aiptext');
-    btn.disabled=true; btn.textContent='Building your track…';
-    pill.classList.remove('donep'); pill.classList.add('show');
-    let jdContent='';
-    if(jdPath==='upload'||jdPath==='upload'){
-      jdContent=document.getElementById('jd-text')?.value.trim()||'';
-    } else if(jdPath==='guided'){
-      const t=document.getElementById('guide-title')?.value.trim()||'';
-      const r=document.getElementById('guide-resp')?.value.trim()||'';
-      const w=document.getElementById('guide-win')?.value.trim()||'';
-      const m=document.getElementById('guide-metric')?.value.trim()||'';
-      if(!t&&!r){showToast('⚠️','Please answer at least the first two questions.');btn.disabled=false;btn.textContent='Build My Track →';pill.classList.remove('show');return;}
-      jdContent=`Job Title: ${t}
-Key Responsibilities: ${r}
-What a great week looks like: ${w}
-Key metric my manager tracks: ${m}
-Industry: ${S.detectedIndustry}`;
-    } else if(jdPath==='title'){
-      const t=document.getElementById('jd-title')?.value.trim()||'';
-      if(!t){showToast('⚠️','Please enter your job title.');btn.disabled=false;btn.textContent='Build My Track →';pill.classList.remove('show');return;}
-      jdContent=`Job Title: ${t}
-Industry: ${S.detectedIndustry}
-Please infer typical responsibilities, KPIs, and daily tasks for this role.`;
-      S.detectedRole=t;
-    }
-    if(jdContent.length>20){
-      pt.textContent='Analysing your professional profile…';
-      await genTrack(jdContent,pill,pt);
-    } else {
-      S.trackFields=DFIELDS.map(f=>({...f}));
-      await delay(800);
-      pt.textContent='General track created — customise it on the next screen.';
-      pill.classList.add('donep');
-      await delay(700); btn.disabled=false; btn.textContent='Build My Track →'; setOB(2); renderTList();
-    }
-  }
-  else if(n===2){
-    renderGoalSuggestions();
-    setOB(3);
-  }
-  else if(n===3){
-    const goal=document.getElementById('ob-goal').value.trim();
-    S.goal=goal||suggestDefaultGoal();
-    S.perfLevel=document.getElementById('ob-perf-level')?.value||'performing';
-    setOB(4);
-  }
-}
-
-async function genTrack(jdContent,pill,pt){
-  const prompt=`You are Workable. A user has provided their role profile. Build a precise daily check-in track for them.
-ROLE PROFILE:
-${jdContent.slice(0,3000)}
-USER INDUSTRY: ${S.detectedIndustry||'Not specified'}
-RESPOND ONLY with valid JSON — no markdown:
-{
-  "roleTitle": "Precise professional title",
-  "industry": "Industry sector",
-  "seniority": "junior|mid|senior|executive",
-  "deliverables": ["3-5 key professional deliverables typical for this role"],
-  "fields": [
-    {"label": "Concise field label", "type": "Number|Yes/No|Rating 1-5|Text", "why": "One sentence: why this matters"}
-  ]
-}`;
-
-  try{
-    const d=await callOpenRouter(prompt);
-    const t=d?.content?.[0]?.text||'';
-    // FIX: More robust JSON extraction to prevent crashes if AI hallucinates markdown
-    const match = t.match(/\{[\s\S]*\}/);
-    if (!match) throw new Error("No JSON found");
-    const p = JSON.parse(match[0]);
-    
-    S.trackFields=p.fields.map((f,i)=>({...f,id:'f'+i}));
-    S.detectedRole=p.roleTitle||S.detectedRole;
-    S.detectedIndustry=p.industry||S.detectedIndustry;
-    S.seniority=p.seniority||'mid';
-    S.deliverables=p.deliverables||[];
-    pt.textContent=`✦ Track built for: ${p.roleTitle} — ${p.fields.length} precision fields generated`;
-    pill.classList.add('donep');
-    const btn=document.getElementById('ob1btn');
-    await delay(1000); btn.disabled=false; btn.textContent='Build My Track →'; setOB(2); renderTList();
-  } catch(e){
-    console.error(e);
-    S.trackFields=DFIELDS.map(f=>({...f}));
-    pt.textContent='Track created — customise the fields on the next screen.';
-    pill.classList.add('donep');
-    const btn=document.getElementById('ob1btn');
-    await delay(700); btn.disabled=false; btn.textContent='Build My Track →'; setOB(2); renderTList();
-  }
-}
-
-function renderTList(){
-  const det=document.getElementById('role-det');
-  const detText=document.getElementById('role-det-text');
-  const detSub=document.getElementById('role-det-sub');
-  if(S.detectedRole&&det){
-    det.style.display='block';
-    detText.textContent=S.detectedRole+(S.seniority?` · ${S.seniority.charAt(0).toUpperCase()+S.seniority.slice(1)}-level`:'');
-    detSub.textContent=S.detectedIndustry||S.company||'';
-  }
-  const delBox=document.getElementById('deliverables-box');
-  const delList=document.getElementById('deliverables-list');
-  if(delBox&&delList){
-    const industry=S.detectedIndustry||'default';
-    const dels=S.deliverables?.length ? S.deliverables : (INDUSTRY_DELIVERABLES[industry]||INDUSTRY_DELIVERABLES['default']);
-    if(dels.length){
-      delBox.style.display='block';
-      delList.innerHTML=dels.map(d=>`<span style="display:inline-flex;align-items:center;gap:4px;background:var(--gold-light);border:1px solid var(--gold);border-radius:99px;padding:4px 12px;font-size:11px;font-weight:600;color:var(--gold-dark);cursor:pointer" onclick="addDeliverable('${d.replace(/'/g,'')}')">+ ${d}</span>`).join('');
-    }
-  }
-  document.getElementById('tlist').innerHTML=S.trackFields.map((f,i)=>`
-    <div class="titem" draggable="true">
-      <span class="tihandle">⠿</span>
-      <div style="flex:1;min-width:0">
-        <div class="tilabel">${f.label}</div>
-        ${f.why?`<div style="font-size:11px;color:var(--ink4);margin-top:2px">${f.why}</div>`:''}
-      </div>
-      <span class="titype">${f.type}</span>
-      <button class="tidel" onclick="delF('${f.id}')" title="Remove field">×</button>
-    </div>`).join('');
-}
-
-function addDeliverable(label){
-  const types=['Number','Yes/No','Text'];
-  const t=label.toLowerCase().includes('rate')||label.toLowerCase().includes('%')||label.toLowerCase().includes('score')?'Rating 1-5':label.toLowerCase().includes('complet')||label.toLowerCase().includes('submit')||label.toLowerCase().includes('filed')?'Yes/No':'Number';
-  S.trackFields.push({label,type:t,id:'c'+Date.now()});
-  renderTList();
-  showToast('✅','Field added to your track');
-}
-
-function delF(id){S.trackFields=S.trackFields.filter(f=>f.id!==id);renderTList();}
-
-function addField(){
-  const l=prompt('Professional field name (e.g. "Client proposals submitted"):');
-  if(!l)return;
-  const types=['Number','Yes/No','Rating 1-5','Text'];
-  const t=types[Math.floor(Math.random()*2)];
-  S.trackFields.push({label:l,type:t,id:'c'+Date.now()});
-  renderTList();
-}
-
-function renderGoalSuggestions(){
-  const chips=document.getElementById('goal-chips');
-  if(!chips)return;
-  const industry=S.detectedIndustry||'default';
-  const goals=(INDUSTRY_GOALS[industry]||INDUSTRY_GOALS['default']);
-  chips.innerHTML=goals.map(g=>`
-    <div onclick="useGoal(this,'${g.replace(/'/g,"\'")}')" style="background:var(--surface2);border:1.5px solid var(--surface3);border-radius:var(--r);padding:.6rem .9rem;font-size:12px;font-weight:500;color:var(--ink2);cursor:pointer;line-height:1.5;transition:all .18s;max-width:100%">
-      ${g}
-    </div>`).join('');
-}
-
-function useGoal(el,goal){
-  document.querySelectorAll('#goal-chips div').forEach(d=>d.style.borderColor='var(--surface3)');
-  el.style.borderColor='var(--gold)';el.style.background='var(--gold-light)';
-  document.getElementById('ob-goal').value=goal;
-}
-
-function suggestDefaultGoal(){
-  const industry=S.detectedIndustry||'default';
-  const goals=INDUSTRY_GOALS[industry]||INDUSTRY_GOALS['default'];
-  return goals[0]||'Perform consistently, grow measurably, and deliver excellence every day.';
-}
-
-// ── ACCOUNT CREATION ──
-async function createAccount(){
-  const email=document.getElementById('ob-email')?.value.trim();
-  const pass=document.getElementById('ob-pass')?.value.trim();
-  const btn=document.getElementById('ob4btn');
-  
-  if(!email||!pass){showToast('⚠️','Please enter your email and password.');return;}
-  if(pass.length<6){showToast('⚠️','Password needs at least 6 characters.');return;}
-  
-  btn.disabled=true; btn.textContent='Creating account…';
-  
-  try {
-    if(fbAuth){
-      await sbSignUp(email, pass);
-      const saveTask = Promise.all([sbSaveProfile(), sbSaveTrackFields()]);
-      const timeoutTask = new Promise((_, reject) => setTimeout(() => reject(new Error("Database blocked. Please turn off your ad-blocker (e.g. Brave Shields).")), 8000));
-      await Promise.race([saveTask, timeoutTask]);
-    }
-    saveState(); launch();
-    showToast('🎉','Account created! Welcome to Workable.');
-  } catch(e) { 
-    btn.disabled=false; btn.textContent='Create Account →'; 
-    showToast('⚠️', e.message || 'Sign-up failed.'); 
-  }
-}
-
-async function obSignUpWithGoogle(){
-  const btn = document.getElementById('ob-google-btn');
-  btn.disabled = true; btn.textContent = 'Connecting...';
-  try {
-    if(fbAuth) {
-      await sbSignInGoogle(); 
-      const saveTask = Promise.all([sbSaveProfile(), sbSaveTrackFields()]);
-      const timeoutTask = new Promise((_, reject) => setTimeout(() => reject(new Error("Database blocked. Please turn off your ad-blocker.")), 8000));
-      await Promise.race([saveTask, timeoutTask]);
-    }
-    saveState(); launch();
-    showToast('🎉', 'Account created with Google!');
-  } catch(e) {
-    btn.disabled = false; btn.textContent = 'Sign up with Google';
-    showToast('⚠️', e.message || 'Google sign-up failed.');
-  }
-}
-
-async function doLogin(){
-  const email=document.getElementById('login-email').value.trim();
-  const pass=document.getElementById('login-pass').value.trim();
-  const btn=document.getElementById('login-btn');
-  if(!email||!pass){showToast('⚠️','Enter your email and password.');return;}
-  btn.disabled=true; btn.textContent='Signing in…';
-  try{
-    if(fbAuth){
-      await sbSignIn(email, pass);
-      const ok = await sbRestoreState();
-      if(!ok) throw new Error('Profile not found. Please sign up first.');
-    } else {
-      loadState();
-    }
-    launch(); showToast('👋','Welcome back, '+S.name.split(' ')[0]+'!');
-  } catch(e){ btn.disabled=false; btn.textContent='Sign in →'; showToast('⚠️',e.message||'Sign-in failed.'); }
-}
-
-function launch(){
-  const ini=initials(S.name);
-  document.getElementById('sbav').textContent=ini;
-  document.getElementById('sbname').textContent=S.name.split(' ')[0] || 'User';
-  document.getElementById('sbrole').textContent=S.role==='employer'?'Manager':'Employee';
-  document.getElementById('compav').textContent=ini;
-  
-  // ADDED: Logic to show manager tabs on BOTH desktop and mobile
-  if(S.role==='employer') {
-    document.getElementById('mgrnav').style.display='block'; 
-    const mobMgr = document.getElementById('mob-mgrnav');
-    if(mobMgr) mobMgr.style.display='flex'; 
-  }
-  
-  renderCIForm(); renderMyTrack(); renderSugg(); renderCTags(); buildGreet();
-  goTo('app'); nav('dashboard');
-}
-
-function initials(name){return (name||'WP').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
-
-function refreshDashboard(){
-  const h=new Date().getHours();
-  document.getElementById('dhi').textContent=`Good ${h<12?'morning':h<17?'afternoon':'evening'}, ${S.name.split(' ')[0]} 👋`;
-  document.getElementById('dsub').textContent=`${S.detectedRole||'Your role'}${S.company?' · '+S.company:''}`;
-  document.getElementById('dgoal').textContent=S.goal||'No goal set yet — add one in Settings.';
-
-  renderKPIs(); renderBars(); renderStreakBanner(); renderSparkline(); renderRecentCI(); renderGoalProgress();
-}
-
-function renderKPIs(){
-  const ci=S.checkins.length, streak=getStreak(), avg=getAvg();
-  const kpis=S.role==='employer'?[
-    {ic:'👥',bg:'var(--purple-light)',v:'0',l:'Active employees',d:'Invite your team',c:'fl'},
-    {ic:'✅',bg:'var(--green-light)',v:'—',l:'Check-in rate',d:'No data yet',c:'fl'},
-    {ic:'📊',bg:'var(--amber-light)',v:'—',l:'Avg output score',d:'No data yet',c:'fl'},
-    {ic:'🚧',bg:'var(--red-light)',v:'0',l:'Open blockers',d:'All clear',c:'up'},
-  ]:[
-    {ic:'✅',bg:'var(--green-light)',v:ci,l:'Check-ins done',d:ci===0?'Start today! 👆':'+1 from yesterday',c:ci>0?'up':'fl'},
-    {ic:'🔥',bg:'var(--amber-light)',v:streak+'d',l:'Current streak',d:streak>=7?'Amazing! 🏆':streak>0?'Keep it alive!':'Check in to start',c:streak>=3?'up':'fl'},
-    {ic:'📊',bg:'var(--purple-light)',v:ci>0?avg+'%':'—',l:'Avg output score',d:ci>0?'From '+ci+' check-ins':'No data yet',c:avg>=70?'up':avg>0?'fl':'fl'},
-    {ic:'🎯',bg:'var(--blue-light)',v:ci>0?'Active':'—',l:'Goal tracking',d:ci===0?'Set in onboarding':'AI monitoring',c:ci>0?'up':'fl'},
-  ];
-  document.getElementById('dkpis').innerHTML=kpis.map(k=>`
-    <div class="kpi"><div class="kpic" style="background:${k.bg}">${k.ic}</div>
-    <div class="kpiv">${k.v}</div><div class="kpil">${k.l}</div>
-    <div class="kpid ${k.c}">${k.d}</div></div>`).join('');
-}
-
-function renderBars(){
-  const bars=document.getElementById('dbars'),ins=document.getElementById('dins');
-  if(!S.checkins.length){
-    bars.innerHTML='<div style="text-align:center;padding:1.5rem 0;font-size:13px;color:var(--ink3);line-height:1.7">No data yet.<br>Complete your first check-in to see your progress here.</div>';
-    ins.textContent='Check in for the first time and AI will give you a personalised insight based on your real data.';
-    return;
-  }
-  const avgScore=getAvg();
-  bars.innerHTML=S.trackFields.slice(0,4).map(f=>{
-    const v=Math.min(100,Math.round(40+(avgScore/100)*50+Math.random()*15));
-    const col=v>=80?'var(--green)':v>=60?'var(--purple)':'var(--amber)';
-    return `<div class="br2"><span class="blbl">${f.label}</span><span class="bvl">${v}%</span></div>
-    <div class="btrack"><div class="bfill" style="width:${v}%;background:${col}"></div></div>`;
-  }).join('');
-  ins.textContent=`You have ${S.checkins.length} check-in${S.checkins.length>1?'s':''} logged. ${getStreak()>1?'Your '+getStreak()+'-day streak is building great momentum. ':''}${avgScore>70?'Your output scores are strong — keep the consistency.':'Keep logging every day and your insights will get sharper.'}`;
-}
-
-function renderStreakBanner(){
-  const s=getStreak(), banner=document.getElementById('streak-banner');
-  if(s>=3){
-    banner.style.display='flex';
-    document.getElementById('streak-msg').textContent=`🔥 ${s}-day streak — you're on fire!`;
-    document.getElementById('streak-sub').textContent=s>=7?'One full week of consistency. Incredible.':s>=5?'Over halfway to 7 days — keep going!':'Building momentum. Check in again tomorrow.';
-  } else { banner.style.display='none'; }
-}
-
-function renderSparkline(){
-  const sl=document.getElementById('sparkline');
-  if(!S.checkins.length){sl.innerHTML='';return;}
-  const last7=S.checkins.slice(-7);
-  const scores=last7.map(c=>parseInt(c._s||65));
-  const mx=Math.max(...scores,1);
-  sl.innerHTML=scores.map(v=>{
-    const pct=Math.round((v/mx)*100);
-    const col=v>=75?'var(--green)':v>=55?'var(--purple)':'var(--amber)';
-    return `<div class="spark-bar" style="height:${pct}%;background:${col}" title="Score: ${v}%"></div>`;
-  }).join('');
-}
-
-function renderRecentCI(){
-  const rec=document.getElementById('drec'), lbl=document.getElementById('ci-count-lbl');
-  lbl.textContent=S.checkins.length+' total';
-  if(!S.checkins.length){rec.innerHTML='<div style="padding:1rem 0;font-size:13px;color:var(--ink3);text-align:center">No check-ins yet.</div>';return;}
-  const last5=S.checkins.slice(-5).reverse();
-  rec.innerHTML=last5.map(c=>`
-    <div class="ri">
-      <span class="rlbl">${fmtDate(c.date)}</span>
-      <span style="font-size:12px;color:var(--ink3)">${c._s||'—'}%</span>
-      <span class="badge bg">Done ✓</span>
-    </div>`).join('');
-}
-
-function renderGoalProgress(){
-  const gp=document.getElementById('goal-progress');
-  if(!S.checkins.length){gp.innerHTML='';return;}
-  const pct=Math.min(100,Math.round((S.checkins.length/30)*100));
-  gp.innerHTML=`<div class="br2"><span class="blbl">Month progress</span><span class="bvl">${S.checkins.length}/30 check-ins</span></div>
-  <div class="btrack"><div class="bfill" style="width:${pct}%;background:var(--purple)"></div></div>`;
-}
-
-function initCheckin(){
-  const today=new Date().toISOString().slice(0,10);
-  document.getElementById('cidate').textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-  document.getElementById('cisuccess').style.display='none';
-  const doneTodayEl=document.getElementById('already-done');
-  const formEl=document.getElementById('ci-form-wrap');
-  if(S.checkins.some(c=>c.date===today)){
-    doneTodayEl.style.display='block'; formEl.style.display='none';
-  } else {
-    doneTodayEl.style.display='none'; formEl.style.display='block';
-  }
-}
-function showCheckinForm(){document.getElementById('already-done').style.display='none';document.getElementById('ci-form-wrap').style.display='block';}
-
-function renderCIForm(){
-  document.getElementById('cifields').innerHTML=S.trackFields.map((f,i)=>{
-    let inp='';
-    if(f.type==='Number') inp=`<input class="cinum" id="ci-${f.id}" type="number" min="0" placeholder="Enter a number...">`;
-    else if(f.type==='Yes/No') inp=`<div class="trow"><button class="tbtn" onclick="setTog(this,'yes','ci-${f.id}')">✅ Yes</button><button class="tbtn" onclick="setTog(this,'no','ci-${f.id}')">❌ No</button></div><input type="hidden" id="ci-${f.id}">`;
-    else if(f.type.startsWith('Rating')) inp=`<div class="rrow">${[1,2,3,4,5].map(n=>`<button class="rbtn" onclick="setRat(this,${n},'ci-${f.id}')">${n}</button>`).join('')}</div><input type="hidden" id="ci-${f.id}">`;
-    else inp=`<textarea class="cita" id="ci-${f.id}" rows="2" placeholder="Your notes..."></textarea>`;
-    return `<div class="cif"><div class="cilbl"><span class="cilbl-num">${i+1}</span>${f.label}${f.why?'<span style="font-size:11px;color:var(--ink4);font-weight:400;margin-left:6px">— '+f.why+'</span>':''}</div>${inp}</div>`;
-  }).join('');
-}
-
-function setTog(btn,v,id){btn.closest('.trow').querySelectorAll('.tbtn').forEach(b=>{b.classList.remove('yes','no');});btn.classList.add(v);document.getElementById(id).value=v;}
-function setRat(btn,v,id){btn.closest('.rrow').querySelectorAll('.rbtn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');document.getElementById(id).value=v;}
-
-async function submitCI(){
-  const btn=document.getElementById('ci-submit-btn');
-  btn.disabled=true; btn.textContent='Saving…';
-  const today=new Date().toISOString().slice(0,10);
-  const data={date:today}; let sc=70;
-  let rTotal=0,rCount=0;
-  S.trackFields.forEach(f=>{
-    const el=document.getElementById('ci-'+f.id);
-    if(el) data[f.label]=el.value||'';
-    if(f.type.startsWith('Rating')&&el?.value){const v=parseInt(el.value);rTotal+=v;rCount++;}
-  });
-  if(rCount>0) sc=Math.round((rTotal/rCount/5)*100);
-  data.flag=document.getElementById('ciflag')?document.getElementById('ciflag').value:'';
-  data._s=sc;
-  S.checkins.push(data);
-  S.bestStreak=Math.max(S.bestStreak,getStreak());
-  S.daysActive=new Set(S.checkins.map(c=>c.date)).size;
-  saveState();
-  if(fbDb&&currentUser) sbSaveCheckin(data).catch(e=>console.warn('Firebase checkin:',e));
-
-  document.getElementById('ci-form-wrap').style.display='none';
-  document.getElementById('cisuccess').style.display='block';
-  document.getElementById('cisuccess').scrollIntoView({behavior:'smooth'});
-
-  const streak=getStreak();
-  const scoreEl=document.getElementById('assess-score');
-  const barEl=document.getElementById('assess-score-bar');
-  const subEl=document.getElementById('assess-subtitle');
-  const sbadge=document.getElementById('assess-streak-badge');
-  const lbadge=document.getElementById('assess-level-badge');
-  if(scoreEl) scoreEl.textContent=sc+'%';
-  if(barEl) setTimeout(()=>barEl.style.width=sc+'%',200);
-  if(subEl) subEl.textContent='Check-in #'+S.checkins.length+' · '+new Date().toLocaleDateString('en-GB',{weekday:'long'});
-  if(sbadge&&streak>1){sbadge.style.display='inline';sbadge.textContent='🔥 '+streak+'-day streak';}
-  const lvl=sc>=85?'Exceptional':sc>=70?'Strong':sc>=55?'Steady':sc>=40?'Progressing':'Developing';
-  if(lbadge) lbadge.textContent=lvl;
-
-  buildSignalCards(data,sc,streak);
-
-  const gp=Math.min(100,Math.round((S.checkins.length/22)*100));
-  const gcEl=document.getElementById('assess-goal-card');
-  if(gcEl) gcEl.style.display='block';
-  const gtEl=document.getElementById('assess-goal-text');
-  if(gtEl) gtEl.textContent=S.goal||'No goal set';
-  const gpBar=document.getElementById('assess-goal-bar');
-  if(gpBar) setTimeout(()=>gpBar.style.width=gp+'%',400);
-  const gpPct=document.getElementById('assess-goal-pct');
-  if(gpPct) gpPct.textContent=gp+'%';
-
-  if(streak===1) showToast('🎯','First check-in logged — great start!');
-  else if(streak===3) showToast('🔥','3-day streak — the habit is forming!');
-  else if(streak===7) showToast('🏆','One full week — elite consistency!');
-  else if(streak%10===0&&streak>0) showToast('🔥',streak+'-day streak — unstoppable!');
-
-  const shareBox=document.getElementById('cishare');
-  if(shareBox&&shareBox.checked) autoPost(data);
-  await generateAssessment(data,sc,streak);
-  btn.disabled=false; btn.textContent='Submit Daily Check-In →';
-}
-
-function buildSignalCards(data,sc,streak){
-  const wrap = document.getElementById('assess-signals');
-  if(!wrap) return;
-  const signals=[
-    {icon:streak>=7?'🏆':streak>=3?'🔥':'📅',label:'Consistency',value:streak+' day'+(streak!==1?'s':''),sub:streak>=7?'Elite performer':streak>=3?'Habit forming':'Keep daily cadence',color:streak>=7?'var(--gold)':streak>=3?'var(--green)':'var(--ink3)'},
-    {icon:sc>=80?'⚡':sc>=60?'📊':'📈',label:'Output score',value:sc+'%',sub:sc>=80?'Exceptional today':sc>=60?'Strong performance':'Room to grow',color:sc>=80?'var(--green)':sc>=60?'var(--purple)':'var(--amber)'},
-    {icon:'🗂️',label:'Check-ins logged',value:S.checkins.length,sub:S.checkins.length>=20?'Rich data set':S.checkins.length>=10?'Growing history':'Building baseline',color:'var(--blue)'},
-    {icon:data.flag?'🚩':'✅',label:'Manager flag',value:data.flag?'Flagged':'All clear',sub:data.flag?'Item sent to manager':'No blockers raised',color:data.flag?'var(--amber)':'var(--green)'}
-  ];
-  
-  // 🔒 Security: Sanitize all outputs
-  wrap.innerHTML = signals.map(s => `
-    <div class="card" style="padding:1rem;border-top:3px solid ${s.color}">
-      <div style="font-size:1.5rem;margin-bottom:.4rem">${DOMPurify.sanitize(String(s.icon))}</div>
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);margin-bottom:.2rem">${DOMPurify.sanitize(String(s.label))}</div>
-      <div style="font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;color:var(--ink);margin-bottom:.2rem">${DOMPurify.sanitize(String(s.value))}</div>
-      <div style="font-size:11px;color:var(--ink4)">${DOMPurify.sanitize(String(s.sub))}</div>
-    </div>`).join('');
-}
-
-async function generateAssessment(data,sc,streak){
-  const resp=document.getElementById('ciaiResp');
-  const recCard=document.getElementById('assess-rec-card');
-  const recEl=document.getElementById('assess-rec');
-  const hist=S.checkins.slice(-7);
-  const avgSc=hist.length?Math.round(hist.reduce((a,c)=>a+(c._s||70),0)/hist.length):sc;
-  const trend=S.checkins.length>3?(sc>avgSc?'improving':'on a slight decline'):'establishing your performance baseline';
-  const ds=Object.entries(data).filter(([k])=>!['date','_s','flag','_shared'].includes(k))
-    .map(([k,v])=>'• '+k+': '+(v||'not entered')).join('\n');
-  const flagNote=data.flag?'Manager flag submitted: "'+data.flag+'"':'No items flagged to manager.';
-
-  const prompt='You are Workable — a professional performance system. Generate an incisive, actionable written assessment for this professional based on their latest check-in data.\n\nPROFILE:\n- Name: '+S.name+'\n- Role: '+(S.detectedRole||'Professional')+'\n- Goal: "'+(S.goal||'Not set')+'"\n\nDATA:\n'+ds+'\n'+flagNote+'\nOutput score: '+sc+'% | Streak: '+streak+' days\n\nWrite a structured professional assessment with these exact bold headers:\n**Today\'s Performance Read** — 2 sentences.\n**Strength Signal** — 1 sentence.\n**Strategic Recommendation** — 1 action for tomorrow.\n**Motivational Close** — 1 sentence.\n\nTone: Professional, warm, direct. 200 words max.';
-
-  try{
-    const d=await callOpenRouter(prompt);
-    const text=d?.content?.[0]?.text||'';
-    if(text){
-      const safeText = DOMPurify.sanitize(text
-        .replace(/\*\*(.+?)\*\*/g,'<strong style="color:var(--purple);font-weight:700;display:block;margin-top:.85rem;margin-bottom:.25rem">$1</strong>')
-        .replace(/\n\n/g,'</p><p style="margin-top:.5rem">')
-        .replace(/^/,'<p>').replace(/$/,'</p>'));
-      resp.innerHTML = safeText;
-      
-      const recMatch=text.match(/Strategic Recommendation[^:]*:([\s\S]*?)(?=\*\*Motivational|$)/i);
-      if(recMatch&&recCard&&recEl){
-        recCard.style.display='block';
-        recEl.textContent=recMatch[1].replace(/\*\*/g,'').trim().slice(0,350);
-      }
-    } else { resp.innerHTML=fallbackAssessment(sc,streak); }
-  } catch(e){ resp.innerHTML=fallbackAssessment(sc,streak); }
-}
-
-function fallbackAssessment(sc,streak){
-  const lvl=sc>=80?'exceptional':sc>=65?'strong':sc>=50?'solid':'developing';
-  return '<p><strong style="color:var(--purple)">Today\'s Performance Read</strong><br>Check-in #'+S.checkins.length+' logged with an output score of '+sc+'% — '+lvl+' performance for today. Your '+streak+'-day streak reflects growing professional discipline.</p><p style="margin-top:.75rem"><strong style="color:var(--purple)">Strategic Recommendation</strong><br>Check in tomorrow to continue building your baseline and unlock deeper insights.</p>';
-}
-
-function renderMyTrack(){
-  // Using textContent is naturally safe against XSS
-  document.getElementById('mtrole').textContent = S.detectedRole || 'Your role';
-  document.getElementById('mtind').textContent = S.detectedIndustry || S.company || 'Your organisation';
-  document.getElementById('field-count').textContent = S.trackFields.length + ' fields';
-  
-  // 🔒 Security: Sanitize dynamic array data mapped to innerHTML
-  document.getElementById('mtfields').innerHTML = S.trackFields.map(f => `
-    <div class="ri">
-      <span class="rlbl">${DOMPurify.sanitize(f.label)}</span>
-      <span class="badge bv">${DOMPurify.sanitize(f.type)}</span>
-    </div>`).join('');
-}
-function editTrack(){goTo('onboarding');setOB(2);renderTList();}
-
-function buildGreet(){
-  document.getElementById('aigreet').textContent=`Hi ${S.name.split(' ')[0]}! I'm your Workable — I have full context of your role${S.detectedRole?' ('+S.detectedRole+')':''}, your goal, and all ${S.checkins.length} check-in${S.checkins.length!==1?'s':''} you've logged. Ask me anything about your performance!`;
-}
-function renderSugg(){
-  const qs=S.role==='employer'?['How is my team doing?','Who needs support?','Top blockers this week?']:['How am I doing this week?','What should I focus on?','Am I hitting my goal?','Analyse my streak','What\'s my biggest blocker?'];
-  document.getElementById('chatsugg').innerHTML=qs.map(q=>`<button class="schip" onclick="askS('${q}')">${q}</button>`).join('');
-}
-function askS(q){document.getElementById('chatinp').value=q;sendChat();}
-
-async function sendChat(){
-  const inp=document.getElementById('chatinp');const q=inp.value.trim();if(!q)return;inp.value='';
-  addM('user',q);addM('ai','…',true);
-  const ciSummary=S.checkins.length>0
-    ?`Recent check-in data (last 5): ${JSON.stringify(S.checkins.slice(-5).map(c=>({date:c.date,score:c._s,...Object.fromEntries(Object.entries(c).filter(([k])=>k!=='date'&&k!=='_s'&&k!=='flag'))})))}`
-    :'No check-in data yet — encourage them to start checking in daily.';
-  const ctx=`You are Workable assistant. Context:
-- User: ${S.name} (${S.role})
-- Role: ${S.detectedRole||'general professional'}
-- Streak: ${getStreak()} days
-- ${ciSummary}
-
-Answer in 2-4 sentences. Be specific, warm, and actionable.`;
-  
-  try{
-    const d=await callOpenRouter(ctx+'\n\nUser asks: '+q);
-    updM(d?.content?.[0]?.text||'Keep checking in daily and I\'ll have richer insights for you soon!');
-  } catch{
-    updM(`Based on your ${S.checkins.length} check-in${S.checkins.length!==1?'s':''} so far${getStreak()>0?` and your ${getStreak()}-day streak`:''}, you're building good habits. ${S.checkins.length<5?'Log 5 check-ins to unlock more detailed insights.':'Your data is growing — I can see patterns forming.'}`);
-  }
-}
-function addM(r,t,l=false){const m=document.getElementById('chatmsgs');const d=document.createElement('div');d.className=`cm ${r}`;d.innerHTML=`<div class="cmav">${r==='ai'?'✨':'👤'}</div><div class="cmbub ${l?'typing':''}">${DOMPurify.sanitize(t)}</div>`;m.appendChild(d);m.scrollTop=m.scrollHeight;}
-function updM(t){const m=document.getElementById('chatmsgs');const bs=m.querySelectorAll('.cm.ai');const b=bs[bs.length-1]?.querySelector('.cmbub');if(b){b.innerHTML=DOMPurify.sanitize(t);b.classList.remove('typing');}}
-
-function renderCTags(){document.getElementById('comptags').innerHTML=CTAGS.map(t=>`<button class="tchip" onclick="this.classList.toggle('sel')">${t}</button>`).join('');}
-
-async function loadAndRenderFeed(){
-  if(fbDb){
-    try{
-      const live=await sbLoadPosts();
-      const localIds=new Set(S.feedPosts.map(p=>String(p.id)));
-      // Removed SAMPLE_POSTS from the merged array
-      const merged=[...S.feedPosts,...live.filter(p=>!localIds.has(String(p.id)))];
-      renderFeedPosts(merged); return;
-    } catch(e){ console.warn('Feed load:',e); }
-  }
-  renderFeed();
-}
-
-function renderFeed(){
-  // Removed SAMPLE_POSTS
-  renderFeedPosts(S.feedPosts);
-}
-}
-
-function renderFeed(){
-  const all=[...S.feedPosts,...SAMPLE_POSTS];
-  renderFeedPosts(all);
-}
-
-function renderFeedPosts(all){
-  document.getElementById('feedlist').innerHTML = all.map(p => {
-    // 🔒 Security: Sanitize all user-generated strings before injecting into HTML
-    const safeAuthor = DOMPurify.sanitize(p.author);
-    const safeRole = DOMPurify.sanitize(p.role);
-    const safeCompany = DOMPurify.sanitize(p.company);
-    const safeText = DOMPurify.sanitize(p.text);
-    const safeTime = DOMPurify.sanitize(p.time);
-    
-    // Sanitize tags as well
-    const tags = p.tags.map(t => 
-      `<span class="ptag" style="background:${p.color}22;color:${p.color}">${DOMPurify.sanitize(t)}</span>`
-    ).join('');
-
-    return `<div class="pcard" id="pc${p.id}">
-      <div class="phead2">
-        <div class="pav" style="background:${p.color}">${initials(safeAuthor)}</div>
-        <div><div class="pname">${safeAuthor}</div><div class="prole">${safeRole} · ${safeCompany}</div></div>
-        <div class="ptime">${safeTime}</div>
-      </div>
-      <div class="pbody">${safeText}</div>
-      <div style="margin-bottom:.5rem">${tags}</div>
-      <div><span class="pstat">✅ ${p.checkins} check-ins</span></div>
-      <div class="pacts">
-        <button class="pabtn ${p.liked?'liked':''}" onclick="likeP(${p.id},this)">${p.liked?'❤️':'🤍'} ${p.likes}</button>
-        <button class="pabtn">💬 Comment</button>
-        <button class="pabtn">↗ Share</button>
-      </div>
-    </div>`;
-  }).join('');
-}
-function renderFeedPosts(all){
-  document.getElementById('feedlist').innerHTML = all.map(p => {
-    // 🔒 Security: Sanitize all user-generated strings
-    const safeAuthor = DOMPurify.sanitize(p.author);
-    const safeRole = DOMPurify.sanitize(p.role);
-    const safeCompany = DOMPurify.sanitize(p.company);
-    const safeText = DOMPurify.sanitize(p.text);
-    const safeTime = DOMPurify.sanitize(p.time);
-    
-    // Sanitize tags as well
-    const tags = p.tags.map(t => 
-      `<span class="ptag" style="background:${p.color}22;color:${p.color}">${DOMPurify.sanitize(t)}</span>`
-    ).join('');
-
-    return `<div class="pcard" id="pc${p.id}">
-      <div class="phead2">
-        <div class="pav" style="background:${p.color}">${initials(safeAuthor)}</div>
-        <div><div class="pname">${safeAuthor}</div><div class="prole">${safeRole} · ${safeCompany}</div></div>
-        <div class="ptime">${safeTime}</div>
-      </div>
-      <div class="pbody">${safeText}</div>
-      <div style="margin-bottom:.5rem">${tags}</div>
-      <div><span class="pstat">✅ ${p.checkins} check-ins</span></div>
-      <div class="pacts">
-        <button class="pabtn ${p.liked?'liked':''}" onclick="likeP('${p.id}',this)">${p.liked?'❤️':'🤍'} ${p.likes}</button>
-        <button class="pabtn" onclick="toggleComments('${p.id}')">💬 Comment</button>
-        <button class="pabtn">↗ Share</button>
-      </div>
-      
-      <div id="comments-section-${p.id}" style="display:none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--surface3);">
-        <div id="comments-list-${p.id}" style="max-height: 200px; overflow-y: auto; margin-bottom: 0.8rem;"></div>
-        <div style="display: flex; gap: 0.5rem;">
-          <input type="text" id="comment-input-${p.id}" placeholder="Write a comment..." 
-                 style="flex: 1; padding: 0.5rem; border: 1px solid var(--surface3); border-radius: 6px; font-family: inherit;">
-          <button onclick="submitComment('${p.id}')" 
-                  style="padding: 0.5rem 1rem; background: var(--grad-purple); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">
-            Post
-          </button>
-        </div>
-      </div>
-
-    </div>`;
-  }).join('');
-}
-
-// --- COMMENT SYSTEM LOGIC --- //
-function toggleComments(postId) {
-  const section = document.getElementById(`comments-section-${postId}`);
-  if (section.style.display === 'none') {
-    section.style.display = 'block';
-    loadComments(postId);
-  } else {
-    section.style.display = 'none';
-  }
-}
-
-async function loadComments(postId) {
-  const listDiv = document.getElementById(`comments-list-${postId}`);
-  listDiv.innerHTML = '<div style="font-size: 12px; color: var(--ink3);">Loading comments...</div>';
-  
-  try {
-    const snap = await fbDb.collection('post_comments')
-                         .where('post_id', '==', postId)
-                         .orderBy('created_at', 'asc')
-                         .get();
-                         
-    if (snap.empty) {
-      listDiv.innerHTML = '<div style="font-size: 12px; color: var(--ink3);">No comments yet. Be the first!</div>';
-      return;
-    }
-    
-    listDiv.innerHTML = snap.docs.map(doc => {
-      const d = doc.data();
-      return `
-        <div style="margin-bottom: 0.6rem; font-size: 13px; line-height: 1.4;">
-          <strong style="color: var(--ink);">${DOMPurify.sanitize(d.author_name)}</strong> 
-          <span style="color: var(--ink2);">${DOMPurify.sanitize(d.body)}</span>
-        </div>
-      `;
-    }).join('');
-    
-  } catch (error) {
-    console.error("Error loading comments:", error);
-    listDiv.innerHTML = '<div style="font-size: 12px; color: var(--amber);">Failed to load comments.</div>';
-  }
-}
-
-async function submitComment(postId) {
-  const input = document.getElementById(`comment-input-${postId}`);
-  const text = input.value.trim();
-  if (!text) return;
-  
-  input.disabled = true;
-  
-  try {
-    await fbDb.collection('post_comments').add({
-      uid: currentUser.uid,
-      post_id: postId,
-      author_name: S.name || 'Anonymous',
-      body: text,
-      created_at: firebase.firestore.FieldValue.serverTimestamp()
-    });
-    
-    input.value = '';
-    loadComments(postId); 
-    
-  } catch (error) {
-    console.error("Error posting comment:", error);
-    showToast('⚠️', 'Failed to post comment.');
-  } finally {
-    input.disabled = false;
-  }
-}
-
-// --- UPDATED ORIGINAL FUNCTIONS --- //
-function likeP(id,btn){
-  // FIXED: Removed SAMPLE_POSTS reference to prevent crash
-  const all=[...S.feedPosts]; 
-  const p=all.find(x=>x.id===id);if(!p)return;
-  p.liked=!p.liked;p.likes+=p.liked?1:-1;
-  const card=document.getElementById('pc'+id);if(!card)return;
-  const b=card.querySelector('.pabtn');
-  b.className=`pabtn${p.liked?' liked':''}`;
-  b.textContent=`${p.liked?'❤️':'🤍'} ${p.likes}`;
-  if(fbDb&&currentUser) sbToggleLike(id).catch(e=>console.warn('Firebase like:',e));
-}
-
-function postFeed(){
-  const t=document.getElementById('comptext').value.trim();if(!t){showToast('⚠️','Write something to share!');return;}
-  const sel=[...document.querySelectorAll('#comptags .tchip.sel')].map(b=>b.textContent);
-  const newPost={
-    id:Date.now(),author:S.name,role:S.detectedRole||'Team member',company:S.company||'Workable',
-    color:FCOLORS[Math.floor(Math.random()*FCOLORS.length)],text:t,
-    tags:sel.length?sel:['💪 Win'],likes:0,liked:false,time:'Just now',checkins:S.checkins.length
-  };
-  S.feedPosts.unshift(newPost);
-  saveState();
-  if(fbDb&&currentUser) sbCreatePost(newPost).catch(e=>console.warn('Firebase post:',e));
-  document.getElementById('comptext').value='';
-  document.querySelectorAll('#comptags .tchip').forEach(b=>b.classList.remove('sel'));
-  renderFeed();showToast('🚀','Shared to the community!');
-}
-
-function autoPost(data){
-  const wins=Object.entries(data).filter(([k,v])=>v&&k!=='date'&&k!=='flag'&&k!=='_s').slice(0,2).map(([k,v])=>`${k}: ${v}`).join(' · ');
-  S.feedPosts.unshift({
-    id:Date.now(),author:S.name,role:S.detectedRole||'Team member',company:S.company||'Workable',
-    color:FCOLORS[Math.floor(Math.random()*FCOLORS.length)],
-    text:`Just completed check-in #${S.checkins.length}! 💪${wins?' Today: '+wins+'.':''} Staying consistent.`,
-    tags:['💪 Win'],likes:0,liked:false,time:'Just now',checkins:S.checkins.length
-  });
-  saveState();
-}
-
-function autoPost(data){
-  const wins=Object.entries(data).filter(([k,v])=>v&&k!=='date'&&k!=='flag'&&k!=='_s').slice(0,2).map(([k,v])=>`${k}: ${v}`).join(' · ');
-  S.feedPosts.unshift({
-    id:Date.now(),author:S.name,role:S.detectedRole||'Team member',company:S.company||'Workable',
-    color:FCOLORS[Math.floor(Math.random()*FCOLORS.length)],
-    text:`Just completed check-in #${S.checkins.length}! 💪${wins?' Today: '+wins+'.':''} Staying consistent.`,
-    tags:['💪 Win'],likes:0,liked:false,time:'Just now',checkins:S.checkins.length
-  });saveState();
-}
-
-function initReports(){
-  const hasData=S.checkins.length>=3;
-  document.getElementById('rempty').style.display=hasData?'none':'block';
-  document.getElementById('rdata').style.display=hasData?'block':'none';
-}
-
-async function genReport(type){
-  const out=document.getElementById('rout'),ttl=document.getElementById('rtitle'),body=document.getElementById('rbody');
-  out.style.display='block';
-  ttl.textContent=type==='weekly'?'📅 Weekly summary — generating…':'📈 Monthly review — generating…';
-  body.innerHTML='<div style="display:flex;align-items:center;gap:10px;color:var(--purple);font-size:13px"><div style="width:16px;height:16px;border:2px solid var(--purple-light);border-top-color:var(--purple);border-radius:50%;animation:spin .7s linear infinite"></div>Writing your report…</div>';
-  out.scrollIntoView({behavior:'smooth'});
-
-  const recent=S.checkins.slice(-14);
-  const pr=`Write a detailed ${type==='weekly'?'weekly':'monthly'} performance report for ${S.name}, a ${S.detectedRole||'professional'} at ${S.company}.
-Goal: "${S.goal}"
-Recent check-in data: ${JSON.stringify(recent)}
-
-Write 4 sections with clear paragraph breaks:
-1. Performance summary
-2. Patterns identified
-3. Achievements
-4. Recommendations`;
-
-  try{
-    const d=await callOpenRouter(pr);
-    const t=d?.content?.[0]?.text||'';
-    ttl.textContent=type==='weekly'?'📅 Weekly summary':'📈 Monthly review';
-    body.innerHTML=DOMPurify.sanitize(t.split('\n').filter(Boolean).map(p=>`<p style="margin-bottom:.85rem">${p}</p>`).join(''));
-  } catch {
-    ttl.textContent=type==='weekly'?'📅 Weekly summary':'📈 Monthly review';
-    body.innerHTML=`
-      <p style="margin-bottom:.85rem"><strong>Performance summary:</strong> You have completed <strong>${S.checkins.length} check-ins</strong> so far with a current streak of <strong>${getStreak()} days</strong>.</p>
-      <p style="margin-bottom:.85rem"><strong>Recommendation:</strong> Report generation relies on your configured API backend.</p>`;
-  }
-}
-
-function renderProfile(){
-  const ini=initials(S.name);
-  document.getElementById('prof-av').textContent=ini;
-  document.getElementById('prof-name').textContent=S.name||'Your Name';
-  document.getElementById('prof-role').textContent=`${S.detectedRole||'Your role'}${S.company?' · '+S.company:''}`;
-  document.getElementById('ps-ci').textContent=S.checkins.length;
-  document.getElementById('ps-streak').textContent=(S.bestStreak||getStreak())+'d';
-  document.getElementById('ps-avg').textContent=S.checkins.length?getAvg()+'%':'—';
-  document.getElementById('ps-days').textContent=new Set(S.checkins.map(c=>c.date)).size;
-  document.getElementById('prof-goal').textContent=S.goal||'No goal set — add one in Settings.';
-  renderAchievements();
-  renderCIGrid();
-}
-
-function renderAchievements(){
-  const ci=S.checkins.length, streak=getStreak();
-  const badges=[];
-  if(ci>=1)  badges.push({ic:'🌱',label:'First check-in',desc:'You started!'});
-  if(ci>=7)  badges.push({ic:'🔥',label:'One week',desc:'7 check-ins logged'});
-  if(ci>=30) badges.push({ic:'⭐',label:'30 check-ins',desc:'A month of data'});
-  if(streak>=3)  badges.push({ic:'💫',label:'3-day streak',desc:'Consistency building'});
-  if(streak>=7)  badges.push({ic:'🏆',label:'7-day streak',desc:'Full week streak!'});
-  if(streak>=30) badges.push({ic:'🚀',label:'30-day streak',desc:'Elite consistency'});
-  if(!badges.length) badges.push({ic:'🎯',label:'Getting started',desc:'Complete your first check-in'});
-  document.getElementById('achievements').innerHTML=badges.map(b=>`
-    <div style="display:flex;align-items:center;gap:8px;background:var(--surface);border:1.5px solid var(--surface2);border-radius:var(--r);padding:.6rem .85rem;font-size:13px">
-      <span style="font-size:18px">${b.ic}</span>
-      <div><div style="font-weight:600;color:var(--ink)">${b.label}</div><div style="font-size:11px;color:var(--ink3)">${b.desc}</div></div>
-    </div>`).join('');
-}
-
-function renderCIGrid(){
-  const grid=document.getElementById('ci-history-grid');
-  const ciDates=new Set(S.checkins.map(c=>c.date));
-  const days=[];
-  for(let i=59;i>=0;i--){
-    const d=new Date();d.setDate(d.getDate()-i);
-    days.push(d.toISOString().slice(0,10));
-  }
-  grid.innerHTML=days.map(d=>{
-    const done=ciDates.has(d);
-    const isToday=d===new Date().toISOString().slice(0,10);
-    return `<div title="${fmtDate(d)}" style="width:28px;height:28px;border-radius:5px;background:${done?'var(--purple)':isToday?'var(--purple-light)':'var(--surface2)'};border:${isToday?'2px solid var(--purple)':'none'};transition:background .2s"></div>`;
-  }).join('');
-}
-
-function initSettings(){
-  document.getElementById('set-name').value = S.name;
-  document.getElementById('set-company').value = S.company;
-  document.getElementById('set-role').value = S.detectedRole || '';
-  document.getElementById('set-goal').value = S.goal;
-  
-  // ADDED: Loads your saved role into the dropdown
-  document.getElementById('set-acct-type').value = S.role || 'employee'; 
-}
-
-
-function saveSettings(){
-  S.name = document.getElementById('set-name').value.trim() || S.name;
-  S.company = document.getElementById('set-company').value.trim() || S.company;
-  S.detectedRole = document.getElementById('set-role').value.trim() || S.detectedRole;
-  S.goal = document.getElementById('set-goal').value.trim() || S.goal;
-  
-  // ADDED: Grabs the new role from the dropdown
-  S.role = document.getElementById('set-acct-type').value; 
-  
-  document.getElementById('sbname').textContent = S.name.split(' ')[0];
-  const ini = initials(S.name);
-  document.getElementById('sbav').textContent = ini;
-  document.getElementById('compav').textContent = ini;
-  
-  saveState();
-  if(fbDb && currentUser) sbSaveProfile().catch(e => console.warn('Firebase profile:', e));
-  showToast('✅', 'Settings saved!');
-  
-  // ADDED: Re-run launch() so the mobile menu instantly updates
-  launch(); 
-  refreshDashboard(); 
-}
-
-function exportData(){
-  const blob=new Blob([JSON.stringify({profile:{name:S.name,company:S.company,role:S.detectedRole,goal:S.goal},checkins:S.checkins},null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='workable-data.json';a.click();
-}
-
-function resetData(){
-  if(!confirm('Are you sure? This will delete all your check-in data. This cannot be undone.'))return;
-  S.checkins=[];S.feedPosts=[];S.bestStreak=0;S.daysActive=0;
-  saveState();showToast('🗑️','All check-in data deleted.');nav('dashboard');
-}
-
-function openInvite() {
-  document.getElementById('invmodal').style.display='flex';
-  
-  // FIX: Force generate a code immediately if one is missing
-  if (!S.companyCode) {
-    S.companyCode = Math.random().toString(36).slice(2,8).toUpperCase();
-    saveState();
-    if(fbDb && currentUser) sbSaveProfile().catch(e=>console.warn(e));
-  }
-  
-  const display = document.getElementById('inv-code-display');
-  if(display) { display.textContent = S.companyCode; }
-}
-
-function closeInvite() {
-  document.getElementById('invmodal').style.display='none';
-}
-
-function generateInviteMessage() {
-  const appLink = window.location.origin; 
-  return `Hey! Join my team on Workable to track our daily performance.\n\n1. Go to: ${appLink}\n2. Sign up as an Employee\n3. Use our Team Code: ${S.companyCode || '[Your Code]'}`;
-}
-
-function shareWhatsApp() {
-  if(!S.companyCode) { showToast('⚠️','Team code not ready yet.'); return; }
-  const text = encodeURIComponent(generateInviteMessage());
-  window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
-  closeInvite();
-}
-
-function copyInviteLink() {
-  if(!S.companyCode) { showToast('⚠️','Team code not ready yet.'); return; }
-  const text = generateInviteMessage();
-  navigator.clipboard.writeText(text).then(() => {
-    showToast('📋', 'Invite link copied to clipboard!');
-    closeInvite();
-  }).catch(err => {
-    showToast('⚠️', 'Failed to copy link.');
-  });
-}
-
-function showToast(ic,msg,duration=3000){
-  const t=document.getElementById('toast');
-  document.getElementById('toast-ic').textContent=ic;
-  document.getElementById('toast-msg').textContent=msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),duration);
-}
-
-function getStreak(){
-  if(!S.checkins.length)return 0;
-  const dates=[...new Set(S.checkins.map(c=>c.date))].sort().reverse();
-  let s=0;const now=new Date();
-  for(const dt of dates){
-    const cd=new Date(dt);const diff=Math.round((now-cd)/86400000);
-    if(diff<=s+1){s++;}else break;
-  }
-  return s;
-}
-
-function getAvg(){
-  if(!S.checkins.length)return 0;
-  const sc=S.checkins.map(c=>parseInt(c._s||65));
-  return Math.round(sc.reduce((a,b)=>a+b,0)/sc.length);
-}
-
-function fmtDate(d){return new Date(d).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});}
-function delay(ms){return new Promise(r=>setTimeout(r,ms));}
-
-function saveState(){
-  try{localStorage.setItem('wp_state',JSON.stringify(S));}catch(e){}
-}
-
-function loadState(){
-  try{
-    const saved=localStorage.getItem('wp_state');
-    if(saved){S={...S,...JSON.parse(saved)};return true;}
-  }catch(e){}
-  return false;
-}
-
-// FIX: Streamlined to just ping your Cloudflare Worker cleanly
-async function callOpenRouter(promptText) {
-  const PROXY_URL = "https://broken-glade-bcb9.sesaycharle.workers.dev"; 
-  
-  // 1. Ensure the user is actually logged in before making the call
-  if (!currentUser) throw new Error('You must be logged in to use the AI assistant.');
-  
-  // 2. Fetch the secure JSON Web Token from Firebase
-  const idToken = await currentUser.getIdToken();
-
-  const response = await fetch(PROXY_URL, {
-    method: 'POST',
-    headers: { 
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${idToken}` // <-- Sending the token to the Worker
-    },
-    body: JSON.stringify({
-      messages: [{ role: 'user', content: promptText }]
-    })
-  });
-
-  if (!response.ok) {
-    const errData = await response.json();
-    throw new Error(errData.error || 'Proxy API Error');
-  }
-  
-  const data = await response.json();
-  if (data.error) throw new Error(data.error.message || 'AI generation failed');
-  
-  return { content: [{ text: data.choices[0].message.content }] };
-}
-
-function uzDrag(e){e.preventDefault();document.getElementById('uzn').classList.add('active');}
-function uzLeave(){document.getElementById('uzn').classList.remove('active');}
-function uzDrop(e){e.preventDefault();uzLeave();if(e.dataTransfer.files[0])uzHandle(e.dataTransfer.files[0]);}
-function uzFile(e){if(e.target.files[0])uzHandle(e.target.files[0]);}
-function uzHandle(file){
-  // 🔒 Security: Reject non-text files to prevent binary parsing bugs
-  if (file.type !== "text/plain" && !file.name.endsWith('.txt')) {
-    showToast('⚠️', 'For security and accuracy, please upload .txt files only.');
-    uzLeave();
-    return;
-  }
-
-  // 🔒 Security: Sanitize the file name to prevent malicious file name injection
-  const safeFileName = DOMPurify.sanitize(file.name);
-  const zone = document.getElementById('uzn');
-  
-  zone.classList.add('done');
-  document.getElementById('uzc').innerHTML = `<div style="font-size:2rem;margin-bottom:.5rem">✅</div><div style="font-size:14px;font-weight:600;color:#085041;margin-bottom:.25rem">${safeFileName}</div><div style="font-size:12px;color:#085041">File ready — click Analyse to continue</div>`;
-  
-  const reader = new FileReader();
-  reader.onload = e => { document.getElementById('jd-text').value = e.target.result.slice(0,3000); };
-  reader.readAsText(file);
-}
-
-async function pageInit(){
-  initSupabase();
-
-  const note = document.getElementById('ob4-note');
-  if(note && fbAuth){
-    note.innerHTML = '<span>🔥</span><span>Your account is secured by Google Firebase. Sign in from any device.</span>';
-  }
-
-  if(fbAuth){
-    await new Promise(resolve => setTimeout(resolve, 500));
-    if(currentUser) return;
-  }
-
-  if(loadState() && S.name){ launch(); return; }
-  goTo('landing');
-}
-window.addEventListener('DOMContentLoaded', pageInit);
-
-function resetCI(){
-  document.getElementById('cisuccess').style.display='none';
-  document.getElementById('ci-form-wrap').style.display='block';
-  document.getElementById('already-done').style.display='none';
-  S.trackFields.forEach(f=>{
-    const el=document.getElementById('ci-'+f.id);
-    if(el) el.value='';
-    document.querySelectorAll('.rbtn').forEach(b=>b.classList.remove('sel'));
-    document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('yes','no'));
-  });
-  if(document.getElementById('ciflag')) document.getElementById('ciflag').value='';
-}
-</script>
 </body>
 </html>
