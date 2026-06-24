@@ -64,8 +64,7 @@ export function renderSkeleton(container, type='card', count=1) {
         <div class="skeleton-shimmer" style="height:0.8rem;width:80%;margin-bottom:0.5rem;"></div>
         <div class="skeleton-shimmer" style="height:0.8rem;width:60%;"></div>
       </div>`,
-    bar: () => `
-      <div class="skeleton-shimmer" style="height:8px;width:${40+Math.floor(Math.random()*40)}%;margin-bottom:1rem;border-radius:4px;"></div>`
+    bar: () => `<div class="skeleton-shimmer" style="height:8px;width:${40+Math.floor(Math.random()*40)}%;margin-bottom:1rem;border-radius:4px;"></div>`
   };
   container.innerHTML = Array.from({length:count}, ()=>templates[type]()).join('');
 }
@@ -77,5 +76,8 @@ export function timeAgo(iso) {
   if (d<86400000) return Math.floor(d/3600000)+'h ago';
   return Math.floor(d/86400000)+'d ago';
 }
+
+// Global assignments
 window.goTo = goTo;
 window.showToast = showToast;
+window.renderSkeleton = renderSkeleton;
