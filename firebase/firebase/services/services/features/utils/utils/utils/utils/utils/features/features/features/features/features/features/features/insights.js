@@ -8,12 +8,10 @@ export async function renderInsights() {
 
   const state = getState();
   const recent = state.checkins.slice(-14);
-  const moodAvg = computeAvg(recent, 'mood');
-  const prodAvg = computeAvg(recent, 'prod');
-
   let suggestion = '';
   try {
     suggestion = await generateAIResponse(`Based on these recent checkins: ${JSON.stringify(recent)}, give 2-3 actionable suggestions for the employee to improve productivity and wellbeing.`);
+    suggestion = sanitizeInput(suggestion || '');
   } catch { suggestion = 'Keep up the consistency — insights will sharpen with more data.'; }
 
   container.innerHTML = `
