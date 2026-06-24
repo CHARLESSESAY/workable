@@ -12,7 +12,7 @@ export async function loadAndRenderFeed() {
       const merged = [...getState().feedPosts, ...live.filter(p => !localIds.has(String(p.id)))];
       renderFeedPosts(merged);
       return;
-    } catch(e) { console.warn('Feed load:',e); }
+    } catch(e) { console.warn('Feed load:', e); }
   }
   renderFeedPosts(getState().feedPosts);
 }
@@ -50,12 +50,12 @@ function renderFeedPosts(all) {
   }).join('');
 }
 
-window.likeP = async function(id, btn) {
+function likeP(id, btn) {
   const state = getState();
-  const p = state.feedPosts.find(x => String(x.id)===String(id));
+  const p = state.feedPosts.find(x => String(x.id) === String(id));
   if (!p) return;
   p.liked = !p.liked;
-  p.likes += p.liked?1:-1;
+  p.likes += p.liked ? 1 : -1;
   setState(state);
   saveState(state);
   const card = document.getElementById('pc'+id);
@@ -64,17 +64,17 @@ window.likeP = async function(id, btn) {
     if (b) { b.className = `pabtn${p.liked?' liked':''}`; b.textContent = `${p.liked?'❤️':'🤍'} ${p.likes}`; }
   }
   if (window.firebase?.auth().currentUser) {
-    try { await toggleLike(id); } catch(e){console.warn(e);}
+    try { toggleLike(id); } catch(e) { console.warn(e); }
   }
-};
+}
 
-window.toggleComments = function(postId) {
+function toggleComments(postId) {
   const section = document.getElementById(`comments-section-${postId}`);
-  if (section.style.display==='none') {
-    section.style.display='block';
+  if (section.style.display === 'none') {
+    section.style.display = 'block';
     loadComments(postId);
-  } else section.style.display='none';
-};
+  } else section.style.display = 'none';
+}
 
 async function loadComments(postId) {
   const listDiv = document.getElementById(`comments-list-${postId}`);
@@ -86,8 +86,8 @@ async function loadComments(postId) {
       listDiv.innerHTML = '<div style="font-size:12px;color:var(--ink3);">No comments yet. Be the first!</div>';
       return;
     }
-    listDiv.innerHTML = snap.docs.map(doc=>{
-      const d=doc.data();
+    listDiv.innerHTML = snap.docs.map(doc => {
+      const d = doc.data();
       return `<div style="margin-bottom:0.6rem;font-size:13px;line-height:1.4;"><strong>${sanitizeInput(d.author_name)}</strong> ${sanitizeInput(d.body)}</div>`;
     }).join('');
   } catch(e) {
@@ -95,7 +95,7 @@ async function loadComments(postId) {
   }
 }
 
-window.submitComment = async function(postId) {
+async function submitComment(postId) {
   const input = document.getElementById(`comment-input-${postId}`);
   const text = input.value.trim();
   if (!text) return;
@@ -116,25 +116,31 @@ window.submitComment = async function(postId) {
   } finally {
     input.disabled = false;
   }
-};
+}
 
-window.postFeed = async function() {
+function postFeed() {
   const t = document.getElementById('comptext').value.trim();
   if (!t) { showToast('⚠️','Write something to share!'); return; }
-  const sel = [...document.querySelectorAll('#comptags .tchip.sel')].map(b=>b.textContent);
+  const sel = [...document.querySelectorAll('#comptags .tchip.sel')].map(b => b.textContent);
   const newPost = {
     id: Date.now(), author: getState().name, role: getState().detectedRole||'Team member', company: getState().company||'Workable',
     color: FCOLORS[Math.floor(Math.random()*FCOLORS.length)], text: t,
-    tags: sel.length?sel:['💪 Win'], likes:0, liked:false, time:'Just now', checkins: getState().checkins.length
+    tags: sel.length ? sel : ['💪 Win'], likes: 0, liked: false, time: 'Just now', checkins: getState().checkins.length
   };
   getState().feedPosts.unshift(newPost);
   setState(getState());
   saveState(getState());
   if (window.firebase?.auth().currentUser) {
-    try { await createPost(newPost); } catch(e) { console.warn(e); }
+    try { createPost(newPost); } catch(e) { console.warn(e); }
   }
-  document.getElementById('comptext').value='';
-  document.querySelectorAll('#comptags .tchip').forEach(b=>b.classList.remove('sel'));
+  document.getElementById('comptext').value = '';
+  document.querySelectorAll('#comptags .tchip').forEach(b => b.classList.remove('sel'));
   loadAndRenderFeed();
   showToast('🚀','Shared to the community!');
-};
+}
+
+// Global assignments
+window.likeP = likeP;
+window.toggleComments = toggleComments;
+window.submitComment = submitComment;
+window.postFeed = postFeed;
