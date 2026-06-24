@@ -17,6 +17,7 @@ export async function initFirebase() {
     fbApp = firebase.initializeApp(FIREBASE_CONFIG);
     fbAuth = firebase.auth();
     fbDb = firebase.firestore();
+    // Optional: fbDb.enablePersistence({ synchronizeTabs: true });
   } catch (e) {
     handleError(e, 'Firebase init');
     throw e;
