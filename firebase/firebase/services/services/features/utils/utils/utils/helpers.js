@@ -77,3 +77,5 @@ export function timeAgo(iso) {
   if (d<86400000) return Math.floor(d/3600000)+'h ago';
   return Math.floor(d/86400000)+'d ago';
 }
+window.goTo = goTo;
+window.showToast = showToast;
