@@ -55,3 +55,8 @@ export function resetData() {
   showToast('🗑️', 'All check-in data deleted.');
   import('./dashboard.js').then(m => m.refreshDashboard());
 }
+
+// Global assignments
+window.saveSettings = saveSettings;
+window.exportData = exportData;
+window.resetData = resetData;
