@@ -152,3 +152,4 @@ window.resetCI = function() {
   });
   if(document.getElementById('ciflag')) document.getElementById('ciflag').value='';
 };
+window.submitCI = submitCI;
