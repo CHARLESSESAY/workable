@@ -1718,14 +1718,27 @@ a{text-decoration:none;color:var(--purple)}
 
 <div class="toast" id="toast"><span class="toast-ic" id="toast-ic">🔥</span><span id="toast-msg" style="margin-left: 8px;">Toast message</span></div>
 
-<!-- Fallback: ensure critical functions are available even if app.js fails -->
-<script type="module">
-  import { goTo, showToast } from './utils/helpers.js';
-  window.goTo = goTo;
-  window.showToast = showToast;
+<!-- Absolutely minimal global functions so landing page works immediately -->
+<script>
+  // Simple screen switcher – no modules needed
+  function goTo(screenId) {
+    document.querySelectorAll('.screen').forEach(function(s) {
+      s.classList.remove('active');
+    });
+    document.getElementById(screenId).classList.add('active');
+  }
+
+  // Basic toast (can be improved later)
+  function showToast(icon, msg) {
+    var t = document.getElementById('toast');
+    document.getElementById('toast-ic').textContent = icon;
+    document.getElementById('toast-msg').textContent = msg;
+    t.classList.add('show');
+    setTimeout(function() { t.classList.remove('show'); }, 3000);
+  }
 </script>
 
-<!-- Main application loader -->
+<!-- Main application loader – keep your existing app.js -->
 <script type="module" src="app.js"></script>
 </body>
 </html>
