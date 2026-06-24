@@ -70,3 +70,39 @@ function detectBurnout(checkins, team) {
   }
   return atRisk;
 }
+
+// Invite modal functions
+function openInvite() {
+  document.getElementById('invmodal').style.display = 'flex';
+  const state = getState();
+  if (!state.companyCode) {
+    state.companyCode = Math.random().toString(36).slice(2,8).toUpperCase();
+    // ... save to Firestore if needed
+  }
+  document.getElementById('inv-code-display').textContent = state.companyCode;
+}
+function closeInvite() { document.getElementById('invmodal').style.display = 'none'; }
+function shareWhatsApp() {
+  const state = getState();
+  if (!state.companyCode) { showToast('⚠️','Team code not ready yet.'); return; }
+  const text = encodeURIComponent(generateInviteMessage());
+  window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+  closeInvite();
+}
+function copyInviteLink() {
+  const state = getState();
+  if (!state.companyCode) { showToast('⚠️','Team code not ready yet.'); return; }
+  navigator.clipboard.writeText(generateInviteMessage()).then(() => {
+    showToast('📋','Invite link copied!');
+    closeInvite();
+  }).catch(() => showToast('⚠️','Failed to copy.'));
+}
+function generateInviteMessage() {
+  const state = getState();
+  return `Hey! Join my team on Workable to track our daily performance.\n\n1. Go to: ${window.location.origin}\n2. Sign up as an Employee\n3. Use our Team Code: ${state.companyCode || '[Your Code]'}`;
+}
+
+window.openInvite = openInvite;
+window.closeInvite = closeInvite;
+window.shareWhatsApp = shareWhatsApp;
+window.copyInviteLink = copyInviteLink;
