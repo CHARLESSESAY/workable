@@ -1,4 +1,4 @@
-import { getState, setState, showToast, initials, fmtDate, getStreak, getAvg, sanitizeInput } from '../utils/helpers.js';
+import { getState, initials, fmtDate, getStreak, getAvg, sanitizeInput } from '../utils/helpers.js';
 
 export function renderProfile() {
   const state = getState();
@@ -9,7 +9,7 @@ export function renderProfile() {
   document.getElementById('ps-ci').textContent = state.checkins.length;
   document.getElementById('ps-streak').textContent = (state.bestStreak || getStreak()) + 'd';
   document.getElementById('ps-avg').textContent = state.checkins.length ? getAvg() + '%' : '—';
-  document.getElementById('ps-days').textContent = new Set(state.checkins.map(c=>c.date)).size;
+  document.getElementById('ps-days').textContent = new Set(state.checkins.map(c => c.date)).size;
   document.getElementById('prof-goal').textContent = state.goal || 'No goal set — add one in Settings.';
   renderAchievements();
   renderCIGrid();
@@ -34,7 +34,7 @@ function renderAchievements() {
 
 function renderCIGrid() {
   const grid = document.getElementById('ci-history-grid');
-  const ciDates = new Set(getState().checkins.map(c=>c.date));
+  const ciDates = new Set(getState().checkins.map(c => c.date));
   const days = [];
   for (let i=59; i>=0; i--) {
     const d = new Date(); d.setDate(d.getDate()-i);
