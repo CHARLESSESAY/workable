@@ -399,3 +399,9 @@ window.setRat = function(btn, v, id) {
   btn.classList.add('sel');
   document.getElementById(id).value = v;
 };
+window.obStep = obStep;
+window.pickRole = pickRole;
+window.pickPerf = pickPerf;
+window.showJDPath = showJDPath;
+window.setOB = setOB;
+window.createAccount = createAccount;
