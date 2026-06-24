@@ -113,7 +113,7 @@ export async function upsertCompany(name) {
   return ref.id;
 }
 
-// Team data (new)
+// Team data
 export async function loadTeam() {
   const db = getDb();
   const profile = await loadProfile();
