@@ -24,7 +24,6 @@ export function saveSettings() {
     saveProfile(state).catch(e => console.warn(e));
   }
   showToast('✅', 'Settings saved!');
-  // Update UI
   document.getElementById('sbname').textContent = state.name.split(' ')[0];
   const ini = initials(state.name);
   document.getElementById('sbav').textContent = ini;
