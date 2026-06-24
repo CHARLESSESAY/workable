@@ -20,34 +20,3 @@ export async function generateAIResponse(prompt) {
   const data = await response.json();
   return data.choices?.[0]?.message?.content || '';
 }
-// app.js additions
-window.nav = function(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  const page = document.getElementById('page-' + id);
-  if (page) page.classList.add('active');
-
-  document.querySelectorAll('.sbi').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.mni').forEach(b => b.classList.remove('active'));
-  // ... also update the active class on sidebar and mobile nav items (optional)
-
-  const menu = document.getElementById('mobnav');
-  if (menu && menu.classList.contains('open')) {
-    menu.classList.remove('open');
-    document.querySelector('.hamburger').textContent = '☰';
-  }
-
-  if (id === 'checkin') import('./features/checkin.js').then(m => m.initCheckin());
-  if (id === 'community') import('./features/feed.js').then(m => m.loadAndRenderFeed());
-  if (id === 'reports') import('./features/reports.js').then(m => m.initReports());
-  if (id === 'profile') import('./features/profile.js').then(m => m.renderProfile());
-  if (id === 'settings') import('./features/settings.js').then(m => m.initSettings());
-  if (id === 'dashboard') import('./features/dashboard.js').then(m => m.refreshDashboard());
-  if (id === 'team') import('./features/team.js').then(m => m.renderTeamTable());
-};
-
-window.toggleMenu = function() {
-  const menu = document.getElementById('mobnav');
-  const btn = document.querySelector('.hamburger');
-  menu.classList.toggle('open');
-  btn.textContent = menu.classList.contains('open') ? '✕' : '☰';
-};
