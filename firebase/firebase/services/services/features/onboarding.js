@@ -1,13 +1,12 @@
-import { saveProfile, loadProfile, loadCheckins, saveCheckin, loadTrackFields, saveTrackFields, upsertCompany } from '../firebase/firestore.js';
+import { saveProfile, loadProfile, loadCheckins, loadTrackFields, saveTrackFields, upsertCompany } from '../firebase/firestore.js';
 import { signUpWithEmail, signInWithGoogle } from '../firebase/auth.js';
 import { generateAIResponse } from '../services/ai.js';
-import { goTo, showToast, getState, setState, initials, getStreak, getAvg, fmtDate } from '../utils/helpers.js';
+import { goTo, showToast, getState, setState, initials, getStreak, getAvg, fmtDate, delay } from '../utils/helpers.js';
 import { validateEmail, validateName, validatePassword } from '../utils/validation.js';
 import { sanitizeInput } from '../utils/sanitization.js';
 import { handleError } from '../utils/errorHandler.js';
 import { saveState, loadState } from '../utils/localStorage.js';
 
-// Default fields
 const DFIELDS = [
   {id:'d1',label:'High-priority tasks completed',type:'Number'},
   {id:'d2',label:'Output quality (self-assessment)',type:'Rating 1-5'},
@@ -49,20 +48,17 @@ export function launch(user) {
   document.getElementById('sbname').textContent = (state.name || 'User').split(' ')[0];
   document.getElementById('sbrole').textContent = state.role === 'employer' ? 'Manager' : 'Employee';
   document.getElementById('compav').textContent = ini;
-
   if (state.role === 'employer') {
     document.getElementById('mgrnav').style.display = 'block';
     const mobMgr = document.getElementById('mob-mgrnav');
     if (mobMgr) mobMgr.style.display = 'flex';
   }
-
   renderCIForm();
   renderMyTrack();
   renderSugg();
   renderCTags();
   buildGreet();
   goTo('app');
-  // Navigate to dashboard
   import('./dashboard.js').then(m => m.refreshDashboard());
 }
 
@@ -111,7 +107,6 @@ async function loadCompanyCode(companyId) {
   return doc.exists ? doc.data().code : '';
 }
 
-// Onboarding step navigation
 export function setOB(n) {
   document.querySelectorAll('.obc').forEach(c => c.classList.remove('active'));
   const target = document.getElementById('ob' + n);
@@ -154,12 +149,12 @@ export async function obStep(n) {
   if (n === 0) {
     const fname = document.getElementById('ob-fname').value.trim();
     const lname = document.getElementById('ob-lname').value.trim();
-    if (!fname) { showToast('⚠️', 'Please enter your first name.'); return; }
+    if (!fname) { showToast('⚠️','Please enter your first name.'); return; }
     const state = getState();
     state.name = (fname + ' ' + lname).trim();
     state.company = document.getElementById('ob-company').value.trim();
     state.detectedIndustry = document.getElementById('ob-industry').value;
-    if (!state.role) { showToast('⚠️', 'Please select your role type.'); return; }
+    if (!state.role) { showToast('⚠️','Please select your role type.'); return; }
     setState(state);
     setOB(1);
   } else if (n === 1) {
@@ -176,11 +171,11 @@ export async function obStep(n) {
       const r = document.getElementById('guide-resp')?.value.trim() || '';
       const w = document.getElementById('guide-win')?.value.trim() || '';
       const m = document.getElementById('guide-metric')?.value.trim() || '';
-      if (!t && !r) { showToast('⚠️', 'Please answer at least the first two questions.'); btn.disabled = false; btn.textContent = 'Build My Track →'; pill.classList.remove('show'); return; }
+      if (!t&&!r) { showToast('⚠️','Please answer at least the first two questions.'); btn.disabled=false; btn.textContent='Build My Track →'; pill.classList.remove('show'); return; }
       jdContent = `Job Title: ${t}\nKey Responsibilities: ${r}\nWhat a great week looks like: ${w}\nKey metric my manager tracks: ${m}\nIndustry: ${getState().detectedIndustry}`;
     } else if (jdPath === 'title') {
       const t = document.getElementById('jd-title')?.value.trim() || '';
-      if (!t) { showToast('⚠️', 'Please enter your job title.'); btn.disabled = false; btn.textContent = 'Build My Track →'; pill.classList.remove('show'); return; }
+      if (!t) { showToast('⚠️','Please enter your job title.'); btn.disabled=false; btn.textContent='Build My Track →'; pill.classList.remove('show'); return; }
       jdContent = `Job Title: ${t}\nIndustry: ${getState().detectedIndustry}\nPlease infer typical responsibilities, KPIs, and daily tasks for this role.`;
       getState().detectedRole = t;
     }
@@ -192,7 +187,7 @@ export async function obStep(n) {
       await delay(800);
       pt.textContent = 'General track created — customise it on the next screen.';
       pill.classList.add('donep');
-      await delay(700); btn.disabled = false; btn.textContent = 'Build My Track →'; setOB(2); renderTList();
+      await delay(700); btn.disabled=false; btn.textContent='Build My Track →'; setOB(2); renderTList();
     }
   } else if (n === 2) {
     renderGoalSuggestions();
@@ -212,7 +207,7 @@ async function genTrack(jdContent, pill, pt) {
     const match = d.match(/\{[\s\S]*\}/);
     if (!match) throw new Error("No JSON found");
     const p = JSON.parse(match[0]);
-    getState().trackFields = p.fields.map((f, i) => ({...f, id: 'f'+i}));
+    getState().trackFields = p.fields.map((f,i) => ({...f, id: 'f'+i}));
     getState().detectedRole = p.roleTitle || getState().detectedRole;
     getState().detectedIndustry = p.industry || getState().detectedIndustry;
     getState().seniority = p.seniority || 'mid';
@@ -220,18 +215,17 @@ async function genTrack(jdContent, pill, pt) {
     pt.textContent = `✦ Track built for: ${p.roleTitle} — ${p.fields.length} precision fields generated`;
     pill.classList.add('donep');
     const btn = document.getElementById('ob1btn');
-    await delay(1000); btn.disabled = false; btn.textContent = 'Build My Track →'; setOB(2); renderTList();
-  } catch (e) {
+    await delay(1000); btn.disabled=false; btn.textContent='Build My Track →'; setOB(2); renderTList();
+  } catch(e) {
     console.error(e);
     getState().trackFields = DFIELDS.map(f => ({...f}));
     pt.textContent = 'Track created — customise the fields on the next screen.';
     pill.classList.add('donep');
     const btn = document.getElementById('ob1btn');
-    await delay(700); btn.disabled = false; btn.textContent = 'Build My Track →'; setOB(2); renderTList();
+    await delay(700); btn.disabled=false; btn.textContent='Build My Track →'; setOB(2); renderTList();
   }
 }
 
-// Render track list in onboarding
 function renderTList() {
   const state = getState();
   const det = document.getElementById('role-det');
@@ -252,38 +246,35 @@ function renderTList() {
       delList.innerHTML = dels.map(d => `<span style="display:inline-flex;align-items:center;gap:4px;background:var(--gold-light);border:1px solid var(--gold);border-radius:99px;padding:4px 12px;font-size:11px;font-weight:600;color:var(--gold-dark);cursor:pointer" onclick="addDeliverable('${d.replace(/'/g,'')}')">+ ${d}</span>`).join('');
     }
   }
-  document.getElementById('tlist').innerHTML = state.trackFields.map((f, i) => `
+  document.getElementById('tlist').innerHTML = state.trackFields.map((f,i) => `
     <div class="titem" draggable="true">
       <span class="tihandle">⠿</span>
       <div style="flex:1;min-width:0">
         <div class="tilabel">${sanitizeInput(f.label)}</div>
-        ${f.why ? `<div style="font-size:11px;color:var(--ink4);margin-top:2px">${sanitizeInput(f.why)}</div>` : ''}
+        ${f.why?`<div style="font-size:11px;color:var(--ink4);margin-top:2px">${sanitizeInput(f.why)}</div>`:''}
       </div>
       <span class="titype">${sanitizeInput(f.type)}</span>
       <button class="tidel" onclick="delF('${f.id}')">×</button>
     </div>`).join('');
 }
 
-// These need to be global for onclick
 window.addDeliverable = function(label) {
   const types = ['Number','Yes/No','Text'];
-  const t = label.toLowerCase().includes('rate') || label.toLowerCase().includes('%') || label.toLowerCase().includes('score') ? 'Rating 1-5' : label.toLowerCase().includes('complet') || label.toLowerCase().includes('submit') || label.toLowerCase().includes('filed') ? 'Yes/No' : 'Number';
-  getState().trackFields.push({label, type:t, id:'c'+Date.now()});
+  const t = label.toLowerCase().includes('rate')||label.toLowerCase().includes('%')||label.toLowerCase().includes('score')?'Rating 1-5':label.toLowerCase().includes('complet')||label.toLowerCase().includes('submit')||label.toLowerCase().includes('filed')?'Yes/No':'Number';
+  getState().trackFields.push({label,type:t,id:'c'+Date.now()});
   renderTList();
-  showToast('✅', 'Field added');
+  showToast('✅','Field added');
 };
-
 window.delF = function(id) {
-  getState().trackFields = getState().trackFields.filter(f => f.id !== id);
+  getState().trackFields = getState().trackFields.filter(f=>f.id!==id);
   renderTList();
 };
-
 window.addField = function() {
   const l = prompt('Professional field name:');
   if (!l) return;
   const types = ['Number','Yes/No','Rating 1-5','Text'];
   const t = types[Math.floor(Math.random()*2)];
-  getState().trackFields.push({label:l, type:t, id:'c'+Date.now()});
+  getState().trackFields.push({label:l,type:t,id:'c'+Date.now()});
   renderTList();
 };
 
@@ -297,11 +288,9 @@ function renderGoalSuggestions() {
       ${sanitizeInput(g)}
     </div>`).join('');
 }
-
 window.useGoal = function(el, goal) {
   document.querySelectorAll('#goal-chips div').forEach(d => d.style.borderColor = 'var(--surface3)');
-  el.style.borderColor = 'var(--gold)';
-  el.style.background = 'var(--gold-light)';
+  el.style.borderColor = 'var(--gold)'; el.style.background = 'var(--gold-light)';
   document.getElementById('ob-goal').value = goal;
 };
 
@@ -311,22 +300,20 @@ function suggestDefaultGoal() {
   return goals[0] || 'Perform consistently, grow measurably, and deliver excellence every day.';
 }
 
-// Account creation
 export async function createAccount() {
   const email = document.getElementById('ob-email').value.trim();
   const pass = document.getElementById('ob-pass').value.trim();
   const btn = document.getElementById('ob4btn');
-  if (!email || !pass) { showToast('⚠️', 'Please enter your email and password.'); return; }
-  if (!validatePassword(pass)) { showToast('⚠️', 'Password needs at least 6 characters.'); return; }
+  if (!email || !pass) { showToast('⚠️','Please enter your email and password.'); return; }
+  if (!validatePassword(pass)) { showToast('⚠️','Password needs at least 6 characters.'); return; }
   btn.disabled = true; btn.textContent = 'Creating account…';
   try {
-    const { signUpWithEmail } = await import('../firebase/auth.js');
     await signUpWithEmail(email, pass);
     await saveProfile(getState());
     await saveTrackFields(getState().trackFields);
     saveState(getState());
     launch();
-    showToast('🎉', 'Account created! Welcome to Workable.');
+    showToast('🎉','Account created! Welcome to Workable.');
   } catch (e) {
     btn.disabled = false; btn.textContent = 'Create Account →';
     showToast('⚠️', e.message || 'Sign-up failed.');
@@ -342,25 +329,37 @@ window.obSignUpWithGoogle = async function() {
     await saveTrackFields(getState().trackFields);
     saveState(getState());
     launch();
-    showToast('🎉', 'Account created with Google!');
+    showToast('🎉','Account created with Google!');
   } catch (e) {
     btn.disabled = false; btn.textContent = 'Sign up with Google';
     showToast('⚠️', e.message || 'Google sign-up failed.');
   }
 };
 
-// Render functions used by launch()
 export function renderCIForm() {
   const state = getState();
-  document.getElementById('cifields').innerHTML = state.trackFields.map((f, i) => {
+  let html = state.trackFields.map((f,i) => {
     let inp = '';
     if (f.type === 'Number') inp = `<input class="cinum" id="ci-${f.id}" type="number" min="0" placeholder="Enter a number...">`;
     else if (f.type === 'Yes/No') inp = `<div class="trow"><button class="tbtn" onclick="setTog(this,'yes','ci-${f.id}')">✅ Yes</button><button class="tbtn" onclick="setTog(this,'no','ci-${f.id}')">❌ No</button></div><input type="hidden" id="ci-${f.id}">`;
     else if (f.type.startsWith('Rating')) inp = `<div class="rrow">${[1,2,3,4,5].map(n => `<button class="rbtn" onclick="setRat(this,${n},'ci-${f.id}')">${n}</button>`).join('')}</div><input type="hidden" id="ci-${f.id}">`;
     else inp = `<textarea class="cita" id="ci-${f.id}" rows="2" placeholder="Your notes..."></textarea>`;
-    return `<div class="cif"><div class="cilbl"><span class="cilbl-num">${i+1}</span>${sanitizeInput(f.label)}${f.why ? '<span style="font-size:11px;color:var(--ink4);font-weight:400;margin-left:6px">— '+sanitizeInput(f.why)+'</span>' : ''}</div>${inp}</div>`;
+    return `<div class="cif"><div class="cilbl"><span class="cilbl-num">${i+1}</span>${sanitizeInput(f.label)}${f.why?'<span style="font-size:11px;color:var(--ink4);font-weight:400;margin-left:6px">— '+sanitizeInput(f.why)+'</span>':''}</div>${inp}</div>`;
   }).join('');
+  html += `
+    <div class="cif"><div class="cilbl"><span class="cilbl-num">⭐</span>Mood today</div><div class="rrow">${['😞','😐','🙂','😊','🤩'].map((e,i)=>`<button class="rbtn" onclick="setMood(this,'${i+1}')">${e}</button>`).join('')}</div><input type="hidden" id="ci-mood"></div>
+    <div class="cif"><div class="cilbl"><span class="cilbl-num">📈</span>Productivity score</div><div class="rrow">${[1,2,3,4,5].map(n=>`<button class="rbtn" onclick="setRat(this,${n},'ci-prod')">${n}</button>`).join('')}</div><input type="hidden" id="ci-prod"></div>
+    <div class="cif"><div class="cilbl"><span class="cilbl-num">🏆</span>Biggest win today</div><textarea class="cita" id="ci-win" rows="1" placeholder="What went well?"></textarea></div>
+    <div class="cif"><div class="cilbl"><span class="cilbl-num">🧱</span>Biggest challenge</div><textarea class="cita" id="ci-challenge" rows="1" placeholder="What blocked you?"></textarea></div>
+  `;
+  document.getElementById('cifields').innerHTML = html;
 }
+
+window.setMood = function(btn, val) {
+  btn.closest('.rrow').querySelectorAll('.rbtn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  document.getElementById('ci-mood').value = val;
+};
 
 export function renderMyTrack() {
   const state = getState();
@@ -376,9 +375,7 @@ export function renderMyTrack() {
 
 export function renderSugg() {
   const state = getState();
-  const qs = state.role === 'employer'
-    ? ['How is my team doing?','Who needs support?','Top blockers this week?']
-    : ['How am I doing this week?','What should I focus on?','Am I hitting my goal?','Analyse my streak','What\'s my biggest blocker?'];
+  const qs = state.role === 'employer' ? ['How is my team doing?','Who needs support?','Top blockers this week?'] : ['How am I doing this week?','What should I focus on?','Am I hitting my goal?','Analyse my streak','What\'s my biggest blocker?'];
   document.getElementById('chatsugg').innerHTML = qs.map(q => `<button class="schip" onclick="askS('${sanitizeInput(q)}')">${sanitizeInput(q)}</button>`).join('');
 }
 
@@ -389,18 +386,16 @@ export function renderCTags() {
 
 export function buildGreet() {
   const state = getState();
-  document.getElementById('aigreet').textContent = `Hi ${state.name.split(' ')[0]}! I'm your Workable — I have full context of your role${state.detectedRole ? ' ('+state.detectedRole+')' : ''}, your goal, and all ${state.checkins.length} check-in${state.checkins.length !== 1 ? 's' : ''} you've logged. Ask me anything about your performance!`;
+  document.getElementById('aigreet').textContent = `Hi ${state.name.split(' ')[0]}! I'm your Workable — I have full context of your role${state.detectedRole?' ('+state.detectedRole+')':''}, your goal, and all ${state.checkins.length} check-in${state.checkins.length!==1?'s':''} you've logged. Ask me anything about your performance!`;
 }
 
-// Global functions needed by HTML onclick
 window.setTog = function(btn, v, id) {
-  btn.closest('.trow').querySelectorAll('.tbtn').forEach(b => { b.classList.remove('yes','no'); });
+  btn.closest('.trow').querySelectorAll('.tbtn').forEach(b=>{b.classList.remove('yes','no');});
   btn.classList.add(v);
   document.getElementById(id).value = v;
 };
-
 window.setRat = function(btn, v, id) {
-  btn.closest('.rrow').querySelectorAll('.rbtn').forEach(b => b.classList.remove('sel'));
+  btn.closest('.rrow').querySelectorAll('.rbtn').forEach(b=>b.classList.remove('sel'));
   btn.classList.add('sel');
   document.getElementById(id).value = v;
 };
