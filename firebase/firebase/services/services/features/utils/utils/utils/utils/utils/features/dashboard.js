@@ -1,18 +1,23 @@
-import { getState, getStreak, getAvg, fmtDate, sanitizeInput } from '../utils/helpers.js';
+import { getState, renderSkeleton, getStreak, getAvg, fmtDate, sanitizeInput } from '../utils/helpers.js';
 
-export function refreshDashboard() {
-  const state = getState();
-  const h = new Date().getHours();
-  document.getElementById('dhi').textContent = `Good ${h<12?'morning':h<17?'afternoon':'evening'}, ${(state.name||'User').split(' ')[0]} 👋`;
-  document.getElementById('dsub').textContent = `${state.detectedRole||'Your role'}${state.company?' · '+state.company:''}`;
-  document.getElementById('dgoal').textContent = state.goal || 'No goal set yet — add one in Settings.';
+export async function refreshDashboard() {
+  renderSkeleton(document.getElementById('dkpis'), 'kpi', 4);
+  renderSkeleton(document.getElementById('drec'), 'card', 3);
+  renderSkeleton(document.getElementById('goal-progress'), 'bar', 1);
 
-  renderKPIs();
-  renderBars();
-  renderStreakBanner();
-  renderSparkline();
-  renderRecentCI();
-  renderGoalProgress();
+  requestAnimationFrame(() => {
+    const state = getState();
+    const h = new Date().getHours();
+    document.getElementById('dhi').textContent = `Good ${h<12?'morning':h<17?'afternoon':'evening'}, ${(state.name||'User').split(' ')[0]} 👋`;
+    document.getElementById('dsub').textContent = `${state.detectedRole||'Your role'}${state.company?' · '+state.company:''}`;
+    document.getElementById('dgoal').textContent = state.goal || 'No goal set yet — add one in Settings.';
+    renderKPIs();
+    renderBars();
+    renderStreakBanner();
+    renderSparkline();
+    renderRecentCI();
+    renderGoalProgress();
+  });
 }
 
 function renderKPIs() {
@@ -46,7 +51,7 @@ function renderBars() {
   const avgScore = getAvg();
   bars.innerHTML = state.trackFields.slice(0,4).map(f => {
     const v = Math.min(100, Math.round(40 + (avgScore/100)*50 + Math.random()*15));
-    const col = v >= 80 ? 'var(--green)' : v >= 60 ? 'var(--purple)' : 'var(--amber)';
+    const col = v>=80?'var(--green)':v>=60?'var(--purple)':'var(--amber)';
     return `<div class="br2"><span class="blbl">${sanitizeInput(f.label)}</span><span class="bvl">${v}%</span></div>
     <div class="btrack"><div class="bfill" style="width:${v}%;background:${col}"></div></div>`;
   }).join('');
@@ -55,11 +60,11 @@ function renderBars() {
 
 function renderStreakBanner() {
   const s = getStreak(), banner = document.getElementById('streak-banner');
-  if (s >= 3) {
+  if (s>=3) {
     banner.style.display = 'flex';
     document.getElementById('streak-msg').textContent = `🔥 ${s}-day streak — you're on fire!`;
-    document.getElementById('streak-sub').textContent = s >= 7 ? 'One full week of consistency. Incredible.' : s >= 5 ? 'Over halfway to 7 days — keep going!' : 'Building momentum. Check in again tomorrow.';
-  } else { banner.style.display = 'none'; }
+    document.getElementById('streak-sub').textContent = s>=7?'One full week of consistency. Incredible.':s>=5?'Over halfway to 7 days — keep going!':'Building momentum. Check in again tomorrow.';
+  } else banner.style.display = 'none';
 }
 
 function renderSparkline() {
@@ -67,11 +72,11 @@ function renderSparkline() {
   const sl = document.getElementById('sparkline');
   if (!state.checkins.length) { sl.innerHTML = ''; return; }
   const last7 = state.checkins.slice(-7);
-  const scores = last7.map(c => parseInt(c._s || c.score || 65));
-  const mx = Math.max(...scores, 1);
+  const scores = last7.map(c=>parseInt(c._s||c.score||65));
+  const mx = Math.max(...scores,1);
   sl.innerHTML = scores.map(v => {
     const pct = Math.round((v/mx)*100);
-    const col = v >= 75 ? 'var(--green)' : v >= 55 ? 'var(--purple)' : 'var(--amber)';
+    const col = v>=75?'var(--green)':v>=55?'var(--purple)':'var(--amber)';
     return `<div class="spark-bar" style="height:${pct}%;background:${col}" title="Score: ${v}%"></div>`;
   }).join('');
 }
@@ -85,7 +90,7 @@ function renderRecentCI() {
   rec.innerHTML = last5.map(c => `
     <div class="ri">
       <span class="rlbl">${fmtDate(c.date)}</span>
-      <span style="font-size:12px;color:var(--ink3)">${c._s || c.score || '—'}%</span>
+      <span style="font-size:12px;color:var(--ink3)">${c._s||c.score||'—'}%</span>
       <span class="badge bg">Done ✓</span>
     </div>`).join('');
 }
