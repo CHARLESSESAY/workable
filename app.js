@@ -28,7 +28,37 @@ async function initializeApp() {
     handleError(error, 'App initialization');
   }
 }
+import { signInWithEmail, signInWithGoogle, signOut } from './firebase/auth.js';
 
+window.doLogin = async function() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass = document.getElementById('login-pass').value.trim();
+  if (!email || !pass) { showToast('⚠️', 'Enter your email and password.'); return; }
+  try {
+    await signInWithEmail(email, pass);
+    // After successful login, restore state and launch
+    const ok = await restoreState(firebase.auth().currentUser);
+    if (ok) launch();
+    else showToast('⚠️', 'No profile found. Please sign up.');
+  } catch(e) { showToast('⚠️', e.message); }
+};
+
+window.signInWithGoogle = async function() {
+  try {
+    await signInWithGoogle();
+    const ok = await restoreState(firebase.auth().currentUser);
+    if (ok) launch();
+    else showToast('⚠️', 'No profile found. Please sign up.');
+  } catch(e) { showToast('⚠️', e.message); }
+};
+
+window.sbSignOut = async function() {
+  await signOut();
+  setState({...DEFAULT_STATE});
+  saveState();
+  goTo('landing');
+  showToast('👋', 'Signed out successfully.');
+};
 window.addEventListener('DOMContentLoaded', initializeApp);
 
 // Global navigation handler
