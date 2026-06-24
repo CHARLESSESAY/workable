@@ -1,4 +1,4 @@
-import { getState, sanitizeInput, showToast } from '../utils/helpers.js';
+import { getState, sanitizeInput } from '../utils/helpers.js';
 import { generateAIResponse } from '../services/ai.js';
 
 export function initReports() {
@@ -7,7 +7,7 @@ export function initReports() {
   document.getElementById('rdata').style.display = hasData ? 'block' : 'none';
 }
 
-window.genReport = async function(type) {
+async function genReport(type) {
   const out = document.getElementById('rout'), ttl = document.getElementById('rtitle'), body = document.getElementById('rbody');
   out.style.display = 'block';
   ttl.textContent = type === 'weekly' ? '📅 Weekly summary — generating…' : '📈 Monthly review — generating…';
@@ -24,4 +24,6 @@ window.genReport = async function(type) {
     ttl.textContent = type === 'weekly' ? '📅 Weekly summary' : '📈 Monthly review';
     body.innerHTML = `<p style="margin-bottom:.85rem"><strong>Performance summary:</strong> You have completed <strong>${state.checkins.length} check-ins</strong> with a current streak of <strong>${getState().getStreak()} days</strong>.</p><p style="margin-bottom:.85rem"><strong>Recommendation:</strong> Report generation relies on your configured API backend.</p>`;
   }
-};
+}
+
+window.genReport = genReport;
