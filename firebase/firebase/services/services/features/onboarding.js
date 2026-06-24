@@ -2,10 +2,9 @@ import { saveProfile, loadProfile, loadCheckins, loadTrackFields, saveTrackField
 import { signUpWithEmail, signInWithGoogle } from '../firebase/auth.js';
 import { generateAIResponse } from '../services/ai.js';
 import { goTo, showToast, getState, setState, initials, getStreak, getAvg, fmtDate, delay } from '../utils/helpers.js';
-import { validateEmail, validateName, validatePassword } from '../utils/validation.js';
+import { validatePassword } from '../utils/validation.js';
 import { sanitizeInput } from '../utils/sanitization.js';
-import { handleError } from '../utils/errorHandler.js';
-import { saveState, loadState } from '../utils/localStorage.js';
+import { saveState } from '../utils/localStorage.js';
 
 const DFIELDS = [
   {id:'d1',label:'High-priority tasks completed',type:'Number'},
@@ -16,27 +15,27 @@ const DFIELDS = [
 ];
 
 const INDUSTRY_DELIVERABLES = {
-  'Mining & Natural Resources': ['Zero LTI days','Safety inspection rate','Equipment uptime %','Shift compliance reports','Hazard observations logged','PPE adherence rate'],
-  'Agriculture & Food Systems': ['Hectares monitored','Yield vs target','Irrigation compliance','Pest/disease reports filed','Harvest quality score','Input cost per unit'],
-  'Healthcare & Medicine': ['Patients seen','Clinical notes completed','Medication error rate','Handover completion','Patient satisfaction score','Incident reports filed'],
-  'Education & Training': ['Lessons delivered','Curriculum coverage %','Student engagement score','Assessment marking rate','Attendance tracking','Professional development hours'],
-  'Technology & Engineering': ['Tickets resolved','Code reviews completed','Deployment success rate','Bug fix turnaround','Sprint velocity','System uptime %'],
-  'Human Resources & People Ops': ['Candidates screened','Interviews conducted','Onboarding completions','Policy queries resolved','Training sessions delivered','Retention conversations held'],
-  'Finance & Banking': ['Transactions processed','Compliance checks completed','Client calls made','Reports filed on time','Error/variance rate','Regulatory items actioned'],
-  'Construction & Real Estate': ['Milestones hit','Safety checks completed','Subcontractor coordination','Material delivery tracking','Quality inspections','Rework rate'],
-  'Logistics & Supply Chain': ['Deliveries completed','On-time delivery rate','Route adherence','Vehicle inspections done','Inventory discrepancies flagged','Supplier communications'],
-  'Non-profit & International Development': ['Beneficiaries reached','Programme activities delivered','Donor reports submitted','Field visits completed','Data collection quality','Budget utilisation rate'],
-  'Government & Public Sector': ['Cases/applications processed','Public enquiries resolved','Compliance audits completed','Policy reviews actioned','Stakeholder meetings held','Service delivery rate'],
-  'default': ['Key deliverables completed','Stakeholder satisfaction','Quality of output','Strategic tasks progressed','Learning & development','Process improvements made'],
+  'Mining & Natural Resources':['Zero LTI days','Safety inspection rate','Equipment uptime %','Shift compliance reports','Hazard observations logged','PPE adherence rate'],
+  'Agriculture & Food Systems':['Hectares monitored','Yield vs target','Irrigation compliance','Pest/disease reports filed','Harvest quality score','Input cost per unit'],
+  'Healthcare & Medicine':['Patients seen','Clinical notes completed','Medication error rate','Handover completion','Patient satisfaction score','Incident reports filed'],
+  'Education & Training':['Lessons delivered','Curriculum coverage %','Student engagement score','Assessment marking rate','Attendance tracking','Professional development hours'],
+  'Technology & Engineering':['Tickets resolved','Code reviews completed','Deployment success rate','Bug fix turnaround','Sprint velocity','System uptime %'],
+  'Human Resources & People Ops':['Candidates screened','Interviews conducted','Onboarding completions','Policy queries resolved','Training sessions delivered','Retention conversations held'],
+  'Finance & Banking':['Transactions processed','Compliance checks completed','Client calls made','Reports filed on time','Error/variance rate','Regulatory items actioned'],
+  'Construction & Real Estate':['Milestones hit','Safety checks completed','Subcontractor coordination','Material delivery tracking','Quality inspections','Rework rate'],
+  'Logistics & Supply Chain':['Deliveries completed','On-time delivery rate','Route adherence','Vehicle inspections done','Inventory discrepancies flagged','Supplier communications'],
+  'Non-profit & International Development':['Beneficiaries reached','Programme activities delivered','Donor reports submitted','Field visits completed','Data collection quality','Budget utilisation rate'],
+  'Government & Public Sector':['Cases/applications processed','Public enquiries resolved','Compliance audits completed','Policy reviews actioned','Stakeholder meetings held','Service delivery rate'],
+  'default':['Key deliverables completed','Stakeholder satisfaction','Quality of output','Strategic tasks progressed','Learning & development','Process improvements made'],
 };
 
 const INDUSTRY_GOALS = {
-  'Mining & Natural Resources': ['Achieve zero LTIs across all shifts this month','Maintain 98%+ safety inspection completion rate','Reduce equipment downtime by 15% through proactive checks'],
-  'Healthcare & Medicine': ['Complete 100% of clinical documentation on the same day as patient contact','Reduce medication error rate to zero for the quarter','Improve patient handover completeness score above 95%'],
-  'Technology & Engineering': ['Close 95% of sprint tickets on time with zero critical defects','Reduce average bug resolution time from 3 days to 1','Achieve 99.9% system uptime through proactive monitoring'],
-  'Human Resources & People Ops': ['Reduce time-to-hire by 20% while maintaining candidate quality scores above 4.2','Complete all onboarding checklists within 5 days of start date','Conduct monthly 1:1s with all 15 direct reports without exception'],
-  'Agriculture & Food Systems': ['Achieve target yield within 5% of projection across all monitored plots','Reduce input cost per hectare by 10% through precision scheduling','File daily field reports with zero missed submissions this season'],
-  'default': ['Deliver all key responsibilities at or above target with zero critical misses','Reduce my top blocker by 50% through proactive communication','Build a daily check-in streak of 20+ consecutive working days'],
+  'Mining & Natural Resources':['Achieve zero LTIs across all shifts this month','Maintain 98%+ safety inspection completion rate','Reduce equipment downtime by 15% through proactive checks'],
+  'Healthcare & Medicine':['Complete 100% of clinical documentation on the same day as patient contact','Reduce medication error rate to zero for the quarter','Improve patient handover completeness score above 95%'],
+  'Technology & Engineering':['Close 95% of sprint tickets on time with zero critical defects','Reduce average bug resolution time from 3 days to 1','Achieve 99.9% system uptime through proactive monitoring'],
+  'Human Resources & People Ops':['Reduce time-to-hire by 20% while maintaining candidate quality scores above 4.2','Complete all onboarding checklists within 5 days of start date','Conduct monthly 1:1s with all 15 direct reports without exception'],
+  'Agriculture & Food Systems':['Achieve target yield within 5% of projection across all monitored plots','Reduce input cost per hectare by 10% through precision scheduling','File daily field reports with zero missed submissions this season'],
+  'default':['Deliver all key responsibilities at or above target with zero critical misses','Reduce my top blocker by 50% through proactive communication','Build a daily check-in streak of 20+ consecutive working days'],
 };
 
 let jdPath = 'title';
@@ -258,26 +257,25 @@ function renderTList() {
     </div>`).join('');
 }
 
-window.addDeliverable = function(label) {
+function addDeliverable(label) {
   const types = ['Number','Yes/No','Text'];
   const t = label.toLowerCase().includes('rate')||label.toLowerCase().includes('%')||label.toLowerCase().includes('score')?'Rating 1-5':label.toLowerCase().includes('complet')||label.toLowerCase().includes('submit')||label.toLowerCase().includes('filed')?'Yes/No':'Number';
   getState().trackFields.push({label,type:t,id:'c'+Date.now()});
   renderTList();
-  showToast('✅','Field added');
-};
-window.delF = function(id) {
-  getState().trackFields = getState().trackFields.filter(f=>f.id!==id);
+  showToast('✅','Field added to your track');
+}
+function delF(id) {
+  getState().trackFields = getState().trackFields.filter(f => f.id !== id);
   renderTList();
-};
-window.addField = function() {
-  const l = prompt('Professional field name:');
+}
+function addField() {
+  const l = prompt('Professional field name (e.g. "Client proposals submitted"):');
   if (!l) return;
   const types = ['Number','Yes/No','Rating 1-5','Text'];
   const t = types[Math.floor(Math.random()*2)];
   getState().trackFields.push({label:l,type:t,id:'c'+Date.now()});
   renderTList();
-};
-
+}
 function renderGoalSuggestions() {
   const chips = document.getElementById('goal-chips');
   if (!chips) return;
@@ -288,12 +286,11 @@ function renderGoalSuggestions() {
       ${sanitizeInput(g)}
     </div>`).join('');
 }
-window.useGoal = function(el, goal) {
+function useGoal(el, goal) {
   document.querySelectorAll('#goal-chips div').forEach(d => d.style.borderColor = 'var(--surface3)');
   el.style.borderColor = 'var(--gold)'; el.style.background = 'var(--gold-light)';
   document.getElementById('ob-goal').value = goal;
-};
-
+}
 function suggestDefaultGoal() {
   const industry = getState().detectedIndustry || 'default';
   const goals = INDUSTRY_GOALS[industry] || INDUSTRY_GOALS['default'];
@@ -314,13 +311,13 @@ export async function createAccount() {
     saveState(getState());
     launch();
     showToast('🎉','Account created! Welcome to Workable.');
-  } catch (e) {
+  } catch(e) {
     btn.disabled = false; btn.textContent = 'Create Account →';
     showToast('⚠️', e.message || 'Sign-up failed.');
   }
 }
 
-window.obSignUpWithGoogle = async function() {
+export async function obSignUpWithGoogle() {
   const btn = document.getElementById('ob-google-btn');
   btn.disabled = true; btn.textContent = 'Connecting...';
   try {
@@ -330,11 +327,11 @@ window.obSignUpWithGoogle = async function() {
     saveState(getState());
     launch();
     showToast('🎉','Account created with Google!');
-  } catch (e) {
+  } catch(e) {
     btn.disabled = false; btn.textContent = 'Sign up with Google';
     showToast('⚠️', e.message || 'Google sign-up failed.');
   }
-};
+}
 
 export function renderCIForm() {
   const state = getState();
@@ -354,12 +351,6 @@ export function renderCIForm() {
   `;
   document.getElementById('cifields').innerHTML = html;
 }
-
-window.setMood = function(btn, val) {
-  btn.closest('.rrow').querySelectorAll('.rbtn').forEach(b=>b.classList.remove('sel'));
-  btn.classList.add('sel');
-  document.getElementById('ci-mood').value = val;
-};
 
 export function renderMyTrack() {
   const state = getState();
@@ -389,19 +380,29 @@ export function buildGreet() {
   document.getElementById('aigreet').textContent = `Hi ${state.name.split(' ')[0]}! I'm your Workable — I have full context of your role${state.detectedRole?' ('+state.detectedRole+')':''}, your goal, and all ${state.checkins.length} check-in${state.checkins.length!==1?'s':''} you've logged. Ask me anything about your performance!`;
 }
 
-window.setTog = function(btn, v, id) {
-  btn.closest('.trow').querySelectorAll('.tbtn').forEach(b=>{b.classList.remove('yes','no');});
-  btn.classList.add(v);
-  document.getElementById(id).value = v;
-};
-window.setRat = function(btn, v, id) {
-  btn.closest('.rrow').querySelectorAll('.rbtn').forEach(b=>b.classList.remove('sel'));
-  btn.classList.add('sel');
-  document.getElementById(id).value = v;
-};
-window.obStep = obStep;
+// Global assignments for HTML onclick
+window.setOB = setOB;
 window.pickRole = pickRole;
 window.pickPerf = pickPerf;
 window.showJDPath = showJDPath;
-window.setOB = setOB;
+window.obStep = obStep;
 window.createAccount = createAccount;
+window.obSignUpWithGoogle = obSignUpWithGoogle;
+window.addDeliverable = addDeliverable;
+window.delF = delF;
+window.addField = addField;
+window.useGoal = useGoal;
+window.setTog = function(btn, v, id) {
+  btn.closest('.trow').querySelectorAll('.tbtn').forEach(b=>{b.classList.remove('yes','no');});
+  btn.classList.add(v); document.getElementById(id).value=v;
+};
+window.setRat = function(btn, v, id) {
+  btn.closest('.rrow').querySelectorAll('.rbtn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel'); document.getElementById(id).value=v;
+};
+window.setMood = function(btn, val) {
+  btn.closest('.rrow').querySelectorAll('.rbtn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel'); document.getElementById('ci-mood').value=val;
+};
+window.editTrack = function() { goTo('onboarding'); setOB(2); renderTList(); };
+window.askS = function(q) { document.getElementById('chatinp').value = q; sendChat(); };
